@@ -4,14 +4,30 @@
   <table class="table table-bordered table-striped col-md-12">
     <th class="hide">ID</th>
     <th class="col-md-1">Code</th>
-    <th class="col-md-3">Name</th>
+    <th class="col-md-5">Name</th>
     <th class="col-md-1">Amount</th>
     <th class="col-md-1">Start Date</th>
-    <th class="col-md-1">End Date</th>
+    <th class="col-md-1" >End Date</th>
     <th class="col-md-1">Frequency</th>
     <th class="col-md-1">Execution Date</th>
     <th class="col-md-1">Action Buttons</th>
  
+    <tr>
+      <td class="hide">{{record._id}}</td>
+      <td><input type="text" class="form-control" [(ngModel)]='record.code' placeholder="Code"></td>
+      <td>{{record.name}}</td>
+      <td><input type="text" class="form-control" [(ngModel)]='record.amount' placeholder="Amount"></td>
+      <td><input type="date" style="width:100px;" class="form-control" [(ngModel)]='record.startdate' placeholder="Start Date"></td>
+      <td><input type="date" style="width:100px;" class="form-control" [(ngModel)]='record.enddate' placeholder="End Date"></td>
+      <td><input type="text" class="form-control" [(ngModel)]='record.frequency' placeholder="Frequency"></td>
+      <td></td>
+      <td>
+        <button class="btn btn-success btn-sm glyphicon glyphicon-plus" *ngIf="!editmode" (click)="AddSIPEntry()"></button>
+        <button class="btn btn-success btn-sm glyphicon glyphicon-ok" *ngIf="editmode" (click)="UpdateEntry()"></button>
+        <button class="btn btn-danger btn-sm glyphicon glyphicon-remove" *ngIf="editmode" (click)="CancelEdit()"></button>
+      </td>
+    </tr>
+
     <tr *ngFor="let recorditem of records">
       <td class="hide">{{recorditem.id}}</td>
       <td>{{recorditem.code}}</td>
@@ -20,7 +36,7 @@
       <td>{{recorditem.startdate | date:'dd-MMM-yyyy' }}</td>
       <td>{{recorditem.enddate | date:'dd-MMM-yyyy' }}</td>
       <td>{{recorditem.frequency }}</td>
-      <td><input type="date" [(ngModel)]="recorditem.executiondate"></td>
+      <td><input type="date" style="width:100px;" [(ngModel)]="recorditem.executiondate"></td>
       <td style="padding:8px 0 0 0 !important;">
           <button class="btn btn-primary btn-xs glyphicon glyphicon-pencil" title="Edit Record" (click)="EditRecord(recorditem)"></button>
           <button class="btn btn-primary btn-xs glyphicon glyphicon-refresh" title="Execute This Month" (click)="ExecuteSIP(recorditem)"></button>

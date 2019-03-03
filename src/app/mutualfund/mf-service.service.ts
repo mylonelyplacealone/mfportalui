@@ -17,6 +17,7 @@ export class MfService {
   record:MFRecord;
   update:MFRecord;
   recordsChanged = new Subject<MFRecord[]>();
+  siprecordsChanged = new Subject<MFSIPRecord[]>();
   header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
   constructor(private httpClnt:HttpClient, public datepipe: DatePipe) { }
@@ -33,8 +34,10 @@ export class MfService {
     .subscribe((res:MFRecord[])=>{
       console.log(res);
       this.records = res;
-      this.records.sort((a,b)=> {return a.code - b.code});
-      this.recordsChanged.next(this.records.slice());
+      if(this.records && this.records.length > 0){
+        this.records.sort((a,b)=> {return a.code - b.code});
+        this.recordsChanged.next(this.records.slice());
+      }
     });
   }
 
@@ -122,15 +125,19 @@ export class MfService {
   }
 
   //----------------------------------SIP--------------------------------------
-  siprecords:MFSIPRecord[] = [
-    new MFSIPRecord(1, 120166, 'Kotak Standard Multicap Fund - Growth - Direct', 2000, new Date(), new Date(), "Monthly", new Date()),
-    new MFSIPRecord(2, 118989, 'HDFC Mid Cap Opportunities Fund -Direct Plan - Growth Option', 1500, new Date(), new Date(), "Monthly", new Date()),
-    new MFSIPRecord(3, 119598, 'SBI BLUE CHIP FUND-DIRECT PLAN -GROWTH', 2000, new Date(), new Date(), "Monthly", new Date()),
-    new MFSIPRecord(4, 125497, 'SBI Small Cap Fund - Direct Plan - Growth', 2000, new Date(), new Date(), "Monthly", new Date()),
-  ];
+  siprecords:MFSIPRecord[] = [];
 
   GetMFSIPList(){
-    return this.siprecords.sort((a,b)=> {return a.id - b.id});
+    this.httpClnt.get(ConfigClass.restAPIURL + 'mfsiplist', 
+          { headers: this.header, 
+            params:{ userid: localStorage.getItem('userid')}
+          })
+    .subscribe((res:MFSIPRecord[])=>{
+      console.log(res);
+      this.siprecords = res;
+      this.siprecords.sort((a,b)=> {return a.code - b.code});
+      this.siprecordsChanged.next(this.siprecords.slice());
+    });
   }
 
   GetMFNavforDate(code:number, inputDate:Date): Observable<any>{
@@ -154,6 +161,32 @@ export class MfService {
         }
       })
     );
+  }
+
+  AddNewSIP(entry:MFSIPRecord){
+    this.httpClnt.get(ConfigClass.mfGetDataUrl + entry.code)
+    .subscribe((response)=>{
+      if(response['data'].length > 0){
+          var record = new MFSIPRecord("", +localStorage.getItem('userid'), 
+                      entry.code, response['meta'].scheme_name, entry.amount,
+                      entry.startdate, entry.enddate, entry.frequency, null);
+        }
+        
+        var mfsipdata = 'userid=' + localStorage.getItem('userid') + '&code=' + record.code
+              + '&name=' + record.name + '&amount=' + record.amount 
+              + '&startdate=' + record.startdate + '&enddate=' + record.enddate 
+              + '&frequency=' + record.frequency;
+              
+              console.log(mfsipdata);
+
+          this.httpClnt.post(ConfigClass.restAPIURL + 'mfsip', mfsipdata, { headers: this.header })
+          .subscribe((res)=>{
+              console.log(res['newmfsip']);
+              this.siprecords.push(res['newmfsip']);
+              this.siprecords.sort((a,b)=> {return a.code - b.code});
+              this.siprecordsChanged.next(this.siprecords.slice());
+          });
+    });
   }
 
   ExecuteSIP(code:number, purchasedate:Date, purchasenav:number, units:number){

@@ -4,17 +4,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MFSIPRecord {
-  id: number;
+  _id: string;
+  userid: number;
   code:number;
   name: string;
   amount:number;
   startdate:Date;
   enddate:Date;
   frequency:string;
-  executiondate:Date
+  executiondate?:Date
 
-  constructor(private Id:number, private Code:number, private Name:string, private Amount:number, private StartDate:Date, private EndDate:Date, private Frequency:string, private ExecutionDate:Date,) {
-    this.id = Id;
+  constructor(private _Id:string, private UserId:number, private Code:number, private Name:string, private Amount:number, private StartDate:Date, private EndDate:Date, private Frequency:string, private ExecutionDate?:Date,) {
+    this._id = _Id;
+    this.userid = UserId;
     this.code = Code;
     this.name = Name;
     this.amount = Amount;
