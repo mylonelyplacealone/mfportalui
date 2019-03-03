@@ -1,0 +1,27 @@
+.table th{
+    border: 1px slategrey solid;
+    padding: 5px;
+    text-align: center;
+}
+
+.form-control{
+    /* margin:0 10px 0 10px; */
+}
+
+.glyphicon{
+    margin:0 0px 0 3px;
+}
+
+.loss{
+    background-color: red;
+}
+
+.profit{
+    background-color: green;
+}
+
+.sumrow{
+    font-weight:bolder;
+    background-color: lightskyblue;
+    font-size:larger;
+}

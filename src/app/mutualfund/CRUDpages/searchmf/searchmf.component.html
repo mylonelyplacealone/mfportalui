@@ -1,0 +1,29 @@
+<div class="row searchcomponent col-md-10 col-md-offset-1">
+  <div class="container-fluid">
+    <div class="input-group col-md-6">
+      <input type="text" class="form-control" placeholder="Search for..." [(ngModel)]="searchstr">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="button" (click)="search()">Go!</button>
+      </span>
+    </div><!-- /input-group -->
+    <br>
+    <div class="row col-md-12 tablediv">
+      <table class="table table-bordered table-striped col-md-12">
+        <th class="col-md-2">Scheme Code</th>
+        <th class="col-md-6">SCheme Name</th>
+        <th class="col-md-2">Units</th>
+        <th class="col-md-2">Action Buttons</th>
+       
+        <tr *ngFor="let record of mfrecords">
+          <td>{{record.schemeCode}}</td>
+          <td>{{record.schemeName}}</td>
+          <td>
+            <input type="text" #units class="form-control" >
+          </td>
+          <td>
+              <button class="btn btn-primary btn-sm glyphicon glyphicon-refresh" title="Add Entry" (click)="AddEntry(record.schemeCode, units.value)"></button>
+          </td>
+        </tr>
+      </table>
+  </div>
+</div>

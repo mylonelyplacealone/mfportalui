@@ -1,0 +1,74 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MFRecord } from '../mfrecord';
+import { MfService } from '../mf-service.service';
+import { Subscription } from 'rxjs';
+@Component({
+  selector: 'app-mfdashboard',
+  templateUrl: './mfdashboard.component.html',
+  styleUrls: ['./mfdashboard.component.css']
+})
+export class MfdashboardComponent implements OnInit, OnDestroy {
+  records:MFRecord[];
+  recordsSubscription = new Subscription();
+  dummyrec:MFRecord = new MFRecord("", 0, 0, '', 0, 0, new Date(), 0);
+  record:MFRecord = Object.assign({}, this.dummyrec);
+  editmode:boolean = false;
+  totalcost:number = 0;
+  totalvalue:number = 0;
+
+  constructor(private mfService:MfService){}
+
+  ngOnInit() {
+    this.recordsSubscription = this.mfService.recordsChanged
+    .subscribe((records:MFRecord[])=>{
+      //console.log(records);
+      this.records = records;
+      this.totalcost = this.records.reduce((sum, item) => sum + (item.purchasenav * item.units), 0)
+      this.totalvalue = this.records.reduce((sum, item) => sum + (item.currentnav * item.units), 0)
+    });
+    console.log('mf dshboard nginit');
+    this.mfService.GetMFList();
+  }
+
+  ngOnDestroy(){
+    this.recordsSubscription.unsubscribe();
+  }
+
+  GetValue(record:MFRecord){
+    this.mfService.GetMFData(record);
+  }
+
+  AddEntry(){
+    this.mfService.AddNew(this.record);
+    this.record = Object.assign({}, this.dummyrec);
+    this.editmode =false;
+  }
+
+  EditRecord(recorditem:MFRecord){
+    this.record = new MFRecord(recorditem._id, recorditem.userid, recorditem.code, recorditem.name, recorditem.units, recorditem.purchasenav,recorditem.purchasedate, recorditem.currentnav);
+    this.editmode = true;
+  }
+
+  UpdateEntry(){
+    this.mfService.Update(this.record);
+    this.record = Object.assign({}, this.dummyrec);
+    this.editmode =false;
+  }
+
+  DeleteRecord(id:string){
+    if(confirm('Do you really want to delete this entry?')){
+      this.mfService.DeleteEntry(id);
+    }
+  }
+
+  CancelEdit(){
+    this.record = Object.assign({}, this.dummyrec);
+    this.editmode = false;
+  }
+
+  RefreshAll(){
+    for(let record of this.records){
+      this.GetValue(record);
+    }
+  }
+}
