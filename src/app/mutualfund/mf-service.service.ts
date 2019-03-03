@@ -189,26 +189,34 @@ export class MfService {
     });
   }
 
-  ExecuteSIP(code:number, purchasedate:Date, purchasenav:number, units:number){
+  DeleteSIP(_id:string){
+    this.httpClnt.delete(ConfigClass.restAPIURL + 'mfsip/'+ _id, {  headers: this.header })
+    .subscribe((res)=>{
+      if(res['success'])
+      {
+        this.siprecords.splice(this.siprecords.indexOf(this.siprecords.find(x=>x._id == _id)), 1);
+        this.siprecords.sort((a,b)=> {return a.code - b.code});
+        this.siprecordsChanged.next(this.siprecords.slice());
+      }
+    });
+  }
 
-    this.AddNew(new MFRecord("",  +localStorage.getItem('userid'), code, "", units, purchasenav, purchasedate,0));
-    // this.httpClnt.get(ConfigClass.mfGetDataUrl + code)
-    // .subscribe((response)=>{
-    //   //console.log(response);
-    //   if(response['data'].length > 0){
-    //     this.record = new MFRecord("",
-    //                     +localStorage.getItem('userid'), code, 
-    //                       response['meta'].scheme_name, 
-    //                       units, 
-    //                       purchasenav,
-    //                       purchasedate, 
-    //                       response['data'][0].nav);
+  UpdateSIP(recordMe:MFSIPRecord){
+    var mfsipdata = 'userid=' + localStorage.getItem('userid') + '&code=' + recordMe.code
+                + '&name=' + recordMe.name + '&amount=' +  recordMe.amount 
+                + '&startdate=' +  recordMe.startdate + '&enddate=' + recordMe.enddate
+                + '&frequency=' + recordMe.frequency;
 
-    //     this.records.push(this.record);
-    //     this.records.sort((a,b)=> {return a.code - b.code});
-    //     this.recordsChanged.next(this.records.slice());
-    //   }
-    //});
+    this.httpClnt.put(ConfigClass.restAPIURL + 'mfsip/' + recordMe._id, mfsipdata, {  headers:this.header })
+    .subscribe((res)=>{
+      if(res['success'])
+      {
+        this.siprecords.splice(this.siprecords.indexOf(this.siprecords.find(x=>x._id == recordMe._id)), 1);
+        this.siprecords.push(res['mfsiprecord']);
+        this.siprecords.sort((a,b)=> {return a.code - b.code});
+        this.siprecordsChanged.next(this.siprecords.slice());
+      }
+    });
   }
   //---------------------------------END SIP-----------------------------------
 }

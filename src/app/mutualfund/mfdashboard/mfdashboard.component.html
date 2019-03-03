@@ -22,13 +22,13 @@
       <td><input type="date" style="width:100px;" class="form-control" [(ngModel)]="record.purchasedate" placeholder="Purchase Date"></td>
       <td>{{record.purchasenav * record.units}}</td>
       <td>{{record.currentnav}}</td>
-      <td>{{record.currentnav * record.units}}</td>
+      <td>{{record.currentnav * record.units | number:'.2-2'}}</td>
       <td></td>
       <td></td>
       <td>
         <button class="btn btn-success btn-sm glyphicon glyphicon-plus" *ngIf="!editmode" (click)="AddEntry()"></button>
-        <button class="btn btn-success btn-sm glyphicon glyphicon-ok" *ngIf="editmode" (click)="UpdateEntry()"></button>
-        <button class="btn btn-danger btn-sm glyphicon glyphicon-remove" *ngIf="editmode" (click)="CancelEdit()"></button>
+        <button class="btn btn-success btn-xs glyphicon glyphicon-ok" *ngIf="editmode" (click)="UpdateEntry()"></button>
+        <button class="btn btn-danger btn-xs glyphicon glyphicon-remove" *ngIf="editmode" (click)="CancelEdit()"></button>
       </td>
     </tr>
     <tr class="sumrow">
