@@ -13,6 +13,7 @@ import { SearchmfComponent } from './mutualfund/CRUDpages/searchmf/searchmf.comp
 import { MfService } from './mutualfund/mf-service.service';
 import { SipdashboardComponent } from './mutualfund/crudpages/sipdashboard/sipdashboard.component';
 import { DatePipe } from '@angular/common';
+import { MfoneviewComponent } from './mutualfund/mfoneview/mfoneview.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DatePipe } from '@angular/common';
     HomeComponent,
     MfdashboardComponent,
     SearchmfComponent,
-    SipdashboardComponent
+    SipdashboardComponent,
+    MfoneviewComponent,
   ],
   imports: [
     BrowserModule,
