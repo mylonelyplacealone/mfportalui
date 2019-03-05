@@ -1,4 +1,9 @@
 <div class="row col-md-12">
+    
+  <div class="pull-right">
+      <input [(ngModel)]="searchText" placeholder="Search.." class="form-control">
+  </div>
+  <br><br>
   <table class="table table-bordered table-striped col-md-12">
     <th class="hide">ID</th>
     <th class="col-md-1">Code</th>
@@ -33,15 +38,18 @@
     </tr>
     <tr class="sumrow">
         <td colspan="5" class="text-right">Total</td>
-        <td>{{ totalcost | number:'.2-2'}}</td>
-        <td colspan="2" class="text-right">{{ totalvalue | number:'.2-2'}}</td>
+        <td>{{  subtotalcost(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>
+        <!-- <td>{{ totalcost | number:'.2-2'}}</td> -->
+        <td colspan="2" class="text-right">{{  subtotalvalue(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>
+        <!-- <td colspan="2" class="text-right">{{ totalvalue | number:'.2-2'}}</td> -->
         <td [ngClass]="{'loss': (totalvalue - totalcost) < 0, 'profit': (totalvalue - totalcost) > 0}">{{ (totalvalue - totalcost) | number:'.2-2'}}</td>
         <td [ngClass]="{'loss': (((totalvalue - totalcost)/totalcost) * 100) < 0, 'profit': (((totalvalue - totalcost)/totalcost) * 100) > 0}">{{ ((totalvalue - totalcost)/totalcost) * 100 | number:'.2-2'}} % </td>
         <td>
           <button class="btn btn-primary btn-xs glyphicon glyphicon-refresh" title="Refresh All" (click)="RefreshAll()"></button>
         </td>
       </tr>
-    <tr *ngFor="let recorditem of records">
+    <tr *ngFor="let recorditem of records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText };">
+      <!--  };"> -->
       <td class="hide">{{recorditem._id}}</td>
       <td>{{recorditem.code}}</td>
       <td>{{recorditem.name}}</td>

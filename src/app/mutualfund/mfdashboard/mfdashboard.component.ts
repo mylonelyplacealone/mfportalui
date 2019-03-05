@@ -15,6 +15,7 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
   editmode:boolean = false;
   totalcost:number = 0;
   totalvalue:number = 0;
+  searchText:string;
 
   constructor(private mfService:MfService){}
 
@@ -23,11 +24,22 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
     .subscribe((records:MFRecord[])=>{
       //console.log(records);
       this.records = records;
-      this.totalcost = this.records.reduce((sum, item) => sum + (item.purchasenav * item.units), 0)
-      this.totalvalue = this.records.reduce((sum, item) => sum + (item.currentnav * item.units), 0)
+      this.records.sort((a,b)=> {return a.name.localeCompare(b.name)});
+      // this.totalcost = this.records.reduce((sum, item) => sum + (item.purchasenav * item.units), 0)
+      // this.totalvalue = this.records.reduce((sum, item) => sum + (item.currentnav * item.units), 0)
     });
     console.log('mf dshboard nginit');
     this.mfService.GetMFList();
+  }
+
+  subtotalcost(records: MFRecord[]):number{
+    this.totalcost = records.reduce((sum, item) => sum + (item.purchasenav * item.units), 0);
+    return this.totalcost;
+  }
+
+  subtotalvalue(records: MFRecord[]):number{
+    this.totalvalue = records.reduce((sum, item) => sum + (item.currentnav * item.units), 0);
+    return this.totalvalue;
   }
 
   ngOnDestroy(){
