@@ -13,8 +13,8 @@ import { MfService } from './mutualfund/mf-service.service';
 import { DatePipe } from '@angular/common';
 import { MfoneviewComponent } from './mutualfund/mfoneview/mfoneview.component';
 import { FilterPipe } from './mutualfund/common/filter.pipe';
-import { SipdashboardComponent } from './mutualfund/crudpages/sipdashboard/sipdashboard.component';
-import { SearchmfComponent } from './mutualfund/crudpages/searchmf/searchmf.component';
+import { SipdashboardComponent } from './mutualfund/sipdashboard/sipdashboard.component';
+import { SearchmfComponent } from './mutualfund/searchmf/searchmf.component';
 
 @NgModule({
   declarations: [

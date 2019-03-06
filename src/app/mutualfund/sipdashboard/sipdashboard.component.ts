@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MFSIPRecord } from '../../mfsiprecord';
-import { MfService } from '../../mf-service.service';
 import { DatePipe } from '@angular/common';
-import { MFRecord } from '../../mfrecord';
 import { Subscription } from 'rxjs';
+import { MFSIPRecord } from '../mfsiprecord';
+import { MfService } from '../mf-service.service';
+import { MFRecord } from '../mfrecord';
 
 @Component({
   selector: 'app-sipdashboard',
