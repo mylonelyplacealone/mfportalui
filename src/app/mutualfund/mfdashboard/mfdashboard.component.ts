@@ -16,6 +16,7 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
   totalcost:number = 0;
   totalvalue:number = 0;
   searchText:string;
+  message:string;
 
   constructor(private mfService:MfService){}
 
@@ -30,15 +31,20 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
     });
     console.log('mf dshboard nginit');
     this.mfService.GetMFList();
+    this.message = "";
   }
 
   subtotalcost(records: MFRecord[]):number{
-    this.totalcost = records.reduce((sum, item) => sum + (item.purchasenav * item.units), 0);
+    if(records){
+      this.totalcost = records.reduce((sum, item) => sum + (item.purchasenav * item.units), 0);
+    }
     return this.totalcost;
   }
 
   subtotalvalue(records: MFRecord[]):number{
-    this.totalvalue = records.reduce((sum, item) => sum + (item.currentnav * item.units), 0);
+    if(records){
+      this.totalvalue = records.reduce((sum, item) => sum + (item.currentnav * item.units), 0);
+    }
     return this.totalvalue;
   }
 
@@ -48,6 +54,7 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
 
   GetValue(record:MFRecord){
     this.mfService.GetMFData(record);
+    this.message ="Latest NAV updated successfully for " + record.name;
   }
 
   AddEntry(){
@@ -82,5 +89,6 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
     for(let record of this.records){
       this.GetValue(record);
     }
+    this.message ="Latest NAV updated successfully for all records.";
   }
 }

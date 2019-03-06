@@ -1,5 +1,7 @@
 <div class="row col-md-12">
-    
+  <div class="pull-left">
+    {{ message }}
+  </div>
   <div class="pull-right">
       <input [(ngModel)]="searchText" placeholder="Search.." class="form-control">
   </div>
@@ -25,9 +27,9 @@
       <td><input type="text" class="form-control" [(ngModel)]='record.units' placeholder="Units"></td>
       <td><input type="text" class="form-control" [(ngModel)]='record.purchasenav' placeholder="Purchase NAV"></td>
       <td><input type="date" style="width:100px;" class="form-control" [(ngModel)]="record.purchasedate" placeholder="Purchase Date"></td>
-      <td>{{record.purchasenav * record.units}}</td>
-      <td>{{record.currentnav}}</td>
-      <td>{{record.currentnav * record.units | number:'.2-2'}}</td>
+      <td class="text-right">{{record.purchasenav * record.units | number:'.2-2'}}</td>
+      <td class="text-right">{{record.currentnav | number:'.2-2'}}</td>
+      <td class="text-right">{{record.currentnav * record.units | number:'.2-2'}}</td>
       <td></td>
       <td></td>
       <td>
@@ -38,12 +40,16 @@
     </tr>
     <tr class="sumrow">
         <td colspan="5" class="text-right">Total</td>
-        <td>{{  subtotalcost(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>
+        <td class="text-right">{{ subtotalcost(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>
         <!-- <td>{{ totalcost | number:'.2-2'}}</td> -->
-        <td colspan="2" class="text-right">{{  subtotalvalue(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>
-        <!-- <td colspan="2" class="text-right">{{ totalvalue | number:'.2-2'}}</td> -->
-        <td [ngClass]="{'loss': (totalvalue - totalcost) < 0, 'profit': (totalvalue - totalcost) > 0}">{{ (totalvalue - totalcost) | number:'.2-2'}}</td>
-        <td [ngClass]="{'loss': (((totalvalue - totalcost)/totalcost) * 100) < 0, 'profit': (((totalvalue - totalcost)/totalcost) * 100) > 0}">{{ ((totalvalue - totalcost)/totalcost) * 100 | number:'.2-2'}} % </td>
+        <td colspan="2" class="text-right">{{ subtotalvalue(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>
+        <!-- <td class="text-right" [ngClass]="{'loss': (totalvalue - totalcost) < 0, 'profit': (totalvalue - totalcost) > 0}">{{ (totalvalue - totalcost) | number:'.2-2'}}</td> -->
+        <td class="text-right" [class.loss]="(this.totalvalue - this.totalcost) < 0" 
+                               [class.profit]="(this.totalvalue - this.totalcost) > 0">
+              {{ (totalvalue - totalcost) | number:'.2-2'}}</td>
+        <td class="text-right" [class.loss]="(((totalvalue - totalcost)/totalcost) * 100) < 0"
+                               [class.profit]="(((totalvalue - totalcost)/totalcost) * 100) > 0">
+              {{ ((totalvalue - totalcost)/totalcost) * 100 | number:'.2-2'}} % </td>
         <td>
           <button class="btn btn-primary btn-xs glyphicon glyphicon-refresh" title="Refresh All" (click)="RefreshAll()"></button>
         </td>
@@ -53,14 +59,14 @@
       <td class="hide">{{recorditem._id}}</td>
       <td>{{recorditem.code}}</td>
       <td>{{recorditem.name}}</td>
-      <td>{{recorditem.units | number:'.2-2'}}</td>
-      <td>{{recorditem.purchasenav | number:'.2-2'}}</td>
+      <td class="text-right">{{recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right">{{recorditem.purchasenav | number:'.2-2'}}</td>
       <td>{{recorditem.purchasedate | date:'dd-MMM-yyyy' }}</td>
-      <td>{{recorditem.purchasenav * recorditem.units | number:'.2-2'}}</td>
-      <td>{{recorditem.currentnav | number:'.2-2'}}</td>
-      <td>{{recorditem.currentnav * recorditem.units | number:'.2-2'}}</td>
-      <td [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">{{(recorditem.currentnav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}}</td>
-      <td [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">{{((recorditem.currentnav/recorditem.purchasenav)-1) * 100 | number:'.2-2'}} % </td>
+      <td class="text-right">{{recorditem.purchasenav * recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right">{{recorditem.currentnav | number:'.2-2'}}</td>
+      <td class="text-right">{{recorditem.currentnav * recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right" [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">{{(recorditem.currentnav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right" [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">{{((recorditem.currentnav/recorditem.purchasenav)-1) * 100 | number:'.2-2'}} % </td>
       <td style="padding:8px 0 0 0 !important;">
           <button class="btn btn-primary btn-xs glyphicon glyphicon-pencil" title="Edit Record" (click)="EditRecord(recorditem)"></button>
           <button class="btn btn-primary btn-xs glyphicon glyphicon-refresh" title="Get Latest Data" (click)="GetValue(recorditem)"></button>
