@@ -9,12 +9,12 @@ import { HeaderComponent } from './common/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { MfdashboardComponent } from './mutualfund/mfdashboard/mfdashboard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SearchmfComponent } from './mutualfund/CRUDpages/searchmf/searchmf.component';
 import { MfService } from './mutualfund/mf-service.service';
-import { SipdashboardComponent } from './mutualfund/crudpages/sipdashboard/sipdashboard.component';
 import { DatePipe } from '@angular/common';
 import { MfoneviewComponent } from './mutualfund/mfoneview/mfoneview.component';
 import { FilterPipe } from './mutualfund/common/filter.pipe';
+import { SipdashboardComponent } from './mutualfund/crudpages/sipdashboard/sipdashboard.component';
+import { SearchmfComponent } from './mutualfund/crudpages/searchmf/searchmf.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +22,8 @@ import { FilterPipe } from './mutualfund/common/filter.pipe';
     HeaderComponent,
     HomeComponent,
     MfdashboardComponent,
-    SearchmfComponent,
     SipdashboardComponent,
+    SearchmfComponent,
     MfoneviewComponent,
     FilterPipe,
   ],

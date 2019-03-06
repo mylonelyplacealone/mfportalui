@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class MFRecord {
   _id: string;
   userid: number;

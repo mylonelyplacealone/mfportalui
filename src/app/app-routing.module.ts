@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import { MfdashboardComponent } from './mutualfund/mfdashboard/mfdashboard.component';
-import { SearchmfComponent } from './mutualfund/CRUDpages/searchmf/searchmf.component';
+import { SearchmfComponent } from './mutualfund/crudpages/searchmf/searchmf.component';
 import { SipdashboardComponent } from './mutualfund/crudpages/sipdashboard/sipdashboard.component';
 import { MfoneviewComponent } from './mutualfund/mfoneview/mfoneview.component';
 
