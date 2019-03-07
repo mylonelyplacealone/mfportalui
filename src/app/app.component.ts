@@ -9,6 +9,6 @@ export class AppComponent implements OnInit{
   title = 'BaseProj';
 
   ngOnInit(){
-    localStorage.setItem('userid', '101');
+    // localStorage.setItem('userid', '101');
   }
 }

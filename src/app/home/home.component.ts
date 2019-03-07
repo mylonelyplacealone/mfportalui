@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   user:string = "101";
+  message:string;
+
   constructor() { }
 
   ngOnInit() {
@@ -14,5 +16,6 @@ export class HomeComponent implements OnInit {
 
   setuser(){
     localStorage.setItem('userid', this.user);
+    this.message = "User session set successfully to user id : " + this.user; 
   }
 }
