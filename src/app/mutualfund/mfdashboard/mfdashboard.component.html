@@ -55,6 +55,7 @@
         <td>
           <button class="btn btn-primary btn-xs glyphicon glyphicon-refresh" title="Refresh All" (click)="RefreshAll()"></button>
           <button md-raised-button class="btn btn-success btn-xs glyphicon glyphicon-plus" title="Open Dialog" (click)="openDialog(dummyrec, 'Add')"></button>
+          <button md-raised-button class="btn btn-warning btn-xs glyphicon glyphicon-refresh" title="Show Latest" (click)="openRefreshDialog()"></button>
         </td>
       </tr>
     <tr *ngFor="let recorditem of records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText };">

@@ -20,6 +20,7 @@ import {MatCardModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material';
 import { MfeditComponent } from './mutualfund/mfedit/mfedit.component';
+import { MfrefreshpopupComponent } from './mutualfund/mfrefreshpopup/mfrefreshpopup.component';
 
 @NgModule({
   declarations: [
@@ -32,8 +33,9 @@ import { MfeditComponent } from './mutualfund/mfedit/mfedit.component';
     MfoneviewComponent,
     MfeditComponent,
     FilterPipe,
+    MfrefreshpopupComponent,
   ],
-  entryComponents: [MfeditComponent],
+  entryComponents: [MfeditComponent, MfrefreshpopupComponent],
   imports: [
     BrowserModule,
     FormsModule,

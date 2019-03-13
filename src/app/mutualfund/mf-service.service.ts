@@ -48,16 +48,16 @@ export class MfService {
         if(entry.purchasenav == 0){
           this.record = new MFRecord("",
             +localStorage.getItem('userid'), entry.code, response['meta'].scheme_name, 
-            entry.units, response['data'][0].nav, new Date(), response['data'][0].nav);
+            entry.units, response['data'][0].nav, new Date(), response['data'][0].nav, entry.issip === undefined? false : entry.issip);
         }
         else{
           this.record = new MFRecord("", +localStorage.getItem('userid'), entry.code, response['meta'].scheme_name, 
-          entry.units, entry.purchasenav, entry.purchasedate, response['data'][0].nav);
+          entry.units, entry.purchasenav, entry.purchasedate, response['data'][0].nav, entry.issip === undefined? false : entry.issip);
         }
           var mfdata = 'userid=' + localStorage.getItem('userid') + '&code=' + this.record.code
                 + '&name=' + this.record.name + '&units=' + this.record.units 
-                + '&purchasenav=' + this.record.purchasenav
-                + '&purchasedate=' + this.record.purchasedate+ '&currentnav=' + this.record.currentnav;
+                + '&purchasenav=' + this.record.purchasenav + '&purchasedate=' + this.record.purchasedate
+                + '&currentnav=' + this.record.currentnav + '&issip=' + this.record.issip;
 
           this.httpClnt.post(ConfigClass.restAPIURL + 'mf', mfdata, { headers: this.header })
           .subscribe((res)=>{
@@ -105,6 +105,7 @@ export class MfService {
   GetMFData(mfrecord:MFRecord){
     this.httpClnt.get(ConfigClass.mfGetDataUrl + mfrecord.code)
     .subscribe((response)=>{
+      console.log(response['data']);
       if(response['data'].length > 0){
         this.update = this.records.find(x=>x._id == mfrecord._id);
 
@@ -122,6 +123,19 @@ export class MfService {
         // }
       }
     });
+  }
+
+  GetLatestNAV(mfrecord:MFRecord){
+    this.httpClnt.get(ConfigClass.mfGetDataUrl + mfrecord.code)
+    .subscribe((response)=>{
+      // console.log(response['data']);
+      if(response['data'].length > 0){
+        mfrecord.currentnav = response['data'][0].nav;
+      }
+      return mfrecord;
+    });
+    return mfrecord;
+
   }
 
   //----------------------------------SIP--------------------------------------

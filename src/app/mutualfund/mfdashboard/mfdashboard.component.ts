@@ -4,6 +4,7 @@ import { MfService } from '../mf-service.service';
 import { Subscription } from 'rxjs';
 import {MatDialog } from '@angular/material';
 import { MfeditComponent } from '../mfedit/mfedit.component';
+import { MfrefreshpopupComponent } from '../mfrefreshpopup/mfrefreshpopup.component';
 
 @Component({
   selector: 'app-mfdashboard',
@@ -106,4 +107,16 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
       this.message = result;
     });
   }
+
+  openRefreshDialog(){
+    let dialogRef = this.dialog.open(MfrefreshpopupComponent, {
+      width: '900px',
+      data: this.records, 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed: ${result}');
+      this.message = result;
+    });
+  }
+
 }
