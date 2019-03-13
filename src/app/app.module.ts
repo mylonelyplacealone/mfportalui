@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth/auth-guard.service';
@@ -15,6 +15,11 @@ import { MfoneviewComponent } from './mutualfund/mfoneview/mfoneview.component';
 import { FilterPipe } from './mutualfund/common/filter.pipe';
 import { SipdashboardComponent } from './mutualfund/sipdashboard/sipdashboard.component';
 import { SearchmfComponent } from './mutualfund/searchmf/searchmf.component';
+import 'hammerjs';
+import {MatCardModule} from '@angular/material';
+import {MatButtonModule} from '@angular/material';
+import {MatDialogModule} from '@angular/material';
+import { MfeditComponent } from './mutualfund/mfedit/mfedit.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +30,19 @@ import { SearchmfComponent } from './mutualfund/searchmf/searchmf.component';
     SipdashboardComponent,
     SearchmfComponent,
     MfoneviewComponent,
+    MfeditComponent,
     FilterPipe,
   ],
+  entryComponents: [MfeditComponent],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatCardModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthGuard, MfService, DatePipe],
   bootstrap: [AppComponent]

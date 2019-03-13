@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MFRecord } from '../mfrecord';
 import { MfService } from '../mf-service.service';
 import { Subscription } from 'rxjs';
+import {MatDialog } from '@angular/material';
+import { MfeditComponent } from '../mfedit/mfedit.component';
+
 @Component({
   selector: 'app-mfdashboard',
   templateUrl: './mfdashboard.component.html',
@@ -18,7 +21,7 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
   searchText:string;
   message:string;
 
-  constructor(private mfService:MfService){}
+  constructor(private mfService:MfService, public dialog: MatDialog, ){}
 
   ngOnInit() {
     this.recordsSubscription = this.mfService.recordsChanged
@@ -90,5 +93,17 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
       this.GetValue(record);
     }
     this.message ="Latest NAV updated successfully for all records.";
+  }
+
+  openDialog(record:MFRecord, mode:string){
+    let dialogRef = this.dialog.open(MfeditComponent, {
+      width: '600px',
+      data:{ record, mode}, 
+      // data: 'This text is passed into the dialog!'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed: ${result}');
+      this.message = result;
+    });
   }
 }

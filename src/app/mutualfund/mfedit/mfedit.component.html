@@ -1,0 +1,37 @@
+<div>
+  <h4 md-dialog-title>Mutual Fund Maintenance - {{data.mode}}</h4>
+  <hr>
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-md-3">Code</div>
+      <div class="col-md-9"><input type="text" class="form-control" [(ngModel)]='record.code' placeholder="Code"></div>
+    </div><br>
+    <div class="row">
+      <div class="col-md-3">Name</div>
+      <div class="col-md-9"><input type="text" class="form-control" [(ngModel)]='record.name' placeholder="Name"></div>
+    </div><br>
+    <div class="row">
+      <div class="col-md-3">Units</div>
+      <div class="col-md-9"><input type="text" class="form-control" [(ngModel)]='record.units' placeholder="Units"></div>
+    </div><br>
+    <div class="row">
+      <div class="col-md-3">Purchase NAV</div>
+      <div class="col-md-2"><input type="text" class="form-control" [(ngModel)]='record.purchasenav' placeholder="Purchase NAV"></div>
+      <div class="col-md-3">Purchase Date</div>
+      <!-- <div class="col-md-3"><input type="date" style="width:100px;" class="form-control" [(ngModel)]="record.purchasedate" placeholder="Purchase Date"></div> -->
+      <div class="col-md-4"><input type="date" style="width:150px;" class="form-control" [ngModel]="record.purchasedate | date:'yyyy-MM-dd'" (ngModelChange)="record.purchasedate = $event" placeholder="Purchase Date"></div>
+    </div><br>
+    <div class="row" *ngIf="data.mode == 'Sale'">
+      <div class="col-md-3">Sale NAV</div>
+      <div class="col-md-2"><input type="text" class="form-control" [(ngModel)]='record.salenav' placeholder="Sale NAV"></div>
+      <div class="col-md-3">Sale Date</div>
+      <div class="col-md-4"><input type="date" style="width:150px;" class="form-control" [(ngModel)]="record.saledate" placeholder="Sale Date"></div>
+    </div>
+  </mat-dialog-content>
+  <hr>
+  <mat-dialog-actions class="pull-right">
+    <button class="btn btn-primary" md-raised-button (click)="onCloseConfirm()">CONFIRM</button>&nbsp;
+    <button class="btn btn-danger" md-raised-button (click)="onCloseCancel()">CANCEL</button>
+  </mat-dialog-actions>
+  <br>
+</div>
