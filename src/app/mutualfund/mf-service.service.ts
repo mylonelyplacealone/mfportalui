@@ -41,6 +41,13 @@ export class MfService {
     });
   }
 
+  GetSoldMFList(){
+    return this.httpClnt.get(ConfigClass.restAPIURL + 'soldmflist', 
+            { headers: this.header, 
+              params:{ userid: localStorage.getItem('userid')}
+            });
+  }
+
   AddNew(entry:MFRecord){
     this.httpClnt.get(ConfigClass.mfGetDataUrl + entry.code)
     .subscribe((response)=>{
@@ -73,14 +80,20 @@ export class MfService {
     var mfdata = 'userid=' + localStorage.getItem('userid') + '&code=' + recordMe.code
                 + '&name=' + recordMe.name + '&units=' +  recordMe.units 
                 + '&purchasenav=' +  recordMe.purchasenav + '&purchasedate=' + recordMe.purchasedate
-                + '&currentnav=' + recordMe.currentnav;
+                + '&currentnav=' + recordMe.currentnav
+                + (recordMe.salenav? '&salenav=' +  recordMe.salenav : "") 
+                + (recordMe.saledate?'&saledate=' + recordMe.saledate:"");
+
 
     this.httpClnt.put(ConfigClass.restAPIURL + 'mf/' + recordMe._id, mfdata, {  headers:this.header })
     .subscribe((res)=>{
       if(res['success'])
       {
         this.records.splice(this.records.indexOf(this.records.find(x=>x._id == recordMe._id)), 1);
-        this.records.push(res['mfrecord']);
+
+        if(!recordMe.salenav){
+          this.records.push(res['mfrecord']);
+        }
         this.records.sort((a,b)=> {return a.code - b.code});
         this.recordsChanged.next(this.records.slice());
       }

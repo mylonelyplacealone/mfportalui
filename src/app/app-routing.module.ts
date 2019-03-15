@@ -6,6 +6,7 @@ import { MfdashboardComponent } from './mutualfund/mfdashboard/mfdashboard.compo
 import { MfoneviewComponent } from './mutualfund/mfoneview/mfoneview.component';
 import { SipdashboardComponent } from './mutualfund/sipdashboard/sipdashboard.component';
 import { SearchmfComponent } from './mutualfund/searchmf/searchmf.component';
+import { SoldmflistComponent } from './mutualfund/soldmflist/soldmflist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'mfsipdashboard', component: SipdashboardComponent, canActivate: [AuthGuard]},
   { path: 'searchmf', component: SearchmfComponent, canActivate: [AuthGuard]},
   { path: 'mfoneview', component: MfoneviewComponent, canActivate: [AuthGuard]},
+  { path: 'solfmflist', component: SoldmflistComponent, canActivate: [AuthGuard]},
   // { path: '', component: StartpageComponent, canActivate: [AuthGuard]},
 ];
 

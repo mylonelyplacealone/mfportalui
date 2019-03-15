@@ -21,6 +21,7 @@ import {MatButtonModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material';
 import { MfeditComponent } from './mutualfund/mfedit/mfedit.component';
 import { MfrefreshpopupComponent } from './mutualfund/mfrefreshpopup/mfrefreshpopup.component';
+import { SoldmflistComponent } from './mutualfund/soldmflist/soldmflist.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MfrefreshpopupComponent } from './mutualfund/mfrefreshpopup/mfrefreshpo
     MfeditComponent,
     FilterPipe,
     MfrefreshpopupComponent,
+    SoldmflistComponent,
   ],
   entryComponents: [MfeditComponent, MfrefreshpopupComponent],
   imports: [
