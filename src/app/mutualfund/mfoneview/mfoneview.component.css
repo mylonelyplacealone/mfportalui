@@ -17,3 +17,7 @@
     background-color: lightskyblue;
     font-size:larger;
 }
+
+th{
+    cursor:pointer;
+}
