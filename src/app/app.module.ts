@@ -22,6 +22,8 @@ import {MatDialogModule} from '@angular/material';
 import { MfeditComponent } from './mutualfund/mfedit/mfedit.component';
 import { MfrefreshpopupComponent } from './mutualfund/mfrefreshpopup/mfrefreshpopup.component';
 import { SoldmflistComponent } from './mutualfund/soldmflist/soldmflist.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { SoldmflistComponent } from './mutualfund/soldmflist/soldmflist.componen
     FilterPipe,
     MfrefreshpopupComponent,
     SoldmflistComponent,
+    SigninComponent,
+    SignupComponent
   ],
   entryComponents: [MfeditComponent, MfrefreshpopupComponent],
   imports: [

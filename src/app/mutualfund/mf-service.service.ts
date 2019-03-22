@@ -18,7 +18,8 @@ export class MfService {
   update:MFRecord;
   recordsChanged = new Subject<MFRecord[]>();
   siprecordsChanged = new Subject<MFSIPRecord[]>();
-  header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+  header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+  .append('x-access-token',localStorage.getItem('token'));
 
   constructor(private httpClnt:HttpClient, public datepipe: DatePipe) { }
 

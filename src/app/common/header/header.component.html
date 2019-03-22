@@ -21,6 +21,13 @@
         <li><a routerLink="mfoneview">MF One View</a></li>
         <li><a routerLink="solfmflist">Sold MF List</a></li>
       </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="!LoggedIn"><a routerLink="signup">Register</a></li>
+        <li *ngIf="!LoggedIn"><a routerLink="signin">Login</a></li>
+        <li *ngIf="LoggedIn">
+          <a style="cursor:pointer" (click)="onLogout()">Logout</a>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

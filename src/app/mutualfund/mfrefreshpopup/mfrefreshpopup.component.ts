@@ -35,12 +35,15 @@ export class MfrefreshpopupComponent implements OnInit {
     return this.mfService.GetLatestNAV(record);
   }
 
-  onCloseConfirm() {
-      this.thisDialogRef.close('New Record added succssfully.');
-  }
+  // onCloseConfirm() {
+  //   for(let record of this.myrecords){
+  //     this.mfService.GetMFData(record);
+  //   }
+  //   this.thisDialogRef.close('Records updated with latest NAVs.');
+  // }
 
   onCloseCancel() {
-    this.thisDialogRef.close('Record Add/Update Cancelled.');
+    this.thisDialogRef.close('Popup Closed successfully.');
   }
 
 }

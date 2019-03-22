@@ -12,6 +12,11 @@
     margin:5px 5px 5px 8px;
 }
 
+.sumrow .glyphicon{
+    font-size: xx-small;
+    margin: 1px;
+}
+
 .loss{
     background-color: red;
 }
