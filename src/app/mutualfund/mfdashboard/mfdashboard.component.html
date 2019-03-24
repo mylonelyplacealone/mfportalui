@@ -22,7 +22,7 @@
     <th class="col-md-1">Profit/Loss %</th>
     <th class="col-md-1">Action Buttons</th>
 
-    <tr>
+    <!-- <tr>
       <td class="hide">{{record._id}}</td>
       <td><input type="text" class="form-control" [(ngModel)]='record.code' placeholder="Code"></td>
       <td>{{record.name}}</td>
@@ -39,7 +39,7 @@
         <button class="btn btn-success btn-xs glyphicon glyphicon-ok" *ngIf="editmode" (click)="UpdateEntry()"></button>
         <button class="btn btn-danger btn-xs glyphicon glyphicon-remove" *ngIf="editmode" (click)="CancelEdit()"></button>
       </td>
-    </tr>
+    </tr> -->
     <tr class="sumrow">
         <td colspan="5" class="text-right">Total</td>
         <td class="text-right">{{ subtotalcost(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>

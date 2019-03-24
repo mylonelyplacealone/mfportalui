@@ -27,6 +27,13 @@
       <div class="col-md-3">Sale Date</div>
       <div class="col-md-4"><input type="date" style="width:150px;" class="form-control" [(ngModel)]="record.saledate" placeholder="Sale Date"></div>
     </div>
+    <div class="row">
+      <div class="col-md-3">Comments</div>
+      <div class="col-md-9">
+          <textarea rows="4" cols="50" class="form-control" [(ngModel)]='record.comments' placeholder="Comments">
+              </textarea>
+      </div>
+    </div><br>
   </mat-dialog-content>
   <hr>
   <mat-dialog-actions class="pull-right">

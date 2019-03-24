@@ -29,6 +29,6 @@ export class SearchmfComponent implements OnInit {
 
   AddEntry(code:number, units:number, id:number, ){
     // this.mfService.AddNew(code, units, id);
-    this.mfService.AddNew(new MFRecord("", 101, code, "", units, 0, new Date(), 0));
+    this.mfService.AddNew(new MFRecord("", 101, code, "", units, 0, new Date(), 0, ""));
   }
 }

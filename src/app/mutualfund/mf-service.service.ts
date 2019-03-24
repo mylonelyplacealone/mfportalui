@@ -19,7 +19,7 @@ export class MfService {
   recordsChanged = new Subject<MFRecord[]>();
   siprecordsChanged = new Subject<MFSIPRecord[]>();
   header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-  .append('x-access-token',localStorage.getItem('token'));
+  .append('x-access-token', localStorage.getItem('token'));
 
   constructor(private httpClnt:HttpClient, public datepipe: DatePipe) { }
 
@@ -56,16 +56,17 @@ export class MfService {
         if(entry.purchasenav == 0){
           this.record = new MFRecord("",
             +localStorage.getItem('userid'), entry.code, response['meta'].scheme_name, 
-            entry.units, response['data'][0].nav, new Date(), response['data'][0].nav, entry.issip === undefined? false : entry.issip);
+            entry.units, response['data'][0].nav, new Date(), response['data'][0].nav, entry.comments, entry.issip === undefined? false : entry.issip);
         }
         else{
           this.record = new MFRecord("", +localStorage.getItem('userid'), entry.code, response['meta'].scheme_name, 
-          entry.units, entry.purchasenav, entry.purchasedate, response['data'][0].nav, entry.issip === undefined? false : entry.issip);
+          entry.units, entry.purchasenav, entry.purchasedate, response['data'][0].nav, entry.comments, entry.issip === undefined? false : entry.issip);
         }
           var mfdata = 'userid=' + localStorage.getItem('userid') + '&code=' + this.record.code
                 + '&name=' + this.record.name + '&units=' + this.record.units 
                 + '&purchasenav=' + this.record.purchasenav + '&purchasedate=' + this.record.purchasedate
-                + '&currentnav=' + this.record.currentnav + '&issip=' + this.record.issip;
+                + '&currentnav=' + this.record.currentnav + '&comments=' + this.record.comments
+                + '&issip=' + this.record.issip;
 
           this.httpClnt.post(ConfigClass.restAPIURL + 'mf', mfdata, { headers: this.header })
           .subscribe((res)=>{
@@ -81,7 +82,7 @@ export class MfService {
     var mfdata = 'userid=' + localStorage.getItem('userid') + '&code=' + recordMe.code
                 + '&name=' + recordMe.name + '&units=' +  recordMe.units 
                 + '&purchasenav=' +  recordMe.purchasenav + '&purchasedate=' + recordMe.purchasedate
-                + '&currentnav=' + recordMe.currentnav
+                + '&currentnav=' + recordMe.currentnav + '&comments=' + recordMe.comments
                 + (recordMe.salenav? '&salenav=' +  recordMe.salenav : "") 
                 + (recordMe.saledate?'&saledate=' + recordMe.saledate:"");
 
@@ -126,7 +127,7 @@ export class MfService {
         if(this.update){
           this.record = new MFRecord(this.update._id, +localStorage.getItem('userid'), this.update.code, 
                     response['meta'].scheme_name, this.update.units, this.update.purchasenav, 
-                    this.update.purchasedate, response['data'][0].nav);
+                    this.update.purchasedate, response['data'][0].nav, this.update.comments);
           this.Update(this.record);
         }
         // else{

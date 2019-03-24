@@ -14,7 +14,7 @@ import { MfrefreshpopupComponent } from '../mfrefreshpopup/mfrefreshpopup.compon
 export class MfdashboardComponent implements OnInit, OnDestroy {
   records:MFRecord[];
   recordsSubscription = new Subscription();
-  dummyrec:MFRecord = new MFRecord("", 0, 0, '', 0, 0, new Date(), 0);
+  dummyrec:MFRecord = new MFRecord("", 0, 0, '', 0, 0, new Date(), 0, "");
   record:MFRecord = Object.assign({}, this.dummyrec);
   editmode:boolean = false;
   totalcost:number = 0;
@@ -68,7 +68,7 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
   }
 
   EditRecord(recorditem:MFRecord){
-    this.record = new MFRecord(recorditem._id, recorditem.userid, recorditem.code, recorditem.name, recorditem.units, recorditem.purchasenav,recorditem.purchasedate, recorditem.currentnav);
+    this.record = new MFRecord(recorditem._id, recorditem.userid, recorditem.code, recorditem.name, recorditem.units, recorditem.purchasenav,recorditem.purchasedate, recorditem.currentnav, recorditem.comments);
     this.editmode = true;
   }
 
