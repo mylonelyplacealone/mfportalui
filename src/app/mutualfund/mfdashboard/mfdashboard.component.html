@@ -10,17 +10,17 @@
   <br><br>
   <table class="table table-bordered table-striped col-md-12">
     <th class="hide">ID</th>
-    <th class="col-md-1">Code</th>
-    <th class="col-md-2">Name</th>
-    <th class="col-md-1">Units</th>
-    <th class="col-md-1">Purchase Nav</th>
-    <th class="col-md-1">Purchase Date</th>
+    <th class="col-md-1 width-5-percent">Code</th>
+    <th class="col-md-2" style="width:28% !important;">Name</th>
+    <th class="col-md-1 width-5-percent">Units</th>
+    <th class="col-md-1 width-5-percent">Purchase Nav</th>
+    <th class="col-md-1" style="width:10% !important;">Purchase Date</th>
     <th class="col-md-1">Cost Value</th>
-    <th class="col-md-1">Current Nav</th>
+    <th class="col-md-1 width-5-percent">Current Nav</th>
     <th class="col-md-1">Current Value</th>
     <th class="col-md-1">Profit/Loss</th>
     <th class="col-md-1">Profit/Loss %</th>
-    <th class="col-md-1">Action Buttons</th>
+    <th class="col-md-1" style="width:10% !important;">Action Buttons</th>
 
     <!-- <tr>
       <td class="hide">{{record._id}}</td>
@@ -75,7 +75,6 @@
           <!-- <button class="btn btn-primary btn-xs glyphicon glyphicon-pencil" title="Edit Record" (click)="EditRecord(recorditem)"></button> -->
           <button md-raised-button class="btn btn-success btn-xs glyphicon glyphicon-pencil" title="Edit Record" (click)="openDialog(recorditem, 'Edit/Update')"></button>
           <button class="btn btn-primary btn-xs glyphicon glyphicon-refresh" title="Get Latest Data" (click)="GetValue(recorditem)"></button>
-          <br>
           <button class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Delete Record" (click)="DeleteRecord(recorditem._id)"></button>
           <button md-raised-button class="btn btn-danger btn-xs glyphicon glyphicon-share" title="Sale Mutual Fund" (click)="openDialog(recorditem, 'Sale')"></button>
       </td>

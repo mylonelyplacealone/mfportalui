@@ -4,17 +4,10 @@
     text-align: center;
 }
 
-.form-control{
-    /* margin:0 10px 0 10px; */
-}
-
 .glyphicon{
-    margin:5px 5px 5px 8px;
-}
-
-.sumrow .glyphicon{
+    margin:3px;
     font-size: xx-small;
-    margin: 1px;
+    padding:2px;
 }
 
 .loss{
@@ -23,6 +16,10 @@
 
 .profit{
     background-color: green;
+}
+
+.width-5-percent{
+    width: 5%;
 }
 
 .sumrow{
