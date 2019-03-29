@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MFRecord } from '../mfrecord';
-import { MfService } from '../mf-service.service';
+import { MFRecord } from '../common/mfrecord';
+import { MfService } from '../common/mf-service.service';
 import { Subscription } from 'rxjs';
 import {MatDialog } from '@angular/material';
 import { MfeditComponent } from '../mfedit/mfedit.component';

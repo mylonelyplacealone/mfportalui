@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MfService } from '../mf-service.service';
-import { MFRecord } from '../mfrecord';
+import { MfService } from '../common/mf-service.service';
+import { MFRecord } from '../common/mfrecord';
 
 @Component({
   selector: 'app-mfrefreshpopup',

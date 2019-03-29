@@ -1,30 +1,24 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from './auth/auth-guard.service';
 import { HomeComponent } from './home/home.component';
-import { MfdashboardComponent } from './mutualfund/mfdashboard/mfdashboard.component';
-import { MfoneviewComponent } from './mutualfund/mfoneview/mfoneview.component';
-import { SipdashboardComponent } from './mutualfund/sipdashboard/sipdashboard.component';
-import { SearchmfComponent } from './mutualfund/searchmf/searchmf.component';
-import { SoldmflistComponent } from './mutualfund/soldmflist/soldmflist.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: 'mutualfund', loadChildren:'./mutualfund/mutualfund.module#MutualFundModule'},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  { path: 'mfdashboard', component: MfdashboardComponent, canActivate: [AuthGuard]},
-  { path: 'mfsipdashboard', component: SipdashboardComponent, canActivate: [AuthGuard]},
-  { path: 'searchmf', component: SearchmfComponent, canActivate: [AuthGuard]},
-  { path: 'mfoneview', component: MfoneviewComponent, canActivate: [AuthGuard]},
-  { path: 'solfmflist', component: SoldmflistComponent, canActivate: [AuthGuard]},
   { path: 'signup', component: SignupComponent},
   { path: 'signin', component: SigninComponent},
-  // { path: '', component: StartpageComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports:[
+    RouterModule.forRoot(routes,{
+        preloadingStrategy:PreloadAllModules
+    })
+],
+exports:[RouterModule]
 })
 export class AppRoutingModule { }

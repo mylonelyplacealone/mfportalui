@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MFSearchRecord } from '../mfsearch-record';
-import { MfService } from '../mf-service.service';
-import { MFRecord } from '../mfrecord';
+import { MFSearchRecord } from '../common/mfsearch-record';
+import { MfService } from '../common/mf-service.service';
+import { MFRecord } from '../common/mfrecord';
 
 @Component({
   selector: 'app-searchmf',

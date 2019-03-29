@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MFRecord } from '../mfrecord';
+import { MFRecord } from '../common/mfrecord';
 import { Subscription } from 'rxjs';
-import { MfService } from '../mf-service.service'; 
+import { MfService } from '../common/mf-service.service'; 
 
 @Component({
   selector: 'app-mfoneview',

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {MatDialogRef} from '@angular/material';
-import { MFRecord } from '../mfrecord';
-import { MfService } from '../mf-service.service';
+import { MFRecord } from '../common/mfrecord';
+import { MfService } from '../common/mf-service.service';
 
 @Component({
   selector: 'app-mfedit',

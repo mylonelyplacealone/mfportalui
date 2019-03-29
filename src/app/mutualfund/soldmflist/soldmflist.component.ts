@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MfService } from '../mf-service.service';
-import { MFRecord } from '../mfrecord';
+import { MfService } from '../common/mf-service.service';
+import { MFRecord } from '../common/mfrecord';
 
 @Component({
   selector: 'app-soldmflist',

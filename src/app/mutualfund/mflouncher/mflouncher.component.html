@@ -1,0 +1,24 @@
+<!-- <nav class='navbar navbar-default navbar-inverse'>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a routerLink="home">Home</a></li>
+        <li><a routerLink="mfdashboard">Mutual Funds</a></li>
+        <li><a routerLink="mfsipdashboard">SIP Dashboard</a></li>
+        <li><a routerLink="searchmf">Search MF</a></li>
+        <li><a routerLink="mfoneview">MF One View</a></li>
+        <li><a routerLink="solfmflist">Sold MF List</a></li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+<nav mat-tab-nav-bar>
+  <a mat-tab-link routerLink="home" routerLinkActive="mat-tab-link-active">Home</a>
+  <a mat-tab-link routerLink="mfdashboard" routerLinkActive="mat-tab-link-active">MF Dashboard</a>
+  <a mat-tab-link routerLink="mfsipdashboard" routerLinkActive="mat-tab-link-active">SIP Dashboard</a>
+  <a mat-tab-link routerLink="mfoneview" routerLinkActive="mat-tab-link-active">One View</a>
+  <a mat-tab-link routerLink="solfmflist" routerLinkActive="mat-tab-link-active">Sold List</a>
+  <a mat-tab-link routerLink="searchmf" routerLinkActive="mat-tab-link-active">Search...</a>
+</nav>
+<router-outlet></router-outlet>

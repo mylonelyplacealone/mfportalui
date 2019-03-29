@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ConfigClass } from '../common/config.service';
+import { ConfigClass } from '../../common/config.service';
 import { MFRecord } from './mfrecord';
 import { Subject, Observable } from 'rxjs';
 import { MFSearchRecord } from './mfsearch-record';
