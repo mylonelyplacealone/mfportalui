@@ -1,13 +1,27 @@
-<div>{{message}}</div>
-<br>
-<div class="md-col-4">
-  <input type="text" [(ngModel)]="user" class="form-control">
+<div class="row">
+  <div  class="col-md-3">
+      NSE :<div class="col-md-9 pull-right" [class.loss]="(currentNSEVal - previousNSEVal) < 0"
+      [class.profit]="(currentNSEVal - previousNSEVal) > 0">
+         {{ currentNSEVal  | number:'.2-2'}} ({{ currentNSEVal - previousNSEVal | number:'.2-2'}})<br>
+      </div>
+  </div>
+  <div class="col-md-6">
+    <div>{{message}}</div>
+    <br>
+    <div class="md-col-4">
+      <input type="text" [(ngModel)]="user" class="form-control">
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="setuser()">Set User</button>
+    <br>
+    <br>
+    <!-- <div class="md-col-4">
+      <input type="text" [(ngModel)]="stockticker" class="form-control">
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="getStockData()">Set User</button>
+    <br><br>
+    <span>{{stkdetails}}</span> -->
+  </div>
 </div>
-<br>
-<button class="btn btn-primary" (click)="setuser()">Set User</button>
 
-<div class="md-col-4">
-  <input type="text" [(ngModel)]="stockticker" class="form-control">
-</div>
-<br>
-<button class="btn btn-primary" (click)="getStockData()">Set User</button>

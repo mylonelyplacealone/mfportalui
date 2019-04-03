@@ -36,6 +36,10 @@ export class MfService {
       console.log(res);
       this.records = res;
       if(this.records && this.records.length > 0){
+        for(let record of this.records){
+          if(!record.isprofit)
+            record.isprofit = false;
+        }
         this.records.sort((a,b)=> {return a.code - b.code});
         this.recordsChanged.next(this.records.slice());
       }
@@ -56,17 +60,17 @@ export class MfService {
         if(entry.purchasenav == 0){
           this.record = new MFRecord("",
             +localStorage.getItem('userid'), entry.code, response['meta'].scheme_name, 
-            entry.units, response['data'][0].nav, new Date(), response['data'][0].nav, entry.comments, entry.issip === undefined? false : entry.issip);
+            entry.units, response['data'][0].nav, new Date(), response['data'][0].nav, entry.comments, entry.isprofit, entry.issip === undefined? false : entry.issip);
         }
         else{
           this.record = new MFRecord("", +localStorage.getItem('userid'), entry.code, response['meta'].scheme_name, 
-          entry.units, entry.purchasenav, entry.purchasedate, response['data'][0].nav, entry.comments, entry.issip === undefined? false : entry.issip);
+          entry.units, entry.purchasenav, entry.purchasedate, response['data'][0].nav, entry.comments, entry.isprofit, entry.issip === undefined? false : entry.issip);
         }
           var mfdata = 'userid=' + localStorage.getItem('userid') + '&code=' + this.record.code
                 + '&name=' + this.record.name + '&units=' + this.record.units 
                 + '&purchasenav=' + this.record.purchasenav + '&purchasedate=' + this.record.purchasedate
                 + '&currentnav=' + this.record.currentnav + '&comments=' + this.record.comments
-                + '&issip=' + this.record.issip;
+                + '&isprofit=' + this.record.isprofit + '&issip=' + this.record.issip;
 
           this.httpClnt.post(ConfigClass.restAPIURL + 'mf', mfdata, { headers: this.header })
           .subscribe((res)=>{
@@ -83,10 +87,11 @@ export class MfService {
                 + '&name=' + recordMe.name + '&units=' +  recordMe.units 
                 + '&purchasenav=' +  recordMe.purchasenav + '&purchasedate=' + recordMe.purchasedate
                 + '&currentnav=' + recordMe.currentnav + '&comments=' + recordMe.comments
+                + '&isprofit=' + recordMe.isprofit + '&issip=' + recordMe.issip
                 + (recordMe.salenav? '&salenav=' +  recordMe.salenav : "") 
                 + (recordMe.saledate?'&saledate=' + recordMe.saledate:"");
 
-
+console.log(mfdata);
     this.httpClnt.put(ConfigClass.restAPIURL + 'mf/' + recordMe._id, mfdata, {  headers:this.header })
     .subscribe((res)=>{
       if(res['success'])
@@ -127,7 +132,7 @@ export class MfService {
         if(this.update){
           this.record = new MFRecord(this.update._id, +localStorage.getItem('userid'), this.update.code, 
                     response['meta'].scheme_name, this.update.units, this.update.purchasenav, 
-                    this.update.purchasedate, response['data'][0].nav, this.update.comments);
+                    this.update.purchasedate, response['data'][0].nav, this.update.comments, this.update.isprofit);
           this.Update(this.record);
         }
         // else{

@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
         // this.isadmin = userInfo.isadmin;
       }
     );
+
+    this.authSer.checklogin();
   }
 
   ngOnDestroy(){

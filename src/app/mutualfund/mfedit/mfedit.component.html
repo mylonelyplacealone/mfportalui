@@ -21,6 +21,14 @@
       <!-- <div class="col-md-3"><input type="date" style="width:100px;" class="form-control" [(ngModel)]="record.purchasedate" placeholder="Purchase Date"></div> -->
       <div class="col-md-4"><input type="date" style="width:150px;" class="form-control" [ngModel]="record.purchasedate | date:'yyyy-MM-dd'" (ngModelChange)="record.purchasedate = $event" placeholder="Purchase Date"></div>
     </div><br>
+
+    <div class="row">
+      <div class="col-md-3">Profit Entry?</div>
+      <div class="col-md-2"><input type="checkbox" [(ngModel)]='record.isprofit'></div>
+      <div class="col-md-3">SIP Entry?</div>
+      <div class="col-md-4"><input type="checkbox" [(ngModel)]='record.issip'></div>
+    </div><br>
+
     <div class="row" *ngIf="data.mode == 'Sale'">
       <div class="col-md-3">Sale NAV</div>
       <div class="col-md-2"><input type="text" class="form-control" [(ngModel)]='record.salenav' placeholder="Sale NAV"></div>

@@ -1,11 +1,16 @@
 <div class="row col-md-12">
-  <div class="pull-left">
+  <div class="pull-left col-md-4">
     {{ message }}
   </div>
-
-
   <div class="pull-right">
-      <input [(ngModel)]="searchText" placeholder="Search.." class="form-control">
+    <div class="pull-left">
+        <input type="radio" name="datagroup" checked="true" (click)="GetInvetmentProfitData('0')">Show All
+        <input type="radio" name="datagroup" (click)="GetInvetmentProfitData('1')">Investment
+        <input type="radio" name="datagroup" (click)="GetInvetmentProfitData('2')">Profit
+    </div>
+    <div class="col-md-6">
+        <input [(ngModel)]="searchText" placeholder="Search.." class="form-control">
+    </div>
   </div>
   <br><br>
   <table class="table table-bordered table-striped col-md-12">

@@ -14,21 +14,32 @@ import { MfrefreshpopupComponent } from '../mfrefreshpopup/mfrefreshpopup.compon
 export class MfdashboardComponent implements OnInit, OnDestroy {
   records:MFRecord[];
   recordsSubscription = new Subscription();
-  dummyrec:MFRecord = new MFRecord("", 0, 0, '', 0, 0, new Date(), 0, "");
+  dummyrec:MFRecord = new MFRecord("", 0, 0, '', 0, 0, new Date(), 0, "", false);
   record:MFRecord = Object.assign({}, this.dummyrec);
   editmode:boolean = false;
   totalcost:number = 0;
   totalvalue:number = 0;
   searchText:string;
   message:string;
+  profitflag:number = 0;
 
   constructor(private mfService:MfService, public dialog: MatDialog, ){}
 
   ngOnInit() {
     this.recordsSubscription = this.mfService.recordsChanged
     .subscribe((records:MFRecord[])=>{
-      //console.log(records);
-      this.records = records;
+      console.log(this.profitflag);
+      
+      // if(this.profitflag === 0 )
+      //   this.records = records;
+      // else if()
+
+        this.records = records.filter(
+          (rec:MFRecord) => 
+            this.profitflag == 0 ? (rec.isprofit ||  !rec.isprofit)
+            : (this.profitflag == 1 ? !rec.isprofit : (rec.isprofit))
+        );
+      // this.records = records;
       this.records.sort((a,b)=> {return a.name.localeCompare(b.name)});
       // this.totalcost = this.records.reduce((sum, item) => sum + (item.purchasenav * item.units), 0)
       // this.totalvalue = this.records.reduce((sum, item) => sum + (item.currentnav * item.units), 0)
@@ -68,7 +79,7 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
   }
 
   EditRecord(recorditem:MFRecord){
-    this.record = new MFRecord(recorditem._id, recorditem.userid, recorditem.code, recorditem.name, recorditem.units, recorditem.purchasenav,recorditem.purchasedate, recorditem.currentnav, recorditem.comments);
+    this.record = new MFRecord(recorditem._id, recorditem.userid, recorditem.code, recorditem.name, recorditem.units, recorditem.purchasenav,recorditem.purchasedate, recorditem.currentnav, recorditem.comments, recorditem.isprofit);
     this.editmode = true;
   }
 
@@ -119,4 +130,17 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  GetInvetmentProfitData(profit:number){
+    this.profitflag = profit;
+    this.mfService.GetMFList();
+    // if(this.isprofit){
+    //   this.mfService.GetMFList();
+    //   this.records = this.records.filter((rec:MFRecord) => rec.isprofit);
+    // }
+    // else if(!this.isprofit)
+    // {
+    //   this.mfService.GetMFList();
+    //   this.records = this.records.filter((rec:MFRecord) => !rec.isprofit);
+    // }
+  }
 }

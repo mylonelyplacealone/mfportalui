@@ -19,7 +19,7 @@ export class MfeditComponent implements OnInit {
   ngOnInit() {
     this.record = new MFRecord(this.data.record._id, this.data.record.userid, this.data.record.code, 
       this.data.record.name, this.data.record.units, this.data.record.purchasenav,this.data.record.purchasedate, 
-      this.data.record.currentnav, this.data.record.comments);
+      this.data.record.currentnav, this.data.record.comments, this.data.record.isprofit);
   }
 
   onCloseConfirm() {

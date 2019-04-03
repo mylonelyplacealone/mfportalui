@@ -1,0 +1,18 @@
+.loss{
+    background-color: red;
+}
+
+.profit{
+    background-color: green;
+}
+
+.sumrow{
+    font-weight:bolder;
+    background-color: lightskyblue !important;
+    font-size:larger;
+}
+
+tr{
+    margin-top:10px;
+
+}

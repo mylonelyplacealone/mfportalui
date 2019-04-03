@@ -75,6 +75,10 @@ export class AuthService{
         this.userStatusChanged.next({loggedin: null, isadmin: null});
     }
 
+    checklogin(){
+      this.userStatusChanged.next({loggedin: localStorage.getItem('token'), isadmin: localStorage.getItem('isadmin')});
+    }
+    
     // getUsers(){
     //     return this.httpClient.get(this.BaseUrl + 'api/users?token=' + localStorage.getItem('token'));
     // }
