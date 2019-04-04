@@ -130,8 +130,8 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  GetInvetmentProfitData(profit:number){
-    this.profitflag = profit;
+  GetInvetmentProfitData(profit:string){
+    this.profitflag = +profit;
     this.mfService.GetMFList();
     // if(this.isprofit){
     //   this.mfService.GetMFList();
