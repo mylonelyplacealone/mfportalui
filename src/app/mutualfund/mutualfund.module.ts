@@ -19,6 +19,7 @@ import { SoldmflistComponent } from './soldmflist/soldmflist.component';
 import { MFRoutingModule } from './mutualfund-routing.module';
 import { MfhomeComponent } from './mfhome/mfhome.component';
 import { MflouncherComponent } from './mflouncher/mflouncher.component';
+import { ChartModule } from 'angular2-chartjs';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { MflouncherComponent } from './mflouncher/mflouncher.component';
     MatCardModule,
     CommonModule,
     MFRoutingModule,
-    MatTabsModule
+    MatTabsModule,
+    ChartModule
+
   ],
   providers: [MfService, DatePipe],
   exports: [CommonModule]

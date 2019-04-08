@@ -1,5 +1,30 @@
 <div class="row col-md-12">
-  <table class="table table-bordered table-striped col-md-12">
+  <!-- <input type="radio" name="datagroup" checked="true" (click)="selecttype('tabledata')">Table Data
+  <input type="radio" name="datagroup" (click)="selecttype('piechart')">Pie Chart
+  <input type="radio" name="datagroup" (click)="selecttype('barchart')">Bar Chart -->
+  <div>
+    <div class="pull-left" style="padding-bottom:5px;">Display View: 
+      <select #displayview (change)="selecttype(displayview.value)" class="my-form-control">
+        <option value="tabledata">Table Data</option>
+        <option value="piechart">Pie Chart</option>
+        <option value="barchart">Bar Chart</option>
+      </select> 
+    </div>
+    <div *ngIf="viewtype == 'piechart' || viewtype == 'barchart'" style="margin-top:7px;">&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="piechart" (click)="selectdata('investment')">Investment
+      <input type="radio" name="piechart" (click)="selectdata('profit')"  checked="true">Profit
+    </div>
+  </div>
+
+  <div *ngIf="viewtype == 'piechart'">
+     <chart type="pie" [data]="data" ></chart>
+  </div>
+
+  <div *ngIf="viewtype == 'barchart'">
+    <chart type="bar" [data]="data" *ngIf="viewtype == 'barchart'"></chart> 
+  </div>
+
+  <table *ngIf="viewtype == 'tabledata'" class="table table-bordered table-striped col-md-12">
     <!-- <th class="col-md-1">Code</th> -->
     <th class="col-md-5">
       <div (click)="sortData('name')">
@@ -70,5 +95,8 @@
       <td class="text-right" [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">{{((recorditem.currentnav/recorditem.purchasenav)-1) * 100 | number:'.2-2'}} % </td>
     </tr>
   </table>
+
+
+
 </div>
 

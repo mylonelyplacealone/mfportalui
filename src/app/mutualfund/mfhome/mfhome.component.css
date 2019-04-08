@@ -14,5 +14,9 @@
 
 tr{
     margin-top:10px;
+}
 
+.bold-text{
+    font-weight:bolder;
+    font-size:larger;
 }

@@ -1,8 +1,16 @@
 <div class="row">
   <div  class="col-md-3">
-      NSE :<div class="col-md-9 pull-right" [class.loss]="(currentNSEVal - previousNSEVal) < 0"
+      <!-- NSE :<div class="col-md-9 pull-right" [class.loss]="(currentNSEVal - previousNSEVal) < 0"
       [class.profit]="(currentNSEVal - previousNSEVal) > 0">
          {{ currentNSEVal  | number:'.2-2'}} ({{ currentNSEVal - previousNSEVal | number:'.2-2'}})<br>
+      </div> -->
+      
+      <div *ngFor="let np of nextPrev" class="bold-text">
+        {{np[0]}} <div class="col-md-8 pull-right" [class.loss]="(np[3] - np[2]) < 0"
+                  [class.profit]="(np[3] - np[2]) > 0">
+                    {{ np[3]  | number:'.2-2'}} ({{ np[3] - np[2] | number:'.2-2'}})<br>
+                  </div>
+                  <br><br>
       </div>
   </div>
   <div class="col-md-6">

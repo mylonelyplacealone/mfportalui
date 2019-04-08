@@ -5,3 +5,8 @@
 .profit{
     background-color: green;
 }
+
+.bold-text{
+    font-weight:bolder;
+    font-size:larger;
+}

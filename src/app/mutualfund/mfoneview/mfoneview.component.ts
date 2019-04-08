@@ -16,6 +16,8 @@ export class MfoneviewComponent implements OnInit {
   totalvalue:number = 0;
   toggle:boolean = true;
   sortcolumn:string;
+  viewtype="tabledata";
+  data= {};
 
   constructor(private mfService:MfService) { }
 
@@ -41,6 +43,24 @@ export class MfoneviewComponent implements OnInit {
       this.totalvalue = this.groupedRecords.reduce((sum, item) => sum + (item.currentnav * item.units), 0)
 
       this.groupedRecords.sort((a,b)=> b.name.localeCompare(a.name));
+
+      this.data =  {
+        labels: this.groupedRecords.map(a => a.name),
+        datasets: [{
+          data: this.groupedRecords.map(a => (a.currentnav - a.purchasenav) * a.units),
+          backgroundColor: 
+          this.groupedRecords.map(a => '#' + Math.floor(Math.random()*16777215).toString(16))
+          
+          // [
+          //   "#00FFFF",
+          //   "#FFFF00",
+          //   "#AAFF00",
+          //   "#BBFF00",
+          //   "#FF00FF"
+          // ]
+        }]
+      };
+
       // this.groupedRecords.sort((a,b)=> (((a.currentnav - a.purchasenav) * a.units)) - ((b.currentnav - b.purchasenav) * b.units));
       //console.log(this.groupedRecords);
     });
@@ -125,5 +145,31 @@ export class MfoneviewComponent implements OnInit {
       }, {});
 
     /* After formatting data : { "Key 1": [ .... ], "Key 2": [...], ... } */
+  }
+
+  selecttype(viewtype){
+    this.viewtype = viewtype;
+  }
+
+  selectdata(type){
+
+    if(type=='investment'){
+      this.data =  {
+        labels: this.groupedRecords.map(a => a.name),
+        datasets: [{
+          data: this.groupedRecords.map(a => a.purchasenav * a.units),
+          backgroundColor: this.groupedRecords.map(a => '#' + Math.floor(Math.random()*16777215).toString(16))
+        }]
+      };
+    }else{
+      this.data =  {
+        labels: this.groupedRecords.map(a => a.name),
+        datasets: [{
+          data: this.groupedRecords.map(a => (a.currentnav - a.purchasenav) * a.units),
+          backgroundColor: this.groupedRecords.map(a => '#' + Math.floor(Math.random()*16777215).toString(16))
+        }]
+      };
+
+    }
   }
 }

@@ -2,22 +2,24 @@
 
 <div class="container">
     <div class="row">
-        <table class="col-md-3 sumrow">
+        <table class="col-md-3 bold-text">
             <tr>
                 <td>Unrealized Profit:</td>
                 <td class="text-right" [class.loss]="unrealprofit < 0" [class.profit]="unrealprofit > 0">{{unrealprofit | number:'.2-2'}}</td>
             </tr>
+            <br>
             <tr>
                 <td>Realized Profit:</td>
                 <td class="text-right" [class.loss]="realprofit < 0" [class.profit]="realprofit > 0">{{realprofit| number:'.2-2'}}</td>
             </tr>
+            <br>
             <tr>
                 <td>Total Profit:</td>
                 <td class="text-right" [class.loss]="(realprofit + unrealprofit) < 0" [class.profit]="(realprofit + unrealprofit) > 0">{{realprofit + unrealprofit| number:'.2-2'}}</td>
             </tr>
         </table>
         <div class="col-md-8">
-            Charts Space
+            Charts Space    
         </div>
     </div>
 </div>

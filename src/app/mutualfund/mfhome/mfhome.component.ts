@@ -19,9 +19,9 @@ export class MfhomeComponent implements OnInit {
       this.unrealprofit = records.reduce((sum, item) => sum + ((item.currentnav - item.purchasenav) * item.units), 0);
     });
 
-    this.mfService.GetSoldMFList()
+      this.mfService.GetSoldMFList()
     .subscribe((records:MFRecord[])=>{
-        this.realprofit = records.reduce((sum, item) => sum + ((item.salenav - item.purchasenav) * item.units), 0);
+        this.realprofit = records.reduce((sum, item) => sum + ((item.salenav - item.purchasenav) * item.units), 0);   
     });
 
     this.mfService.GetMFList();
