@@ -36,11 +36,11 @@ export class HomeComponent implements OnInit {
 
       this.httpClnt.get("https://www.alphavantage.co/query?" + query)
       .subscribe((response)=>{
-        // console.log(response);
+        console.log(response);
         record[2] = response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"]]["4. close"];
         var date = new Date(response["Meta Data"]["3. Last Refreshed"]);
         if(date.getDay() == 1)
-          date.setDate(date.getDate() - 3);
+          date.setDate(date.getDate() - 4);
         else
           date.setDate(date.getDate() - 1);
   

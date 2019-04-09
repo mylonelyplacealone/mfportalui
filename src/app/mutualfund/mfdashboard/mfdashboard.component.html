@@ -4,11 +4,13 @@
   </div>
   <div class="pull-right">
     <div class="pull-left">
-        <input type="radio" name="datagroup" checked="true" (click)="GetInvetmentProfitData('0')">Show All
-        <input type="radio" name="datagroup" (click)="GetInvetmentProfitData('1')">Investment
-        <input type="radio" name="datagroup" (click)="GetInvetmentProfitData('2')">Profit
+        <select #dataview (change)="GetInvetmentProfitData(dataview.value)" class="my-form-control">
+          <option value="0">Show All</option>
+          <option value="1">Investment</option>
+          <option value="2">Profit</option>
+        </select> 
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
         <input [(ngModel)]="searchText" placeholder="Search.." class="form-control">
     </div>
   </div>

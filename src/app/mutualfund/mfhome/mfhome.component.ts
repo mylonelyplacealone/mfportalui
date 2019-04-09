@@ -10,6 +10,10 @@ import { MFRecord } from '../common/mfrecord';
 export class MfhomeComponent implements OnInit {
   unrealprofit:number = 0;
   realprofit:number = 0;
+  currentValue:number = 0;
+  investment:number = 0;
+  data= {};
+  charttype:string='pie';
 
   constructor(private mfService:MfService) { }
 
@@ -17,6 +21,16 @@ export class MfhomeComponent implements OnInit {
     this.mfService.recordsChanged
     .subscribe((records:MFRecord[])=>{
       this.unrealprofit = records.reduce((sum, item) => sum + ((item.currentnav - item.purchasenav) * item.units), 0);
+      this.currentValue = records.reduce((sum, item) => sum + (item.currentnav * item.units), 0);
+      this.investment = records.reduce((sum, item) => sum + (item.purchasenav * item.units), 0);
+
+      this.data =  {
+        labels: ['Investment','Un-Realized Profit'],
+        datasets: [{
+          data: [this.investment, this.unrealprofit],
+          backgroundColor: ["blue","green"]
+        }]
+      };
     });
 
       this.mfService.GetSoldMFList()

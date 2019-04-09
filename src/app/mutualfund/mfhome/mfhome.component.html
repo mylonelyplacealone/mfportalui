@@ -17,9 +17,22 @@
                 <td>Total Profit:</td>
                 <td class="text-right" [class.loss]="(realprofit + unrealprofit) < 0" [class.profit]="(realprofit + unrealprofit) > 0">{{realprofit + unrealprofit| number:'.2-2'}}</td>
             </tr>
+            <br>
+            <tr class="sumrow">
+                <td>Investment:</td>
+                <td class="text-right">{{ investment | number:'.2-2'}}</td>
+            </tr>
+            <br>
+            <tr class="sumrow">
+                <td>Current Value:</td>
+                <td class="text-right">{{ currentValue | number:'.2-2'}}</td>
+            </tr>
         </table>
         <div class="col-md-8">
-            Charts Space    
+            <input type="radio" name="chart" (click)="charttype = 'pie'" checked="true">Pie Chart
+            <input type="radio" name="chart" (click)="charttype = 'bar'">Bar Chart
+              
+            <chart [type]="charttype" [data]="data" ></chart>   
         </div>
     </div>
 </div>
