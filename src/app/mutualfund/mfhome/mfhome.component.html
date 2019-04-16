@@ -1,8 +1,11 @@
-<h3>Mutual fund Dashboard</h3>
+<!-- <h3>Mutual fund Dashboard</h3> -->
 
 <div class="container">
     <div class="row">
         <table class="col-md-3 bold-text">
+            <tr class="text-center">
+                <td colspan="2"><h2>Summary</h2></td>
+            </tr>
             <tr>
                 <td>Unrealized Profit:</td>
                 <td class="text-right" [class.loss]="unrealprofit < 0" [class.profit]="unrealprofit > 0">{{unrealprofit | number:'.2-2'}}</td>
@@ -29,10 +32,12 @@
             </tr>
         </table>
         <div class="col-md-8">
-            <input type="radio" name="chart" (click)="charttype = 'pie'" checked="true">Pie Chart
-            <input type="radio" name="chart" (click)="charttype = 'bar'">Bar Chart
-              
-            <chart [type]="charttype" [data]="data" ></chart>   
+            <br><br>
+            <div class="pull-right">
+                <input type="radio" name="chart" (click)="charttype = 'pie'" checked="true">Pie Chart
+                <input type="radio" name="chart" (click)="charttype = 'bar'">Bar Chart
+            </div>  
+            <chart [type]="charttype" [data]="data" [options]="options"></chart>   
         </div>
     </div>
 </div>

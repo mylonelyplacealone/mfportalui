@@ -42,6 +42,8 @@ export class SigninComponent implements OnInit {
         this.formNotValid = true;
         this.errMsg = resp.message;
       } else{
+        
+        localStorage.setItem('userid', resp['user']['userid']);
         // console.log(localStorage.getItem('token'));
         // console.log('redirecting');
         // alert(this.queryParam);

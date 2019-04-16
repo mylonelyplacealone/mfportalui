@@ -14,7 +14,7 @@ export class MfhomeComponent implements OnInit {
   investment:number = 0;
   data= {};
   charttype:string='pie';
-
+  options={};
   constructor(private mfService:MfService) { }
 
   ngOnInit() {
@@ -22,21 +22,32 @@ export class MfhomeComponent implements OnInit {
     .subscribe((records:MFRecord[])=>{
       this.unrealprofit = records.reduce((sum, item) => sum + ((item.currentnav - item.purchasenav) * item.units), 0);
       this.currentValue = records.reduce((sum, item) => sum + (item.currentnav * item.units), 0);
-      this.investment = records.reduce((sum, item) => sum + (item.purchasenav * item.units), 0);
+      this.investment = records.filter(a => a.isprofit != true).reduce((sum, item) => sum + (item.purchasenav * item.units), 0);
+      this.realprofit = records.filter(a => a.isprofit == true).reduce((sum, item) => sum + (item.purchasenav * item.units), 0);
 
       this.data =  {
-        labels: ['Investment','Un-Realized Profit'],
+        labels: ['Investment', 'Profit', 'Un-Realized Profit'],
         datasets: [{
-          data: [this.investment, this.unrealprofit],
-          backgroundColor: ["blue","green"]
-        }]
-      };
+          data: [this.investment, this.realprofit, this.unrealprofit],
+          backgroundColor: ["dodgerblue","green","palegreen"]
+        }]        
+      }
+
+    //  this.options = {
+    //     legend: {
+    //         position:'left'
+    //     }
+
+    //   };
     });
 
-      this.mfService.GetSoldMFList()
-    .subscribe((records:MFRecord[])=>{
-        this.realprofit = records.reduce((sum, item) => sum + ((item.salenav - item.purchasenav) * item.units), 0);   
-    });
+    
+    //   this.mfService.GetSoldMFList()
+    // .subscribe((records:MFRecord[])=>{
+    //   console.log(records.filter((a:MFRecord) => a.isprofit = true));
+    //     // this.realprofit = records.reduce((sum, item) => sum + ((item.salenav - item.purchasenav) * item.units), 0);   
+    //     this.realprofit = records.filter(a => a.isprofit == true).reduce((sum, item) => sum + (item.purchasenav * item.units), 0);   
+    // });
 
     this.mfService.GetMFList();
   }
