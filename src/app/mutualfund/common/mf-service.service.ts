@@ -6,7 +6,7 @@ import { Subject, Observable } from 'rxjs';
 import { MFSearchRecord } from './mfsearch-record';
 import { MFSIPRecord } from './mfsiprecord';
 import { DatePipe } from '@angular/common';
-import { map } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,19 @@ export class MfService {
   searchMFlist(searchstr:string): Observable<MFSearchRecord[]> {
     return this.httpClnt.get<MFSearchRecord[]>(ConfigClass.mfSearchListURL + searchstr)
   }
+
+  searchAutocompleteMF(searchstr) {
+    return this.httpClnt.get(ConfigClass.mfSearchListURL + searchstr)
+    .pipe(
+        debounceTime(500),  // WAIT FOR 500 MILISECONDS ATER EACH KEY STROKE.
+        map(
+            (data: any) => {
+                return (
+                    data.length != 0 ? data as any[] : [{"SchemeName": "No Record Found"} as any]
+                );
+            }
+    ));
+  }  
 
   GetMFList(){
     this.httpClnt.get(ConfigClass.restAPIURL + 'mflist', 

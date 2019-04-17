@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MfdashboardComponent } from './mfdashboard/mfdashboard.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,7 +10,7 @@ import { MfoneviewComponent } from './mfoneview/mfoneview.component';
 import { FilterPipe } from './common/filter.pipe';
 import { SipdashboardComponent } from './sipdashboard/sipdashboard.component';
 import { SearchmfComponent } from './searchmf/searchmf.component';
-import {MatCardModule, MatTabsModule} from '@angular/material';
+import {MatCardModule, MatTabsModule, MatAutocompleteModule, MatInputModule } from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material';
 import { MfeditComponent } from './mfedit/mfedit.component';
@@ -43,7 +43,11 @@ import { ChartModule } from 'angular2-chartjs';
     CommonModule,
     MFRoutingModule,
     MatTabsModule,
-    ChartModule
+    ChartModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    ReactiveFormsModule,
+
 
   ],
   providers: [MfService, DatePipe],

@@ -1,0 +1,15 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.container {
+    width: 300px;
+    font: 17px Calibri;
+}
+
+.row
+{
+    padding-bottom: 7px;
+}
+
+hr{
+    margin: 5px 0 5px 0 !important;
+}

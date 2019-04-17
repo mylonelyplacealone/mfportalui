@@ -1,33 +1,50 @@
 <div>
-  <h4 md-dialog-title>Mutual Fund Maintenance - {{data.mode}}</h4>
+  <div>
+  <h4 md-dialog-title >Mutual Fund Maintenance - {{data.mode}}</h4> 
+</div>
   <hr>
   <mat-dialog-content>
+    <form class="col-md-12" *ngIf="data.mode == 'Add'">
+        <mat-form-field class="container">
+            <!-- ADD AN INPUT BOX OF TYPE TEXT AND LINK IT TO THE AUTO COMPLETE PANEL. -->
+            <input type="text" placeholder="Search Mutual Fund ..."
+                matInput [formControl]="searchTerm" [matAutocomplete]="auto">  
+  
+            <!-- CREATE AUTO COMPLETE PANEL WITH OPTIONS. -->
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='selectMF($event.option.value)'
+              [displayWith]="displayFn">
+                <mat-option *ngFor="let record of searchRecords"  [value]="record">
+                  {{ record.schemeName }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
     <div class="row">
       <div class="col-md-3">Code</div>
-      <div class="col-md-9"><input type="text" class="form-control" [(ngModel)]='record.code' placeholder="Code"></div>
-    </div><br>
+      <div class="col-md-9"><input disabled type="text" class="form-control" [(ngModel)]='record.code' placeholder="Code"></div>
+    </div>
     <div class="row">
       <div class="col-md-3">Name</div>
-      <div class="col-md-9"><input type="text" class="form-control" [(ngModel)]='record.name' placeholder="Name"></div>
-    </div><br>
+      <div class="col-md-9"><input disabled type="text" class="form-control" [(ngModel)]='record.name' placeholder="Name"></div>
+    </div>
     <div class="row">
       <div class="col-md-3">Units</div>
       <div class="col-md-9"><input type="text" class="form-control" [(ngModel)]='record.units' placeholder="Units"></div>
-    </div><br>
+    </div>
     <div class="row">
       <div class="col-md-3">Purchase NAV</div>
       <div class="col-md-2"><input type="text" class="form-control" [(ngModel)]='record.purchasenav' placeholder="Purchase NAV"></div>
       <div class="col-md-3">Purchase Date</div>
       <!-- <div class="col-md-3"><input type="date" style="width:100px;" class="form-control" [(ngModel)]="record.purchasedate" placeholder="Purchase Date"></div> -->
       <div class="col-md-4"><input type="date" style="width:150px;" class="form-control" [ngModel]="record.purchasedate | date:'yyyy-MM-dd'" (ngModelChange)="record.purchasedate = $event" placeholder="Purchase Date"></div>
-    </div><br>
+    </div>
 
     <div class="row">
       <div class="col-md-3">Profit Entry?</div>
       <div class="col-md-2"><input type="checkbox" [(ngModel)]='record.isprofit'></div>
       <div class="col-md-3">SIP Entry?</div>
       <div class="col-md-4"><input type="checkbox" [(ngModel)]='record.issip'></div>
-    </div><br>
+    </div>
 
     <div class="row" *ngIf="data.mode == 'Sale'">
       <div class="col-md-3">Sale NAV</div>
@@ -41,7 +58,7 @@
           <textarea rows="4" cols="50" class="form-control" [(ngModel)]='record.comments' placeholder="Comments">
               </textarea>
       </div>
-    </div><br>
+    </div>
   </mat-dialog-content>
   <hr>
   <mat-dialog-actions class="pull-right">
