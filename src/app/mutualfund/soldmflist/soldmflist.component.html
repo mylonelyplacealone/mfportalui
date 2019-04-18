@@ -15,7 +15,8 @@
                               [class.profit]="(this.totalsalevalue - this.totalcost) > 0">
             {{ (totalsalevalue - totalcost) | number:'.2-2'}} ({{ ((totalsalevalue - totalcost)/totalcost) * 100 | number:'2.2-2'}}%)</td>
     </tr>
-    <tr *ngFor="let recorditem of soldMFList">
+    <tr *ngFor="let recorditem of soldMFList"
+    [ngClass]="{'loss': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) > 0}">
       <td class="hide">{{recorditem._id}}</td>
       <td class="hide">{{recorditem.code}}</td>
       <td>{{recorditem.name}}</td>
@@ -27,7 +28,8 @@
       <td>{{recorditem.purchasedate | date:'dd-MMM-yyyy' }}</td>
       <td class="text-right">{{recorditem.purchasenav * recorditem.units | number:'.2-2'}}</td> -->
       <td class="text-right">{{recorditem.salenav | number:'.2-2'}}<br>{{recorditem.saledate | date:'dd-MMM-yyyy' }}<br>{{recorditem.salenav * recorditem.units | number:'.2-2'}}</td>
-      <td class="text-right" [ngClass]="{'loss': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) > 0}">{{(recorditem.salenav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}} ({{((recorditem.salenav/recorditem.purchasenav)-1) * 100 | number:'2.2-2'}}%)</td>
+      <!-- <td class="text-right" [ngClass]="{'loss': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) > 0}">{{(recorditem.salenav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}} ({{((recorditem.salenav/recorditem.purchasenav)-1) * 100 | number:'2.2-2'}}%)</td> -->
+      <td class="text-right">{{(recorditem.salenav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}} ({{((recorditem.salenav/recorditem.purchasenav)-1) * 100 | number:'2.2-2'}}%)</td>
     </tr>
   </table>
 </div>

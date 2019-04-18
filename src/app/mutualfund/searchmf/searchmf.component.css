@@ -4,12 +4,6 @@
     padding: 10px;
 }
 
-.table th{
-    border: 1px slategrey solid;
-    padding: 3px;
-    text-align: center;
-}
-
 .tablediv{
     height: 300px;
     overflow: auto;

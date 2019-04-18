@@ -5,7 +5,8 @@ import { MFRecord } from '../common/mfrecord';
 @Component({
   selector: 'app-soldmflist',
   templateUrl: './soldmflist.component.html',
-  styleUrls: ['./soldmflist.component.css']
+  styleUrls: ['./soldmflist.component.css', '../common/mutualfund.css']
+
 })
 export class SoldmflistComponent implements OnInit {
   soldMFList:MFRecord[] = [] ; 

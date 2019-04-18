@@ -1,27 +1,4 @@
-.table th{
-    border: 1px slategrey solid;
-    padding: 5px;
-    text-align: center;
-}
-
-.loss{
-    background-color: red;
-}
-
-.profit{
-    background-color: green;
-}
-
-.sumrow{
-    font-weight:bolder;
-    background-color: lightskyblue;
-    font-size:larger;
-}
 
 th{
     cursor:pointer;
-}
-.my-form-control{
-    border-radius: 4px;
-    padding: 6px 12px;
 }

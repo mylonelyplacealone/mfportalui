@@ -9,7 +9,7 @@ import { MfrefreshpopupComponent } from '../mfrefreshpopup/mfrefreshpopup.compon
 @Component({
   selector: 'app-mfdashboard',
   templateUrl: './mfdashboard.component.html',
-  styleUrls: ['./mfdashboard.component.css']
+  styleUrls: ['./mfdashboard.component.css', '../common/mutualfund.css']
 })
 export class MfdashboardComponent implements OnInit, OnDestroy {
   records:MFRecord[];

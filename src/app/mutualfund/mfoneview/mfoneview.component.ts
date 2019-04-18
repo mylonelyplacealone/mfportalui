@@ -6,7 +6,7 @@ import { MfService } from '../common/mf-service.service';
 @Component({
   selector: 'app-mfoneview',
   templateUrl: './mfoneview.component.html',
-  styleUrls: ['./mfoneview.component.css']
+  styleUrls: ['./mfoneview.component.css','../common/mutualfund.css']
 })
 export class MfoneviewComponent implements OnInit {
   selectedrecord:MFRecord;

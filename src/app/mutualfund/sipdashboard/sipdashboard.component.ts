@@ -8,7 +8,7 @@ import { MFRecord } from '../common/mfrecord';
 @Component({
   selector: 'app-sipdashboard',
   templateUrl: './sipdashboard.component.html',
-  styleUrls: ['./sipdashboard.component.css']
+  styleUrls: ['./sipdashboard.component.css', '../common/mutualfund.css']
 })
 export class SipdashboardComponent implements OnInit, OnDestroy {
   records:MFSIPRecord[];

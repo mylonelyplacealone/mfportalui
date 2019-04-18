@@ -5,7 +5,7 @@ import { MFRecord } from '../common/mfrecord';
 @Component({
   selector: 'app-mfhome',
   templateUrl: './mfhome.component.html',
-  styleUrls: ['./mfhome.component.css']
+  styleUrls: ['./mfhome.component.css', '../common/mutualfund.css']
 })
 export class MfhomeComponent implements OnInit {
   unrealprofit:number = 0;

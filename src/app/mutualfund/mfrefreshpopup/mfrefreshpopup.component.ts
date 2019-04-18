@@ -6,7 +6,7 @@ import { MFRecord } from '../common/mfrecord';
 @Component({
   selector: 'app-mfrefreshpopup',
   templateUrl: './mfrefreshpopup.component.html',
-  styleUrls: ['./mfrefreshpopup.component.css']
+  styleUrls: ['./mfrefreshpopup.component.css', '../common/mutualfund.css']
 })
 export class MfrefreshpopupComponent implements OnInit {
   myrecords:MFRecord[];

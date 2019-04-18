@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MFSearchRecord } from '../common/mfsearch-record';
 import { MfService } from '../common/mf-service.service';
 import { MFRecord } from '../common/mfrecord';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-searchmf',
   templateUrl: './searchmf.component.html',
-  styleUrls: ['./searchmf.component.css']
+  styleUrls: ['./searchmf.component.css', '../common/mutualfund.css']
 })
 export class SearchmfComponent implements OnInit {
   mfrecords:MFSearchRecord[];
@@ -16,7 +17,7 @@ export class SearchmfComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
   search(){
     //this.mfService.searchMFlist(this.searchstr);
     console.log(this.searchstr);

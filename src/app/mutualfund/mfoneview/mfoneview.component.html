@@ -3,7 +3,7 @@
   <input type="radio" name="datagroup" (click)="selecttype('piechart')">Pie Chart
   <input type="radio" name="datagroup" (click)="selecttype('barchart')">Bar Chart -->
   <div>
-    <div class="pull-left" style="padding-bottom:5px;">Display View: 
+    <div class="pull-left" style="padding-bottom:5px;font-weight: bold;">Display View: 
       <select #displayview (change)="selecttype(displayview.value)" class="my-form-control">
         <option value="tabledata">Table Data</option>
         <option value="piechart">Pie Chart</option>
@@ -83,7 +83,8 @@
         <td class="text-right" [ngClass]="{'loss': (totalvalue - totalcost) < 0, 'profit': (totalvalue - totalcost) > 0}">{{ (totalvalue - totalcost) | number:'.2-2'}}</td>
         <td class="text-right" [ngClass]="{'loss': (((totalvalue - totalcost)/totalcost) * 100) < 0, 'profit': (((totalvalue - totalcost)/totalcost) * 100) > 0}">{{ ((totalvalue - totalcost)/totalcost) * 100 | number:'.2-2'}} % </td>
       </tr>
-    <tr *ngFor="let recorditem of groupedRecords">
+    <tr *ngFor="let recorditem of groupedRecords"
+        [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">
       <!-- <td>{{recorditem.code}}</td> -->
       <td>{{recorditem.name}}</td>
       <td class="text-right">{{recorditem.units | number:'.2-2'}}</td>
@@ -91,8 +92,11 @@
       <td class="text-right">{{recorditem.purchasenav * recorditem.units | number:'.2-2'}}</td>
       <td class="text-right">{{recorditem.currentnav | number:'.2-2'}}</td>
       <td class="text-right">{{recorditem.currentnav * recorditem.units | number:'.2-2'}}</td>
-      <td class="text-right" [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">{{(recorditem.currentnav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}}</td>
-      <td class="text-right" [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">{{((recorditem.currentnav/recorditem.purchasenav)-1) * 100 | number:'.2-2'}} % </td>
+      <!-- <td class="text-right" [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">{{(recorditem.currentnav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right" [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">{{((recorditem.currentnav/recorditem.purchasenav)-1) * 100 | number:'.2-2'}} % </td> -->
+      <td class="text-right">{{(recorditem.currentnav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right">{{((recorditem.currentnav/recorditem.purchasenav)-1) * 100 | number:'.2-2'}} % </td>
+    
     </tr>
   </table>
 

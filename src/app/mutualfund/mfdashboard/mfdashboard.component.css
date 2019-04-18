@@ -1,33 +1,9 @@
-.table th{
-    border: 1px slategrey solid;
-    padding: 5px;
-    text-align: center;
-}
-
 .glyphicon{
     margin:3px;
     font-size: xx-small;
     padding:2px;
 }
 
-.loss{
-    background-color: red;
-}
-
-.profit{
-    background-color: green;
-}
-
 .width-5-percent{
     width: 5%;
-}
-
-.sumrow{
-    font-weight:bolder;
-    background-color: lightskyblue !important;
-    font-size:larger;
-}
-.my-form-control{
-    border-radius: 4px;
-    padding: 6px 12px;
 }
