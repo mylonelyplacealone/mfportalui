@@ -1,12 +1,6 @@
-.loss{
-    background-color: red;
-}
-
-.profit{
-    background-color: green;
-}
 
 .bold-text{
     font-weight:bolder;
     font-size:larger;
+    padding: 15px 0 7px 15px;
 }

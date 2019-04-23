@@ -28,7 +28,7 @@ export class MfhomeComponent implements OnInit {
       this.data =  {
         labels: ['Investment', 'Profit', 'Un-Realized Profit'],
         datasets: [{
-          data: [this.investment, this.realprofit, this.unrealprofit],
+          data: [this.investment.toFixed(2), this.realprofit.toFixed(2), this.unrealprofit.toFixed(2)],
           backgroundColor: ["dodgerblue","green","palegreen"]
         }]        
       }

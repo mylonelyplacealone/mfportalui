@@ -1,0 +1,12 @@
+.profit{
+    background-image: linear-gradient(lightgreen,palegreen, slategray);
+    border-radius: 20px;
+    margin-bottom: 2px;
+    line-height: 10px!important;
+}
+
+.loss{
+    background-image: linear-gradient(red, coral, darkred);
+    border-radius: 20px;
+    margin-bottom: 2px;
+}

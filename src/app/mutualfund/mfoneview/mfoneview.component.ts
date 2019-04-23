@@ -47,7 +47,7 @@ export class MfoneviewComponent implements OnInit {
       this.data =  {
         labels: this.groupedRecords.map(a => a.name),
         datasets: [{
-          data: this.groupedRecords.map(a => (a.currentnav - a.purchasenav) * a.units),
+          data: this.groupedRecords.map(a => ((a.currentnav - a.purchasenav) * a.units).toFixed(2)),
           backgroundColor: 
           this.groupedRecords.map(a => '#' + Math.floor(Math.random()*16777215).toString(16))
           
@@ -157,7 +157,7 @@ export class MfoneviewComponent implements OnInit {
       this.data =  {
         labels: this.groupedRecords.map(a => a.name),
         datasets: [{
-          data: this.groupedRecords.map(a => a.purchasenav * a.units),
+          data: this.groupedRecords.map(a => (a.purchasenav * a.units).toFixed(2)),
           backgroundColor: this.groupedRecords.map(a => '#' + Math.floor(Math.random()*16777215).toString(16))
         }]
       };
@@ -165,7 +165,7 @@ export class MfoneviewComponent implements OnInit {
       this.data =  {
         labels: this.groupedRecords.map(a => a.name),
         datasets: [{
-          data: this.groupedRecords.map(a => (a.currentnav - a.purchasenav) * a.units),
+          data: this.groupedRecords.map(a => ((a.currentnav - a.purchasenav) * a.units).toFixed(2)),
           backgroundColor: this.groupedRecords.map(a => '#' + Math.floor(Math.random()*16777215).toString(16))
         }]
       };

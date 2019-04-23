@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css', '../common/styles.css']
 })
 export class HomeComponent implements OnInit {
   user:string = "101";
@@ -30,25 +30,36 @@ export class HomeComponent implements OnInit {
   getStockData(){
     for(let record of this.nextPrev){
       // console.log(record);
-      // console.log(record[1]);
 
       var query = 'function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + record[1] + '&interval=60min&apikey=P7E38HT6THUF5U3R'; 
 
       this.httpClnt.get("https://www.alphavantage.co/query?" + query)
       .subscribe((response)=>{
         console.log(response);
-        console.log(response["Meta Data"]["3. Last Refreshed"]);
         record[2] = response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"]]["4. close"];
         var date = new Date(response["Meta Data"]["3. Last Refreshed"]);
-        if(date.getDay() == 1)
-          date.setDate(date.getDate() - 4);
-        else
-          date.setDate(date.getDate() - 1);
-  
-        var str= date.getFullYear() + "-0" +(date.getMonth() +1) + "-"+ date.getDate();
-        record[3] = response["Time Series (Daily)"][str]["4. close"];
-        console.log(record);
 
+        var str = ""; var i = 0;
+
+        while(1 == 1){
+          i++;
+          if(date.getDay() == 1)
+            date.setDate(date.getDate() - 3);
+          else
+            date.setDate(date.getDate() - 1);
+
+          str = date.getFullYear().toString() +  "-" +
+                  (date.getMonth().toString().length == 1 ? "0" + (date.getMonth() + 1) :  date.getMonth() + 1 ) +  "-" +
+                (date.getDate().toString().length == 1 ? "0" + date.getDate() :  date.getDate());
+          
+          console.log(date + " " + i);
+          if(response["Time Series (Daily)"][str] || i == 10)
+            break;
+        }
+
+        console.log("Found Prev Date : " + str);
+          
+        record[3] = response["Time Series (Daily)"][str]["4. close"];
       });
     }
 

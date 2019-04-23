@@ -5,9 +5,10 @@
          {{ currentNSEVal  | number:'.2-2'}} ({{ currentNSEVal - previousNSEVal | number:'.2-2'}})<br>
       </div> -->
       
-      <div *ngFor="let np of nextPrev" class="bold-text">
-        {{np[0]}} <div class="col-md-8 pull-right" [class.loss]="(np[2] - np[3]) < 0"
-                  [class.profit]="(np[2] - np[3]) > 0">
+      <div *ngFor="let np of nextPrev" class="bold-text" 
+          [ngClass]="{'loss': (np[2] - np[3]) < 0, 'profit': (np[2] - np[3]) > 0}">
+          <!-- [class.loss]="(np[2] - np[3]) < 0" [class.profit]="(np[2] - np[3]) > 0" -->
+        {{np[0]}} <div class="col-md-9 pull-right" >
                     {{ np[2]  | number:'.2-2'}} ({{ np[2] - np[3] | number:'.2-2'}})<br>
                   </div>
                   <br><br>
