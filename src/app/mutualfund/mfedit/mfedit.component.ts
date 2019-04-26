@@ -3,19 +3,19 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 import {MatDialogRef} from '@angular/material';
 import { MFRecord } from '../common/mfrecord';
 import { MfService } from '../common/mf-service.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { MFSearchRecord } from '../common/mfsearch-record';
 
 @Component({
   selector: 'app-mfedit',
   templateUrl: './mfedit.component.html',
-  styleUrls: ['./mfedit.component.css']
+  styleUrls: ['./mfedit.component.css', '../common/mutualfund.css']
 })
 export class MfeditComponent implements OnInit {
   record:MFRecord;
   searchRecords:MFSearchRecord[];
   searchTerm : FormControl = new FormControl();
-
+  
   constructor(public thisDialogRef: MatDialogRef<MfeditComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: { record:MFRecord, mode:string },
     public mfService:MfService) { }
@@ -37,16 +37,21 @@ export class MfeditComponent implements OnInit {
     })
   }
 
-  onCloseConfirm() {
-    if(this.record._id == "")
-    {
-      this.mfService.AddNew(this.record);
-      this.thisDialogRef.close('New Record added succssfully.');
+  onCloseConfirm(form:NgForm) {
+    if(form.valid){
+      // console.log('form is valid');
+      if(this.record._id == "")
+      {
+        this.mfService.AddNew(this.record);
+        this.thisDialogRef.close('New Record added succssfully.');
+      }
+      else{
+        this.mfService.Update(this.record);
+        this.thisDialogRef.close('Record updated succssfully.');
+      }
     }
-    else{
-      this.mfService.Update(this.record);
-      this.thisDialogRef.close('Record updated succssfully.');
-    }
+    // else
+    //   console.log('form is invalid');
   }
 
   onCloseCancel() {

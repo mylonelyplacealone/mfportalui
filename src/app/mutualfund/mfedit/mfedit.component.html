@@ -1,69 +1,103 @@
 <div>
   <div>
-  <h4 md-dialog-title >Mutual Fund Maintenance - {{data.mode}}</h4> 
-</div>
+    <h4 md-dialog-title >Mutual Fund Maintenance - {{data.mode}}</h4> 
+  </div>
   <hr>
-  <mat-dialog-content>
-    <form class="col-md-12" *ngIf="data.mode == 'Add'">
-        <mat-form-field class="container">
-            <!-- ADD AN INPUT BOX OF TYPE TEXT AND LINK IT TO THE AUTO COMPLETE PANEL. -->
-            <input type="text" placeholder="Search Mutual Fund ..."
-                matInput [formControl]="searchTerm" [matAutocomplete]="auto">  
-  
-            <!-- CREATE AUTO COMPLETE PANEL WITH OPTIONS. -->
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='selectMF($event.option.value)'
-              [displayWith]="displayFn">
-                <mat-option *ngFor="let record of searchRecords"  [value]="record">
-                  {{ record.schemeName }}
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-    </form>
-    <div class="row">
-      <div class="col-md-3">Code</div>
-      <div class="col-md-9"><input disabled type="text" class="form-control" [(ngModel)]='record.code' placeholder="Code"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-3">Name</div>
-      <div class="col-md-9"><input disabled type="text" class="form-control" [(ngModel)]='record.name' placeholder="Name"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-3">Units</div>
-      <div class="col-md-9"><input type="text" class="form-control" [(ngModel)]='record.units' placeholder="Units"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-3">Purchase NAV</div>
-      <div class="col-md-2"><input type="text" class="form-control" [(ngModel)]='record.purchasenav' placeholder="Purchase NAV"></div>
-      <div class="col-md-3">Purchase Date</div>
-      <!-- <div class="col-md-3"><input type="date" style="width:100px;" class="form-control" [(ngModel)]="record.purchasedate" placeholder="Purchase Date"></div> -->
-      <div class="col-md-4"><input type="date" style="width:150px;" class="form-control" [ngModel]="record.purchasedate | date:'yyyy-MM-dd'" (ngModelChange)="record.purchasedate = $event" placeholder="Purchase Date"></div>
-    </div>
+  <span class="alert alert-danger col-md-12" *ngIf="f.invalid">Fix highlighted fields to save data.</span>
+  <form class="col-md-12" *ngIf="data.mode == 'Add'">
+      <mat-form-field class="container">
+          <!-- ADD AN INPUT BOX OF TYPE TEXT AND LINK IT TO THE AUTO COMPLETE PANEL. -->
+          <input type="text" placeholder="Search Mutual Fund ..."
+              matInput [formControl]="searchTerm" [matAutocomplete]="auto">  
 
-    <div class="row">
-      <div class="col-md-3">Profit Entry?</div>
-      <div class="col-md-2"><input type="checkbox" [(ngModel)]='record.isprofit'></div>
-      <div class="col-md-3">SIP Entry?</div>
-      <div class="col-md-4"><input type="checkbox" [(ngModel)]='record.issip'></div>
-    </div>
-
-    <div class="row" *ngIf="data.mode == 'Sale'">
-      <div class="col-md-3">Sale NAV</div>
-      <div class="col-md-2"><input type="text" class="form-control" [(ngModel)]='record.salenav' placeholder="Sale NAV"></div>
-      <div class="col-md-3">Sale Date</div>
-      <div class="col-md-4"><input type="date" style="width:150px;" class="form-control" [(ngModel)]="record.saledate" placeholder="Sale Date"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-3">Comments</div>
-      <div class="col-md-9">
-          <textarea rows="4" cols="50" class="form-control" [(ngModel)]='record.comments' placeholder="Comments">
-              </textarea>
+          <!-- CREATE AUTO COMPLETE PANEL WITH OPTIONS. -->
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)='selectMF($event.option.value)'
+            [displayWith]="displayFn">
+              <mat-option *ngFor="let record of searchRecords"  [value]="record">
+                {{ record.schemeName }}
+              </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+  </form>
+  <form #f="ngForm">
+    <mat-dialog-content>
+      <div class="row">
+        <div class="col-md-3">Code</div>
+        <div class="col-md-9">
+          <input type="text" readonly class="form-control" [(ngModel)]='record.code' placeholder="Code" 
+            title="Code is required, select one from above autocomplete search box."
+            name="code" required min="1" #code="ngModel" [class.invalid]="code.invalid">
+        </div>
       </div>
-    </div>
-  </mat-dialog-content>
-  <hr>
-  <mat-dialog-actions class="pull-right">
-    <button class="btn btn-primary" md-raised-button (click)="onCloseConfirm()">CONFIRM</button>&nbsp;
-    <button class="btn btn-danger" md-raised-button (click)="onCloseCancel()">CANCEL</button>
-  </mat-dialog-actions>
-  <br>
+      
+      <div class="row">
+        <div class="col-md-3">Name</div>
+        <div class="col-md-9">
+          <input type="text" readonly class="form-control" [(ngModel)]='record.name' placeholder="Name"
+            title="Name is required, select one from above autocomplete search box."
+            name="name" required #name="ngModel" [class.invalid]="name.invalid">
+          <!-- <div [hidden]="name.valid || name.pristine"
+              class="alert alert-danger">
+            Name is required
+          </div> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Units</div>
+        <div class="col-md-9">
+          <input type="number" class="form-control" [(ngModel)]='record.units' placeholder="Units"
+            title="Units is required with value >= 1."
+            name="units" required min="1" #units="ngModel" [class.invalid]="units.invalid">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Purchase NAV</div>
+        <div class="col-md-2">
+          <input type="number" class="form-control" [(ngModel)]='record.purchasenav' placeholder="Purchase NAV"
+          title="Purchase NAV is required with value >= 1."
+          name="purchasenav" required min="1" #purchasenav="ngModel" [class.invalid]="purchasenav.invalid">
+        </div>
+        <div class="col-md-3">Purchase Date</div>
+        <!-- <div class="col-md-3"><input type="date" style="width:100px;" class="form-control" [(ngModel)]="record.purchasedate" placeholder="Purchase Date"></div> -->
+        <div class="col-md-4">
+          <input type="date" style="width:150px;" class="form-control" 
+          [ngModel]="record.purchasedate | date:'yyyy-MM-dd'" 
+          (ngModelChange)="record.purchasedate = $event" placeholder="Purchase Date"
+          name="purchasedate" required #purchasedate="ngModel" [class.invalid]="purchasedate.invalid"
+          title="Purchase Date is required.">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">Profit Entry?</div>
+        <div class="col-md-2"><input type="checkbox" [(ngModel)]='record.isprofit' name="iprofit"></div>
+        <div class="col-md-3">SIP Entry?</div>
+        <div class="col-md-4"><input type="checkbox" [(ngModel)]='record.issip' name="issip"></div>
+      </div>
+
+      <div class="row" *ngIf="data.mode == 'Sale'">
+        <div class="col-md-3">Sale NAV</div>
+        <div class="col-md-2"><input type="number" class="form-control" [(ngModel)]='record.salenav' 
+          name="salenav" placeholder="Sale NAV"></div>
+        <div class="col-md-3">Sale Date</div>
+        <div class="col-md-4"><input type="date" style="width:150px;" class="form-control" 
+          [(ngModel)]="record.saledate" 
+          name="saledate" placeholder="Sale Date"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Comments</div>
+        <div class="col-md-9">
+            <textarea rows="4" cols="50" class="form-control" [(ngModel)]='record.comments' 
+            name="comments" placeholder="Comments">
+                </textarea>
+        </div>
+      </div>
+    
+    </mat-dialog-content>
+    <hr>
+    <mat-dialog-actions class="pull-right">
+      <button type="submit" class="btn btn-primary" (click)="onCloseConfirm(f)" md-raised-button>CONFIRM</button>&nbsp;
+      <button class="btn btn-danger" md-raised-button (click)="onCloseCancel()">CANCEL</button>
+    </mat-dialog-actions>
+  </form>
 </div>

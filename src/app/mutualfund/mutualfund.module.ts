@@ -20,6 +20,7 @@ import { MFRoutingModule } from './mutualfund-routing.module';
 import { MfhomeComponent } from './mfhome/mfhome.component';
 import { MflouncherComponent } from './mflouncher/mflouncher.component';
 import { ChartModule } from 'angular2-chartjs';
+import { MinDirective } from './common/min.directive';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ChartModule } from 'angular2-chartjs';
     MfrefreshpopupComponent,
     SoldmflistComponent,
     MfhomeComponent,
-    MflouncherComponent
+    MflouncherComponent,
+    MinDirective
   ],
   entryComponents: [MfeditComponent, MfrefreshpopupComponent],
   imports: [
@@ -47,7 +49,7 @@ import { ChartModule } from 'angular2-chartjs';
     MatAutocompleteModule,
     MatInputModule,
     ReactiveFormsModule,
-
+    
 
   ],
   providers: [MfService, DatePipe],

@@ -33,3 +33,7 @@ body{
     border-radius: 4px;
     padding: 6px 12px;
 }
+
+.invalid{
+    border: 1px red solid;
+}
