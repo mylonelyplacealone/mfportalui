@@ -18,6 +18,8 @@ export class MfsnapshotComponent implements OnInit, OnDestroy {
   recordsChanged = new Subject<MFRecord[]>();
   recordsSubscription = new Subscription();
   snapshotdates;
+  toggle:boolean = true;
+  sortcolumn:string;
 
   constructor(private mfService:MfService){}
 
@@ -35,7 +37,6 @@ export class MfsnapshotComponent implements OnInit, OnDestroy {
             this.profitflag == 0 ? (rec.isprofit ||  !rec.isprofit)
             : (this.profitflag == 1 ? !rec.isprofit : (rec.isprofit))
         );
-      this.records.sort((a,b)=> {return a.name.localeCompare(b.name)});
     });
   }
 
@@ -96,6 +97,82 @@ export class MfsnapshotComponent implements OnInit, OnDestroy {
           }
         });
       }
+    }
+  }
+
+  sortData(value){
+    this.sortcolumn = value;
+    switch(value){
+      case "name":{
+        this.toggle ? this.records.sort((a,b)=> a.name.localeCompare(b.name)) : this.records.sort((a,b)=> b.name.localeCompare(a.name));
+        this.toggle = !this.toggle;
+        this.recordsChanged.next(this.records.slice());
+        break;
+      }
+
+      case "purchasedate":{
+        this.toggle ? this.records.sort((a,b)=> Number(new Date(b.purchasedate)) - Number(new Date(a.purchasedate))) : 
+                      this.records.sort((a,b)=> Number(new Date(a.purchasedate)) - Number(new Date(b.purchasedate)));
+        this.toggle = !this.toggle;
+        this.recordsChanged.next(this.records.slice());
+        break;
+      }
+
+      case "code":
+      case "units":
+      case "purchasenav":
+      case "currentnav":
+      {
+        this.toggle ? this.records.sort((a,b)=> a[value] - b[value]) : this.records.sort((a,b)=> b[value] - a[value]);
+        this.toggle = !this.toggle;
+        this.recordsChanged.next(this.records.slice());
+        break;
+      }
+
+      case "costvalue":
+      {
+        this.toggle ? 
+          this.records.sort((a,b)=> (a.purchasenav * a.units) - (b.purchasenav * b.units)) :
+          this.records.sort((a,b)=>(b.purchasenav * b.units) - (a.purchasenav * a.units));
+        this.toggle = !this.toggle;
+        this.recordsChanged.next(this.records.slice());
+        break;
+      }
+
+      case "currentvalue":{
+        this.toggle ? 
+          this.records.sort((a,b)=> (a.currentnav * a.units) - (b.currentnav * b.units)) :
+          this.records.sort((a,b)=>(b.currentnav * b.units) - (a.currentnav * a.units));
+        this.toggle = !this.toggle;
+        this.recordsChanged.next(this.records.slice());
+        break;
+      }
+
+      case "profit":{
+        this.toggle ? 
+          this.records.sort((a,b)=> (((a.currentnav - a.purchasenav) * a.units)) - ((b.currentnav - b.purchasenav) * b.units)) :
+          this.records.sort((a,b)=> (((b.currentnav - b.purchasenav) * b.units)) - ((a.currentnav - a.purchasenav) * a.units));
+        
+        this.toggle = !this.toggle;
+        this.recordsChanged.next(this.records.slice());
+        break;
+      }
+
+      case "percentage":{
+        this.toggle ? 
+          this.records.sort((a,b)=> ((((a.currentnav/a.purchasenav)-1) * 100) - (((b.currentnav/b.purchasenav)-1) * 100))):
+          this.records.sort((a,b)=> ((((b.currentnav/b.purchasenav)-1) * 100) - (((a.currentnav/a.purchasenav)-1) * 100)));
+        
+        this.toggle = !this.toggle;
+        this.recordsChanged.next(this.records.slice());
+        break;
+      }
+
+      default: { 
+        this.records.sort((a,b)=> a.name.localeCompare(b.name));
+        this.recordsChanged.next(this.records.slice());
+        break; 
+     } 
     }
   }
 }

@@ -20,16 +20,66 @@
   <br><br>
   <table class="table table-bordered table-striped col-md-12">
     <th class="hide">ID</th>
-    <th class="col-md-1 width-5-percent">Code</th>
-    <th class="col-md-2" style="width:28% !important;">Name</th>
-    <th class="col-md-1 width-5-percent">Units</th>
-    <th class="col-md-1 width-5-percent">Purchase Nav</th>
-    <th class="col-md-1" style="width:10% !important;">Purchase Date</th>
-    <th class="col-md-1">Cost Value</th>
-    <th class="col-md-1 width-5-percent">Current Nav</th>
-    <th class="col-md-1">Current Value</th>
-    <th class="col-md-1">Profit/Loss</th>
-    <th class="col-md-1">Profit/Loss %</th>
+    <th class="col-md-1 width-5-percent">
+      <div (click)="sortData('code')">
+        Code <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'code'"></span>
+      </div>
+    </th> 
+    <th class="col-md-2" style="width:28% !important;">
+      <div (click)="sortData('name')">
+        Name <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'name'"></span>
+      </div>
+    </th> 
+    <th class="col-md-1 width-5-percent">
+      <div (click)="sortData('units')">
+        Units <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'units'"></span>
+      </div>
+    </th> 
+    <th class="col-md-1 width-5-percent">
+      <div (click)="sortData('purchasenav')">
+        Purchase Nav <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'purchasenav'"></span>
+      </div>
+    </th> 
+    <th class="col-md-1" style="width:10% !important;">
+      <div (click)="sortData('purchasedate')">
+        Purchase Date <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'purchasedate'"></span>
+      </div>
+    </th>
+    <th class="col-md-1">
+      <div (click)="sortData('costvalue')">
+        Cost Value <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'costvalue'"></span>
+      </div>
+    </th>  
+    <th class="col-md-1  width-5-percent">
+      <div (click)="sortData('currentnav')">
+        Current Nav <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'currentnav'"></span>
+      </div>
+    </th> 
+    <th class="col-md-1">
+      <div (click)="sortData('currentvalue')">
+        Current Value <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'currentvalue'"></span>
+      </div>
+    </th>
+    <th class="col-md-1">
+      <div (click)="sortData('profit')">
+        Profit/Loss <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'profit'"></span>
+      </div>
+    </th> 
+    <th class="col-md-1">
+      <div (click)="sortData('percentage')">
+        Profit/Loss % <span class="glyphicon" [class.glyphicon-menu-up] = "toggle" [class.glyphicon-menu-down] = "!toggle"
+        *ngIf="sortcolumn == 'percentage'"></span>
+      </div>
+    </th>     
     <tr class="sumrow">
         <td colspan="5" class="text-right">Total</td>
         <td class="text-right">{{ subtotalcost(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>
