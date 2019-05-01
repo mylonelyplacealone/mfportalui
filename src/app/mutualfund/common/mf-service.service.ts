@@ -171,6 +171,42 @@ console.log(mfdata);
 
   }
 
+  //-----------------------------Snapshot Methods----------------------------------------------
+
+  TakeSnapshot(){
+    var mfdata = 'userid=' + localStorage.getItem('userid') + '&snapshotdate=' + new Date(new Date().setHours(0, 0, 0, 0));
+    
+    return this.httpClnt.post(ConfigClass.restAPIURL + 'snapshot', mfdata ,{ headers: this.header });
+  }
+
+  GetSnapshotDates(){
+    return this.httpClnt.get(ConfigClass.restAPIURL + 'snapshotdates', 
+      { headers: this.header, 
+        params:{ userid: localStorage.getItem('userid')}
+      }
+    );
+  }
+
+  GetSnapshotData(snapshotdate){
+    return this.httpClnt.get(ConfigClass.restAPIURL + 'snapshotdata', 
+      { headers: this.header, 
+        params:{ userid: localStorage.getItem('userid'), 
+                 snapshotdate : snapshotdate
+                }
+      }
+    );
+  }
+  
+  DeleteSnapshot(snapshotdate){
+    return this.httpClnt.delete(ConfigClass.restAPIURL + 'snapshot', 
+        { 
+          headers: this.header, 
+          params:{ userid: localStorage.getItem('userid'), 
+                 snapshotdate : snapshotdate
+                }
+        });
+  }
+
   //----------------------------------SIP--------------------------------------
   siprecords:MFSIPRecord[] = [];
 

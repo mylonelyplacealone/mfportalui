@@ -7,3 +7,19 @@
 .width-5-percent{
     width: 5%;
 }
+
+.glyphicon-camera{
+    font-size: x-large;
+    margin-top: -3px;
+    border-radius: 5px;
+    padding: 0px 7px 0px 7px;
+}
+
+.alert{
+    padding: 5px;
+    margin-bottom: 0px;
+}
+
+.form-control{
+    width:80%;
+}

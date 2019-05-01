@@ -1,0 +1,10 @@
+.width-5-percent{
+    width: 5%;
+}
+
+.glyphicon-trash{
+    font-size: large;
+    margin-top: -3px;
+    border-radius: 5px;
+    padding: 0px 5px 0px 4px;
+}

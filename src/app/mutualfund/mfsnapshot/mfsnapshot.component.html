@@ -1,0 +1,60 @@
+<div class="row col-md-12">
+  <div class="col-md-12">
+    <div class="pull-left">
+        <select #dataview (change)="GetSnapshotData(dataview.value)" class="my-form-control">
+          <option value="0">Select Snapshot</option>
+          <option [value]="date" *ngFor="let date of snapshotdates">{{ date | date:'dd-MMM-yyyy' }}</option>
+        </select>&nbsp;
+        <button class="btn btn-danger glyphicon glyphicon-trash" (click)="deletesnapshot(dataview.value)" title="Delete Snapshot"></button>
+        &nbsp;
+        <select #snapshotview (change)="GetInvetmentProfitData(snapshotview.value)" class="my-form-control">
+          <option value="0">Show All</option>
+          <option value="1">Investment</option>
+          <option value="2">Profit</option>
+        </select> 
+    </div>
+    <div class="pull-right col-md-4">
+        <input [(ngModel)]="searchText" placeholder="Search.." class="form-control">
+    </div>
+  </div>
+  <br><br>
+  <table class="table table-bordered table-striped col-md-12">
+    <th class="hide">ID</th>
+    <th class="col-md-1 width-5-percent">Code</th>
+    <th class="col-md-2" style="width:28% !important;">Name</th>
+    <th class="col-md-1 width-5-percent">Units</th>
+    <th class="col-md-1 width-5-percent">Purchase Nav</th>
+    <th class="col-md-1" style="width:10% !important;">Purchase Date</th>
+    <th class="col-md-1">Cost Value</th>
+    <th class="col-md-1 width-5-percent">Current Nav</th>
+    <th class="col-md-1">Current Value</th>
+    <th class="col-md-1">Profit/Loss</th>
+    <th class="col-md-1">Profit/Loss %</th>
+    <tr class="sumrow">
+        <td colspan="5" class="text-right">Total</td>
+        <td class="text-right">{{ subtotalcost(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>
+        <td colspan="2" class="text-right">{{ subtotalvalue(records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText }) | number:'.2-2' }}</td>
+        <td class="text-right" [class.loss]="(this.totalvalue - this.totalcost) < 0"
+                               [class.profit]="(this.totalvalue - this.totalcost) > 0">
+              {{ (totalvalue - totalcost) | number:'.2-2'}}</td>
+        <td class="text-right" [class.loss]="(((totalvalue - totalcost)/totalcost) * 100) < 0"
+                               [class.profit]="(((totalvalue - totalcost)/totalcost) * 100) > 0">
+              {{ ((totalvalue - totalcost)/totalcost) * 100 | number:'.2-2'}} % </td>
+    </tr>
+    <tr *ngFor="let recorditem of records | textfilter : { code:searchText, name:searchText, units:searchText, purchasenav:searchText, purchasedate:searchText, currentnav:searchText };"
+        [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav) * recorditem.units) > 0}">
+      <td class="hide">{{recorditem._id}}</td>
+      <td>{{recorditem.code}}</td>
+      <td>{{recorditem.name}}</td>
+      <td class="text-right">{{recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right">{{recorditem.purchasenav | number:'.2-2'}}</td>
+      <td>{{recorditem.purchasedate | date:'dd-MMM-yyyy' }}</td>
+      <td class="text-right">{{recorditem.purchasenav * recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right">{{recorditem.currentnav | number:'.2-2'}}</td>
+      <td class="text-right">{{recorditem.currentnav * recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right" >{{(recorditem.currentnav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}}</td>
+      <td class="text-right" >{{((recorditem.currentnav/recorditem.purchasenav)-1) * 100 | number:'.2-2'}} % </td>
+    </tr>
+  </table>
+</div>
+

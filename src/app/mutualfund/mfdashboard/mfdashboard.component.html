@@ -1,5 +1,5 @@
 <div class="row col-md-12">
-  <div *ngIf="message.length > 0" class="pull-left col-md-4 alert alert-success">
+  <div *ngIf="message.length > 0" class="pull-left col-md-6 alert alert-success">
     {{ message }}
   </div>
   <div class="pull-right">
@@ -8,10 +8,11 @@
           <option value="0">Show All</option>
           <option value="1">Investment</option>
           <option value="2">Profit</option>
-        </select> 
+        </select>&nbsp;
     </div>
-    <div class="col-md-7">
-        <input [(ngModel)]="searchText" placeholder="Search.." class="form-control">
+    <div class="pull-right">
+        <input [(ngModel)]="searchText" placeholder="Search.." class="form-control col-md-8">
+        <button class="btn btn-danger glyphicon glyphicon-camera" (click)="takesnapshot()"></button>
     </div>
   </div>
   <br><br>

@@ -143,4 +143,12 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
     //   this.records = this.records.filter((rec:MFRecord) => !rec.isprofit);
     // }
   }
+
+  takesnapshot(){
+    this.mfService.TakeSnapshot()
+    .subscribe((res)=>{
+      // console.log('Snapshot Taken correctly.');
+      this.message = res['message'];
+    });
+  }
 }

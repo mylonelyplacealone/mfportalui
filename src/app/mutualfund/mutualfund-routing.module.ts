@@ -8,6 +8,7 @@ import { SearchmfComponent } from './searchmf/searchmf.component';
 import { SoldmflistComponent } from './soldmflist/soldmflist.component';
 import { MfhomeComponent } from './mfhome/mfhome.component';
 import { MflouncherComponent } from './mflouncher/mflouncher.component';
+import { MfsnapshotComponent } from './mfsnapshot/mfsnapshot.component';
 
 const MFRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -17,6 +18,7 @@ const MFRoutes: Routes = [
       { path: 'mfsipdashboard', component: SipdashboardComponent, canActivate: [AuthGuard]},
       { path: 'searchmf', component: SearchmfComponent, canActivate: [AuthGuard]},
       { path: 'mfoneview', component: MfoneviewComponent, canActivate: [AuthGuard]},
+      { path: 'mfsnapshot', component: MfsnapshotComponent, canActivate: [AuthGuard]},
       { path: 'solfmflist', component: SoldmflistComponent, canActivate: [AuthGuard]},
       ]
   },

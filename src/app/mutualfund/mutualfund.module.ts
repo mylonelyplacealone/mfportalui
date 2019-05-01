@@ -21,6 +21,7 @@ import { MfhomeComponent } from './mfhome/mfhome.component';
 import { MflouncherComponent } from './mflouncher/mflouncher.component';
 import { ChartModule } from 'angular2-chartjs';
 import { MinDirective } from './common/min.directive';
+import { MfsnapshotComponent } from './mfsnapshot/mfsnapshot.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MinDirective } from './common/min.directive';
     SoldmflistComponent,
     MfhomeComponent,
     MflouncherComponent,
-    MinDirective
+    MinDirective,
+    MfsnapshotComponent
   ],
   entryComponents: [MfeditComponent, MfrefreshpopupComponent],
   imports: [
