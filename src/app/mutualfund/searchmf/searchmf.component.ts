@@ -12,6 +12,8 @@ import { FormControl } from '@angular/forms';
 export class SearchmfComponent implements OnInit {
   mfrecords:MFSearchRecord[];
   searchstr:string = "";
+  message:string="";
+  operation:boolean = true;
 
   constructor(private mfService:MfService) { }
 
@@ -28,8 +30,20 @@ export class SearchmfComponent implements OnInit {
        this.mfrecords = searchlist });
   }
 
-  AddEntry(code:number, units:number, id:number, ){
-    // this.mfService.AddNew(code, units, id);
-    this.mfService.AddNew(new MFRecord("", 101, code, "", units, 0, new Date(), 0, "", false));
+  AddEntry(code:number, units:number, purchasedate:Date){
+    this.mfService.GetMFNavforDate(code, purchasedate)
+    .subscribe((res)=>{
+      if(res[0]){
+        // console.log(res[0].nav);
+        this.mfService.AddNew(new MFRecord("",  +localStorage.getItem('userid'), code, "", units, +res[0].nav, purchasedate,0,"", false));
+        this.message = "MF Record Executed successfully!!";
+        this.operation = true;
+      }
+      else{
+        // console.log(res['errormsg']);
+        this.message = res['errormsg'];
+        this.operation = false;
+      }
+    });
   }
 }

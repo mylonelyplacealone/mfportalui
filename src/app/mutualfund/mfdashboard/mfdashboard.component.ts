@@ -92,6 +92,7 @@ export class MfdashboardComponent implements OnInit, OnDestroy {
   DeleteRecord(id:string){
     if(confirm('Do you really want to delete this entry?')){
       this.mfService.DeleteEntry(id);
+      this.message = "Record Deleted Successfully!!!";
     }
   }
 

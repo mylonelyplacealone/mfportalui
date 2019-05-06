@@ -9,3 +9,7 @@
     overflow: auto;
     overflow-x: hidden;
 }
+
+.alert{
+    margin-left: -15px; 
+}

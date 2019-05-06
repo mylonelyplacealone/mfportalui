@@ -60,8 +60,9 @@ export class SipdashboardComponent implements OnInit, OnDestroy {
     this.mfService.GetMFNavforDate(recorditem.code, recorditem.executiondate)
     .subscribe((res)=>{
       if(res[0]){
-        console.log(res[0].nav);
-        this.mfService.AddNew(new MFRecord("",  +localStorage.getItem('userid'), recorditem.code, "", recorditem.amount/+res[0].nav, +res[0].nav, recorditem.executiondate,0,"", true));
+        console.log(res[0]
+          .nav);
+        this.mfService.AddNew(new MFRecord("",  +localStorage.getItem('userid'), recorditem.code, "", recorditem.amount/+res[0].nav, +res[0].nav, recorditem.executiondate,0,"", false, true));
         this.errormessage = "SIP Executed successfully!!";
       }
       else{

@@ -37,3 +37,8 @@ body{
 .invalid{
     border: 1px red solid;
 }
+
+.alert{
+    padding: 5px;
+    margin-bottom: 0px;
+}
