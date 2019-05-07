@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { MFSIPRecord } from '../common/mfsiprecord';
 import { MfService } from '../common/mf-service.service';
 import { MFRecord } from '../common/mfrecord';
+import { SIPeditComponent } from '../sipedit/sipedit.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-sipdashboard',
@@ -18,13 +20,16 @@ export class SipdashboardComponent implements OnInit, OnDestroy {
   editmode:boolean = false;
   dummyrec:MFSIPRecord = new MFSIPRecord("", 0, 0, '', 0, new Date(), new Date(), "");
   record:MFSIPRecord = Object.assign({}, this.dummyrec);;
+  operation:boolean = true;
+  siptotal = 0;
 
-  constructor(private mfService:MfService, public datepipe: DatePipe) { }
+  constructor(private mfService:MfService, public datepipe: DatePipe, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.recordsSubscription = this.mfService.siprecordsChanged
     .subscribe((records:MFSIPRecord[])=>{
       this.records = records;
+      this.siptotal = this.records.reduce((sum, item) => sum + item.amount, 0);
     });
     this.mfService.GetMFSIPList();
   }
@@ -64,10 +69,12 @@ export class SipdashboardComponent implements OnInit, OnDestroy {
           .nav);
         this.mfService.AddNew(new MFRecord("",  +localStorage.getItem('userid'), recorditem.code, "", recorditem.amount/+res[0].nav, +res[0].nav, recorditem.executiondate,0,"", false, true));
         this.errormessage = "SIP Executed successfully!!";
+        this.operation = true;
       }
       else{
         console.log(res['errormsg']);
         this.errormessage = res['errormsg'];
+        this.operation = false;
       }
     });
   }
@@ -76,6 +83,17 @@ export class SipdashboardComponent implements OnInit, OnDestroy {
     if(confirm('Do you really want to delete this SIP?')){
       this.mfService.DeleteSIP(id);
     }
+  }
+
+  openDialog(record:MFSIPRecord, mode:string){
+    let dialogRef = this.dialog.open(SIPeditComponent, {
+      width: '600px',
+      data:{ record, mode}, 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed: ${result}');
+      this.errormessage = result;
+    });
   }
 
 }

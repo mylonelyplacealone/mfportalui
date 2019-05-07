@@ -31,19 +31,24 @@ export class SearchmfComponent implements OnInit {
   }
 
   AddEntry(code:number, units:number, purchasedate:Date){
-    this.mfService.GetMFNavforDate(code, purchasedate)
-    .subscribe((res)=>{
-      if(res[0]){
-        // console.log(res[0].nav);
-        this.mfService.AddNew(new MFRecord("",  +localStorage.getItem('userid'), code, "", units, +res[0].nav, purchasedate,0,"", false));
-        this.message = "MF Record Executed successfully!!";
-        this.operation = true;
-      }
-      else{
-        // console.log(res['errormsg']);
-        this.message = res['errormsg'];
+    if(units.toString() == "" || units == 0){
+        this.message = "Please provide valid value for number of units to buy.";
         this.operation = false;
-      }
-    });
+    } else {
+      this.mfService.GetMFNavforDate(code, purchasedate)
+      .subscribe((res)=>{
+        if(res[0]){
+          // console.log(res[0].nav);
+          this.mfService.AddNew(new MFRecord("",  +localStorage.getItem('userid'), code, "", units, +res[0].nav, purchasedate,0,"", false));
+          this.message = "MF Record Executed successfully!!";
+          this.operation = true;
+        }
+        else{
+          // console.log(res['errormsg']);
+          this.message = res['errormsg'];
+          this.operation = false;
+        }
+      });
+    }
   }
 }

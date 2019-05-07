@@ -1,18 +1,22 @@
-<span>{{errormessage}}</span>
+<div *ngIf="errormessage.length > 0" class="col-md-12">
+    <span class="col-md-6 alert" [ngClass]="{'alert-success': operation, 'alert-danger': !operation}">
+      {{ errormessage }}
+    </span>
+  </div>
 
 <div class="row col-md-12">
-  <table class="table table-bordered table-striped col-md-12">
+   <table class="table table-bordered table-striped col-md-12">
     <th class="hide">ID</th>
     <th class="col-md-1">Code</th>
-    <th class="col-md-5">Name</th>
+    <th class="col-md-4">Name</th>
     <th class="col-md-1">Amount</th>
     <th class="col-md-1">Start Date</th>
     <th class="col-md-1" >End Date</th>
     <th class="col-md-1">Frequency</th>
-    <th class="col-md-1">Execution Date</th>
+    <th class="col-md-2">Execution Date</th>
     <th class="col-md-1">Action Buttons</th>
  
-    <tr>
+    <!-- <tr>
       <td class="hide">{{record._id}}</td>
       <td>
           <input *ngIf="!editmode" type="text" class="form-control" [(ngModel)]='record.code' placeholder="Code">
@@ -25,9 +29,18 @@
       <td><input type="text" class="form-control" [(ngModel)]='record.frequency' placeholder="Frequency"></td>
       <td></td>
       <td>
+         
         <button class="btn btn-success btn-sm glyphicon glyphicon-plus" *ngIf="!editmode" (click)="AddSIP()"></button>
         <button class="btn btn-success btn-xs glyphicon glyphicon-ok" *ngIf="editmode" (click)="UpdateSIP()"></button>
         <button class="btn btn-danger btn-xs glyphicon glyphicon-remove" *ngIf="editmode" (click)="CancelEdit()"></button>
+      </td>
+    </tr> -->
+
+    <tr class="sumrow">
+      <td colspan="2" class="text-right">Total</td>
+      <td colspan="5" class="text-left">{{ siptotal | number:'.2-2' }}</td>
+      <td>
+        <button style="margin-left:25px;" md-raised-button class="btn btn-success btn-xs glyphicon glyphicon-plus" title="Open Dialog" (click)="openDialog(dummyrec, 'Add')"></button>
       </td>
     </tr>
 
@@ -39,9 +52,10 @@
       <td>{{recorditem.startdate | date:'dd-MMM-yyyy' }}</td>
       <td>{{recorditem.enddate | date:'dd-MMM-yyyy' }}</td>
       <td>{{recorditem.frequency }}</td>
-      <td><input type="date" style="width:100px;" [(ngModel)]="recorditem.executiondate"></td>
+      <td><input type="date" style="width:150px;" [(ngModel)]="recorditem.executiondate"></td>
       <td style="padding:8px 0 0 0 !important;">
-          <button class="btn btn-primary btn-xs glyphicon glyphicon-pencil" title="Edit Record" (click)="EditRecord(recorditem)"></button>
+          <button md-raised-button class="btn btn-primary btn-xs glyphicon glyphicon-pencil" title="Edit Record" (click)="openDialog(recorditem, 'Edit/Update')"></button>
+          <!-- <button class="btn btn-primary btn-xs glyphicon glyphicon-pencil" title="Edit Record" (click)="EditRecord(recorditem)"></button> -->
           <button class="btn btn-primary btn-xs glyphicon glyphicon-play" title="Execute This Month" (click)="ExecuteSIP(recorditem)"></button>
           <button class="btn btn-primary btn-xs glyphicon glyphicon-trash" title="Delete Record" (click)="DeleteRecord(recorditem._id)"></button>
       </td>

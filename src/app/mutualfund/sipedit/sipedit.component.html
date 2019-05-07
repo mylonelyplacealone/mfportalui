@@ -1,0 +1,85 @@
+<div>
+  <div>
+    <h4 md-dialog-title >Mutual Fund SIP Maintenance - {{data.mode}}</h4> 
+  </div>
+  <hr>
+  <span class="alert alert-danger col-md-12" *ngIf="f.invalid">Fix highlighted fields to save data.</span>
+  <form class="col-md-12" *ngIf="data.mode == 'Add'">
+      <mat-form-field class="container">
+          <!-- ADD AN INPUT BOX OF TYPE TEXT AND LINK IT TO THE AUTO COMPLETE PANEL. -->
+          <input type="text" placeholder="Search Mutual Fund ..."
+              matInput [formControl]="searchTerm" [matAutocomplete]="auto">  
+
+          <!-- CREATE AUTO COMPLETE PANEL WITH OPTIONS. -->
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)='selectMF($event.option.value)'
+            [displayWith]="displayFn">
+              <mat-option *ngFor="let record of searchRecords"  [value]="record">
+                {{ record.schemeName }}
+              </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+  </form>
+  <form #f="ngForm">
+    <mat-dialog-content>
+      <div class="row">
+        <div class="col-md-3">Code</div>
+        <div class="col-md-9">
+          <input type="text" readonly class="form-control" [(ngModel)]='record.code' placeholder="Code" 
+            title="Code is required, select one from above autocomplete search box."
+            name="code" required min="1" #code="ngModel" [class.invalid]="code.invalid">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-3">Name</div>
+        <div class="col-md-9">
+          <input type="text" readonly class="form-control" [(ngModel)]='record.name' placeholder="Name"
+            title="Name is required, select one from above autocomplete search box."
+            name="name" required #name="ngModel" [class.invalid]="name.invalid">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Amount</div>
+        <div class="col-md-9">
+          <input type="number" class="form-control" [(ngModel)]='record.amount' placeholder="Amount"
+            title="Units is required with value >= 1."
+            name="units" required min="1" #units="ngModel" [class.invalid]="units.invalid">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Start Date</div>
+        <div class="col-md-4">
+          <input type="date" style="width:150px;" class="form-control" 
+          [ngModel]="record.startdate | date:'yyyy-MM-dd'" 
+          (ngModelChange)="record.startdate = $event" placeholder="Start Date"
+          name="startdate" required #startdate="ngModel" [class.invalid]="startdate.invalid"
+          title="Start Date is required.">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">End Date</div>
+        <div class="col-md-4">
+          <input type="date" style="width:150px;" class="form-control" 
+          [ngModel]="record.enddate | date:'yyyy-MM-dd'" 
+          (ngModelChange)="record.enddate = $event" placeholder="End Date"
+          name="enddate" required #enddate="ngModel" [class.invalid]="purchasedate.invalid"
+          title="End Date is required.">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">Frequency</div>
+        <div class="col-md-9">
+          <input type="text" class="form-control" [(ngModel)]='record.frequency' placeholder="Frequency"
+          title="Frequency is required." name="frequency" required #frequency="ngModel" [class.invalid]="frequency.invalid">
+        </div>
+      </div>
+    
+    </mat-dialog-content>
+    <hr>
+    <mat-dialog-actions class="pull-right">
+      <button type="submit" class="btn btn-primary" (click)="onCloseConfirm(f)" md-raised-button>CONFIRM</button>&nbsp;
+      <button class="btn btn-danger" md-raised-button (click)="onCloseCancel()">CANCEL</button>
+    </mat-dialog-actions>
+  </form>
+</div>

@@ -22,6 +22,7 @@ import { MflouncherComponent } from './mflouncher/mflouncher.component';
 import { ChartModule } from 'angular2-chartjs';
 import { MinDirective } from './common/min.directive';
 import { MfsnapshotComponent } from './mfsnapshot/mfsnapshot.component';
+import { SIPeditComponent } from './sipedit/sipedit.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +37,10 @@ import { MfsnapshotComponent } from './mfsnapshot/mfsnapshot.component';
     MfhomeComponent,
     MflouncherComponent,
     MinDirective,
-    MfsnapshotComponent
+    MfsnapshotComponent,
+    SIPeditComponent
   ],
-  entryComponents: [MfeditComponent, MfrefreshpopupComponent],
+  entryComponents: [MfeditComponent, MfrefreshpopupComponent, SIPeditComponent],
   imports: [
     FormsModule,
     MatDialogModule,
