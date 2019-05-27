@@ -62,7 +62,7 @@
           <input type="date" style="width:150px;" class="form-control" 
           [ngModel]="record.enddate | date:'yyyy-MM-dd'" 
           (ngModelChange)="record.enddate = $event" placeholder="End Date"
-          name="enddate" required #enddate="ngModel" [class.invalid]="purchasedate.invalid"
+          name="enddate" required #enddate="ngModel" [class.invalid]="enddate.invalid"
           title="End Date is required.">
         </div>
       </div>
