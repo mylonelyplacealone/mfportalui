@@ -20,7 +20,7 @@
             <br>
             <tr [class.loss]="(realprofit + unrealprofit) < 0" [class.profit]="(realprofit + unrealprofit) > 0">
                 <td>Total Profit:</td>
-                <td class="text-right">{{realprofit + unrealprofit| number:'.2-2'}}</td>
+                <td class="text-right">{{realprofit + unrealprofit| number:'.2-2' }} ({{ ((currentValue - investment)/investment) * 100 | number:'.2-2'}}%)</td>
             </tr>
             <br>
             <tr class="sumrow">
