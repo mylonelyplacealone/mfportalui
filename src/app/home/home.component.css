@@ -4,3 +4,11 @@
     font-size:larger;
     padding: 15px 0 7px 15px;
 }
+
+.cover{
+    background-image: url('../../assets/logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px !important;
+    background-size: 100%;
+}
