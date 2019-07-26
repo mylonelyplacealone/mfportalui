@@ -17,7 +17,8 @@ export class EpfppfComponent implements OnInit {
   account:Account = Object.assign({}, this.dummyrec);
   accounts:Account[] = [];
   totalbalance = 0;
-  
+  searchText:string;
+
   constructor(public dialog: MatDialog, private bnkSer:BankService) { }
 
   ngOnInit() {

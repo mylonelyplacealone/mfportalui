@@ -20,6 +20,7 @@ export class SavingsaccountComponent implements OnInit, OnDestroy {
   accounts:Account[] = [];
   totalbalance = 0;
   accoutTypes;
+  searchText:string;
 
   constructor(public dialog: MatDialog, private bnkSer:BankService) { }
 
