@@ -1,13 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MfdashboardComponent } from './mfdashboard/mfdashboard.component';
-import { HttpClientModule } from '@angular/common/http';
 import { MfService } from './common/mf-service.service';
 import { DatePipe, CommonModule } from '@angular/common';
 import { MfoneviewComponent } from './mfoneview/mfoneview.component';
-import { FilterPipe } from './common/filter.pipe';
 import { SipdashboardComponent } from './sipdashboard/sipdashboard.component';
 import { SearchmfComponent } from './searchmf/searchmf.component';
 import {MatCardModule, MatTabsModule, MatAutocompleteModule, MatInputModule } from '@angular/material';
@@ -23,6 +20,10 @@ import { ChartModule } from 'angular2-chartjs';
 import { MinDirective } from './common/min.directive';
 import { MfsnapshotComponent } from './mfsnapshot/mfsnapshot.component';
 import { SIPeditComponent } from './sipedit/sipedit.component';
+import { SharedModule } from '../common/shared.module';
+import { SharedashboardComponent } from './shares/sharedashboard/sharedashboard.component';
+import { ShareseditComponent } from './shares/sharesedit/sharesedit.component';
+import { StockRefreshPopupComponent } from './shares/stock-refresh-popup/stock-refresh-popup.component';
 
 @NgModule({
   declarations: [
@@ -31,16 +32,24 @@ import { SIPeditComponent } from './sipedit/sipedit.component';
     SearchmfComponent,
     MfoneviewComponent,
     MfeditComponent,
-    FilterPipe,
     MfrefreshpopupComponent,
     SoldmflistComponent,
     MfhomeComponent,
     MflouncherComponent,
     MinDirective,
     MfsnapshotComponent,
-    SIPeditComponent
+    SIPeditComponent,
+    SharedashboardComponent,
+    ShareseditComponent,
+    StockRefreshPopupComponent
   ],
-  entryComponents: [MfeditComponent, MfrefreshpopupComponent, SIPeditComponent],
+  entryComponents: [
+    MfeditComponent, 
+    MfrefreshpopupComponent, 
+    SIPeditComponent,
+    ShareseditComponent,
+    StockRefreshPopupComponent
+  ],
   imports: [
     FormsModule,
     MatDialogModule,
@@ -53,10 +62,9 @@ import { SIPeditComponent } from './sipedit/sipedit.component';
     MatAutocompleteModule,
     MatInputModule,
     ReactiveFormsModule,
-    
-
+    SharedModule
   ],
-  providers: [MfService, DatePipe],
+  providers: [MfService],
   exports: [CommonModule]
 })
 export class MutualFundModule { }

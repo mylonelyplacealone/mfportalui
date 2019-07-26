@@ -7,6 +7,7 @@ import { MFSearchRecord } from './mfsearch-record';
 import { MFSIPRecord } from './mfsiprecord';
 import { DatePipe } from '@angular/common';
 import { map, debounceTime } from 'rxjs/operators';
+import { Stock } from './stock';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,11 @@ export class MfService {
   header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
   .append('x-access-token', localStorage.getItem('token'));
 
+  stockRecordsChanged = new Subject<Stock[]>();
+  recordsStock:Stock[] = []; 
+  recordStock:Stock;
+  updateStock:Stock;
+  
   constructor(private httpClnt:HttpClient, public datepipe: DatePipe) { }
 
   searchMFlist(searchstr:string): Observable<MFSearchRecord[]> {
@@ -302,4 +308,127 @@ console.log(mfdata);
     });
   }
   //---------------------------------END SIP-----------------------------------
+
+  //---------------------------------START STOCK-----------------------------------
+  GetStockList(){
+    this.httpClnt.get(ConfigClass.restAPIURL + 'stocklist', 
+          { headers: this.header, 
+            params:{ userid: localStorage.getItem('userid')}
+          })
+    .subscribe((res:Stock[])=>{
+      console.log(res);
+      this.recordsStock = res;
+      if(this.recordsStock && this.recordsStock.length > 0){
+        for(let record of this.recordsStock){
+          if(!record.isprofit)
+            record.isprofit = false;
+        }
+        this.recordsStock.sort((a,b)=> {return a.units - b.units});
+        this.stockRecordsChanged.next(this.recordsStock.slice());
+      }
+    });
+  }
+  
+  AddNewStock(entry:Stock){
+    this.httpClnt.get(ConfigClass.stockAPIURL + entry.code)
+    .subscribe((response)=>{
+      console.log(response);
+      if(response["Time Series (Daily)"]){
+        
+        this.recordStock = new Stock("", +localStorage.getItem('userid'), entry.code, entry.name, entry.units, 
+                            entry.purchasenav, entry.purchasedate, 
+                            response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"] ]["4. close"], 
+                            entry.comments, entry.isprofit);
+                            console.log(this.recordStock);
+
+          var stockdata = 'userid=' + localStorage.getItem('userid') + '&code=' + this.recordStock.code
+                + '&name=' + this.recordStock.name + '&units=' + this.recordStock.units 
+                + '&purchasenav=' + this.recordStock.purchasenav + '&purchasedate=' + this.recordStock.purchasedate
+                + '&currentnav=' + this.recordStock.currentnav + '&comments=' + this.recordStock.comments
+                + '&isprofit=' + this.recordStock.isprofit;
+
+                console.log(stockdata);
+          this.httpClnt.post(ConfigClass.restAPIURL + 'stock', stockdata, { headers: this.header })
+          .subscribe((res)=>{
+            console.log(res);
+              this.recordsStock.push(res['newstock']);
+              this.recordsStock.sort((a,b)=> {return a.units - b.units});
+              this.stockRecordsChanged.next(this.recordsStock.slice());
+          });
+      }
+    });
+  }
+
+  UpdateStock(recordMe:Stock){
+    var stockdata = 'userid=' + localStorage.getItem('userid') + '&code=' + recordMe.code
+                + '&name=' + recordMe.name + '&units=' + recordMe.units 
+                + '&purchasenav=' + recordMe.purchasenav + '&purchasedate=' + recordMe.purchasedate
+                + '&currentnav=' + recordMe.currentnav + '&comments=' + recordMe.comments
+                + '&isprofit=' + recordMe.isprofit
+                + (recordMe.salenav? '&salenav=' +  recordMe.salenav : "") 
+                + (recordMe.saledate?'&saledate=' + recordMe.saledate:"");;
+
+                
+    console.log(stockdata);
+    this.httpClnt.put(ConfigClass.restAPIURL + 'stock/' + recordMe._id, stockdata, {  headers:this.header })
+    .subscribe((res)=>{
+      if(res['success'])
+      {
+        this.recordsStock.splice(this.recordsStock.indexOf(this.recordsStock.find(x=>x._id == recordMe._id)), 1);
+
+        if(!recordMe.salenav){
+          this.recordsStock.push(res['stockrecord']);
+        }
+        this.recordsStock.sort((a,b)=> {return a.units - b.units});
+        this.stockRecordsChanged.next(this.recordsStock.slice());
+      }
+    });
+  }
+
+  DeleteStock(_id:string){
+    this.httpClnt.delete(ConfigClass.restAPIURL + 'stock/'+ _id, 
+        { 
+          headers: this.header, 
+        })
+    .subscribe((res)=>{
+      if(res['success'])
+      {
+        this.recordsStock.splice(this.recordsStock.indexOf(this.recordsStock.find(x=>x._id == _id)), 1);
+        this.recordsStock.sort((a,b)=> {return a.units - b.units});
+        this.stockRecordsChanged.next(this.recordsStock.slice());
+      }
+    });
+  }
+
+  GetStockData(stkrecord:Stock){
+    this.httpClnt.get(ConfigClass.stockAPIURL + stkrecord.code)
+    .subscribe((response)=>{
+      console.log(response);
+
+      if(response["Time Series (Daily)"]){
+        this.updateStock = this.recordsStock.find(x=>x._id == stkrecord._id);
+
+        if(this.updateStock){
+          this.recordStock = new Stock(this.updateStock._id, +localStorage.getItem('userid'), 
+                this.updateStock.code, this.updateStock.name, this.updateStock.units, 
+                this.updateStock.purchasenav, this.updateStock.purchasedate, 
+                response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"] ]["4. close"], 
+                this.updateStock.comments, this.updateStock.isprofit);
+          this.UpdateStock(this.recordStock);
+        }
+      }
+    });
+  }
+
+  GetLatestStockValue(stkrecord:Stock){
+    this.httpClnt.get(ConfigClass.stockAPIURL + stkrecord.code)
+    .subscribe((response)=>{
+      if(response["Time Series (Daily)"]){
+        stkrecord.currentnav = response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"] ]["4. close"];
+      }
+      return stkrecord;
+    });
+    return stkrecord;
+  }
+  //---------------------------------END STOCK-----------------------------------
 }

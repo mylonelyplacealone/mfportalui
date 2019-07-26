@@ -11,4 +11,36 @@
     background-repeat: no-repeat;
     height: 500px !important;
     background-size: 100%;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
+
+.charts{
+    background-image: linear-gradient(aqua, dodgerblue, darkgray);
+    border-radius: 20px 20px 0 0 ;
+}
+.table th{
+    border: 1px slategrey solid;
+    padding: 5px;
+    text-align: center;
+    background-color: darkseagreen;
+    background-image: linear-gradient(violet, palevioletred, gray);
+    color:white;
+    margin-bottom: 10px;
+}
+
+.sumrow{
+    font-weight:bolder;
+    background-color: lightskyblue !important;
+    font-size:larger;
+    background-image: linear-gradient(aqua, dodgerblue, darkgray);
+    border-radius: 20px 20px 0 0 ;
+}
+
+.total .profit{
+    line-height: normal !important;
+}
+
+.total tr td{
+    padding: 5px 0 5px 5px;
 }

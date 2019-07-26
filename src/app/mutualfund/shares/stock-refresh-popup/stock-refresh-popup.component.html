@@ -1,0 +1,41 @@
+<div>
+  <h4 md-dialog-title>Mutual Fund Refresh Data</h4>
+  <hr>
+  <mat-dialog-content>
+    <table class="table table-bordered table-striped col-md-12">
+      <th class="col-md-6">Name</th>
+      <th class="col-md-1">Units</th>
+      <th class="col-md-1">Purchase Nav</th>
+      <th class="col-md-1">Current Nav</th>
+      <th class="col-md-1">Nav Change</th>
+      <th class="col-md-1">% Nav Change</th>
+
+    <tr class="sumrow">
+        <td colspan="4" class="text-right">Total in Rs. </td>
+        <td class="text-right" [class.loss]="subtotal(myrecords) < 0"
+                                [class.profit]="subtotal(myrecords) > 0">
+                                {{ subtotal(myrecords) | number:'.2-2' }}</td>
+        <td></td>
+      </tr>
+
+      <tr *ngFor="let recorditem of myrecords"
+          [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav)) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav)) > 0}">
+        <td>{{recorditem.name | uppercase}}</td>
+        <td class="text-right">{{ recorditem.units | number:'.2-2'}}</td>
+        <td class="text-right">{{ recorditem.purchasenav | number:'.2-2'}}</td>
+        <td class="text-right">{{ recorditem.currentnav | number:'.2-2'}}</td>
+        <!-- <td class="text-right" [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav)) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav)) > 0}">{{ (recorditem.currentnav - recorditem.purchasenav)| number:'.2-2'}}</td>
+        <td class="text-right" [ngClass]="{'loss': ((recorditem.currentnav - recorditem.purchasenav)) < 0, 'profit': ((recorditem.currentnav - recorditem.purchasenav)) > 0}">{{ ((recorditem.currentnav/recorditem.purchasenav) - 1)*100 | number:'.2-2'}}</td> -->
+        <td class="text-right">{{ (recorditem.currentnav - recorditem.purchasenav)| number:'.2-2'}}</td>
+        <td class="text-right">{{ ((recorditem.currentnav/recorditem.purchasenav) - 1)*100 | number:'.2-2'}}</td>
+      
+      </tr>
+    </table>
+  </mat-dialog-content>
+  <hr>
+  <mat-dialog-actions class="pull-right">
+    <!-- <button class="btn btn-primary" md-raised-button (click)="onCloseConfirm()">CONFIRM</button>&nbsp; -->
+    <button class="btn btn-danger" md-raised-button (click)="onCloseCancel()">CLOSE</button>
+  </mat-dialog-actions>
+  <br>
+</div>

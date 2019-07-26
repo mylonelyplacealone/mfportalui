@@ -7,4 +7,8 @@ export class ConfigClass{
   //https://www.mfapi.in/
   public static restAPIURL:string = "https://mfportalrestapi.herokuapp.com/api/";
   // public static restAPIURL:string = "http://localhost:5000/api/";
+
+  //Stoc URL Below
+  public static stockAPIURL:string = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&apikey=P7E38HT6THUF5U3R&symbol=";
+
 }

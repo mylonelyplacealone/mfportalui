@@ -8,6 +8,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'mutualfund', loadChildren:'./mutualfund/mutualfund.module#MutualFundModule'},
+  { path: 'bankdetails', loadChildren:'./bankdetails/bank.module#BankModule'},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'signup', component: SignupComponent},
   { path: 'signin', component: SigninComponent},

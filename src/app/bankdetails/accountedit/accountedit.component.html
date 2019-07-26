@@ -1,0 +1,89 @@
+<div>
+  <div>
+    <h4 md-dialog-title >Account Maintenance - {{data.mode}}</h4> 
+  </div>
+  <hr>
+  <span class="alert alert-danger col-md-12" *ngIf="f.invalid">Fix highlighted fields to save data.</span>
+  <form #f="ngForm">
+    <mat-dialog-content>
+      <div class="row">
+        <div class="col-md-2">Bank</div>
+        <div class="col-md-4">
+            <!-- <select class="form-control" #bnk (change)="selectBank(bnk.value)">
+                <option *ngFor="let bank of banks" [value]="bank.bankName" [selected]="bank._id == record.bankname">
+                    {{bank.bankName}}
+                </option>
+            </select> -->
+            <input type="text" class="form-control" [(ngModel)]='record.bankname' 
+            placeholder="Bank Name" name="bankname" required #bankname="ngModel" [class.invalid]="bankname.invalid">
+        </div>
+        <div class="col-md-2">Opening Date</div>
+        <div class="col-md-4"><input type="date" style="width:195px;" class="form-control" 
+          [ngModel]="record.openingdate | date:'yyyy-MM-dd'" (ngModelChange)="record.openingdate = $event"
+          name="openingDate" placeholder="Account Opening Date">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-2">Balance</div>
+        <div class="col-md-4">
+          <input type="number" class="form-control" [(ngModel)]='record.balance' placeholder="Account Balance"
+            title="Account Balance is required with value >= 1."
+            name="balance" required min="1" #balance="ngModel" [class.invalid]="balance.invalid">
+        </div>
+        <div class="col-md-2">Interest Rate</div>
+        <div class="col-md-4">
+          <input type="number" class="form-control" [(ngModel)]='record.interestrate' placeholder="Interest Rate"
+          title="Interest Rate is required with value >= 1."
+          name="interestrate" required min="1" #interestrate="ngModel" [class.invalid]="interestrate.invalid">
+        </div>
+      </div>
+
+      <div class="row" *ngIf="data.accType == 'FIXEDDEPOSIT' || data.accType == 'RECURRENTDEPOSIT'">
+        <div class="col-md-2">Maturity Amount</div>
+        <div class="col-md-4">
+          <input disabled type="number" class="form-control" [(ngModel)]='record.maturityamt' 
+              placeholder="Maturity Amount" name="maturityamt" >
+        </div>
+        <div class="col-md-2">Maturity Date</div>
+        <div class="col-md-4"><input type="date" style="width:195px;" class="form-control" 
+          [ngModel]="record.maturitydate | date:'yyyy-MM-dd'" (ngModelChange)="record.maturitydate = $event"
+          name="maturitydate" placeholder="Account Closing Date">
+        </div>
+      </div>
+
+      <div class="row" *ngIf="data.accType == 'EPFPPF'">
+        <div class="col-md-2">Account Type</div>
+        <div class="col-md-4">
+          <input  type="text" class="form-control" [(ngModel)]='record.acctype' 
+            placeholder="Account Type" title="Account Type is required field."
+            name="acctype" required #acctype="ngModel" [class.invalid]="acctype.invalid">
+        </div>
+      </div>
+
+      <div class="row" *ngIf="data.accType == 'RECURRENTDEPOSIT'">
+        <div class="col-md-2">Installment Amount</div>
+        <div class="col-md-4">
+            <input type="number" class="form-control" [(ngModel)]='record.installmentamt' 
+            placeholder="Installment Amount" name="installmentamt" >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">Comments</div>
+        <div class="col-md-10">
+            <textarea rows="4" cols="50" class="form-control" [(ngModel)]='record.comments' 
+            name="comments" placeholder="Comments"></textarea>
+        </div>
+      </div>
+    
+    </mat-dialog-content>
+    <hr>
+    <mat-dialog-actions class="pull-right">
+      <button type="submit" class="btn btn-primary" (click)="onCloseConfirm(f)" 
+              md-raised-button>CONFIRM</button>&nbsp;
+      <button class="btn btn-danger" 
+              md-raised-button (click)="onCloseCancel()">CANCEL</button>
+    </mat-dialog-actions>
+  </form>
+</div>

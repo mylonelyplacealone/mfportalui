@@ -9,6 +9,7 @@ import { SoldmflistComponent } from './soldmflist/soldmflist.component';
 import { MfhomeComponent } from './mfhome/mfhome.component';
 import { MflouncherComponent } from './mflouncher/mflouncher.component';
 import { MfsnapshotComponent } from './mfsnapshot/mfsnapshot.component';
+import { SharedashboardComponent } from './shares/sharedashboard/sharedashboard.component';
 
 const MFRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -20,6 +21,7 @@ const MFRoutes: Routes = [
       { path: 'mfoneview', component: MfoneviewComponent, canActivate: [AuthGuard]},
       { path: 'mfsnapshot', component: MfsnapshotComponent, canActivate: [AuthGuard]},
       { path: 'solfmflist', component: SoldmflistComponent, canActivate: [AuthGuard]},
+      { path: 'shares', component: SharedashboardComponent, canActivate: [AuthGuard]},
       ]
   },
 ];

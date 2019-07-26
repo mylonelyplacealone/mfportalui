@@ -1,0 +1,50 @@
+body{
+    background-color: blue;
+}
+
+.table th{
+    border: 1px slategrey solid;
+    padding: 5px;
+    text-align: center;
+    background-color: darkseagreen;
+    background-image: linear-gradient(chartreuse, green, darkcyan);
+    ;
+    color:white;
+}
+
+.profit{
+    background-color: palegreen!important;
+    background-image: linear-gradient(lightgreen,palegreen, slategray);
+}
+
+.loss{
+    background-color: bisque!important;
+    background-image: linear-gradient(red, coral, darkred);
+
+}
+
+.sumrow{
+    font-weight:bolder;
+    background-color: lightskyblue !important;
+    font-size:larger;
+    background-image: linear-gradient(chartreuse, springgreen, darkseagreen);
+}
+
+.my-form-control{
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+.invalid{
+    border: 1px red solid;
+}
+
+.alert{
+    padding: 5px;
+    margin-bottom: 0px;
+}
+
+.glyphicon{
+    margin:3px;
+    font-size: small;
+}

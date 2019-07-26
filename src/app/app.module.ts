@@ -13,6 +13,8 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoaderComponent } from './common/loader/loader.component';
 import { LoaderInterceptorService } from './common/loader/loader.intercepter';
+import { DatePipe } from '@angular/common';
+import { ChartModule } from 'angular2-chartjs';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,7 @@ import { LoaderInterceptorService } from './common/loader/loader.intercepter';
     HomeComponent,
     SigninComponent,
     SignupComponent,
-    LoaderComponent
+    LoaderComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app'}),
@@ -29,13 +31,15 @@ import { LoaderInterceptorService } from './common/loader/loader.intercepter';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ChartModule,
+
   ],
   providers: [AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptorService,
       multi: true
-    }
+    }, DatePipe
   ],
   bootstrap: [AppComponent]
 })

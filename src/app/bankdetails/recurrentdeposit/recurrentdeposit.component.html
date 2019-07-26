@@ -1,0 +1,45 @@
+
+<div class="row col-md-12">
+  <div *ngIf="message.length > 0" class="pull-left col-md-6 alert alert-success">
+    {{ message }}
+  </div>
+  <div class="pull-right">
+    <div class="pull-right">
+        <input [(ngModel)]="searchText" placeholder="Search.." class="form-control col-md-8">
+    </div>
+  </div>
+  <br><br>
+  <table class="table table-bordered table-striped col-md-12">
+    <th class="hide">ID</th>
+    <th class="col-md-2">Bank Name</th>
+    <th class="col-md-2">Opening Date</th>
+    <th class="col-md-2">Maturity Date</th>
+    <th class="col-md-1">Interest Rate</th>
+    <th class="col-md-2">Amount</th>
+    <th class="col-md-2">Maturity Amount</th>
+    <th class="col-md-1">Action Buttons</th>
+    
+    <tr class="sumrow">
+      <td colspan="4" class="text-right">Total</td>
+      <td class="text-right">{{ subtotal(accounts | textfilter : { interestRate:searchText, balance:searchText, openingDate:searchText }) | number:'.2-2' }}</td>
+      <td colspan="2" class="text-right"> 
+      <button md-raised-button class="btn btn-success btn-xs glyphicon glyphicon-plus" title="Add New Account" (click)="openDialog(dummyrec, 'Add')"></button>
+      </td>
+    </tr>
+    
+    <tr *ngFor="let accnt of accounts | textfilter : { interestrate:searchText, balance:searchText, openingDate:searchText };">
+      <td class="hide">{{accnt._id}}</td>
+      <td>{{accnt.bankname}}</td>
+      <td>{{accnt.openingdate | date:'dd-MMM-yyyy' }}</td>
+      <td>{{accnt.maturitydate | date:'dd-MMM-yyyy' }}</td>
+      <td class="text-right">{{accnt.interestrate | number:'.2-2'}}</td>
+      <td class="text-right">{{accnt.balance | number:'.2-2'}}</td>
+      <td class="text-right">{{accnt.maturityamt | number:'.2-2'}}</td>
+      <td class="text-center" style="padding:8px 0 0 0 !important;"> 
+          <button md-raised-button class="btn btn-success btn-xs glyphicon glyphicon-pencil" title="Edit Record" (click)="openDialog(accnt, 'Edit/Update')"></button>
+          <button class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Delete Record" (click)="DeleteAccount(accnt._id)"></button>
+      </td>
+    </tr>
+  </table>
+</div>
+

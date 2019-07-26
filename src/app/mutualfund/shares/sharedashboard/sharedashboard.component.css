@@ -1,0 +1,22 @@
+.glyphicon{
+    margin:3px;
+    font-size: xx-small;
+    padding:2px;
+}
+
+.width-5-percent{
+    width: 5%;
+}
+
+.glyphicon-camera{
+    font-size: x-large;
+    margin-top: -3px;
+    border-radius: 5px;
+    padding: 0px 7px 0px 7px;
+}
+
+
+
+.form-control{
+    width:80%;
+}

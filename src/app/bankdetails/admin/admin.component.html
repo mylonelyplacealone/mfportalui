@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-2">Bank Name</div>
+  <div class="col-md-4">
+    <input type="text" class="form-control" [(ngModel)]='bankname' placeholder="Bank Name">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">Bank Branch</div>
+  <div class="col-md-4">
+    <input type="text" class="form-control" [(ngModel)]='bankbranch' placeholder="Bank Branch">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">Image URL</div>
+  <div class="col-md-4">
+    <input type="text" class="form-control" [(ngModel)]='imgURL' placeholder="Bank URL">
+  </div>
+</div>
+
+<button type="submit" class="btn btn-primary" (click)="createBank()">CONFIRM</button>
