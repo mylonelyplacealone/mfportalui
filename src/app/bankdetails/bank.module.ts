@@ -15,6 +15,7 @@ import { ChartModule } from 'angular2-chartjs';
 import { AccounteditComponent } from './accountedit/accountedit.component';
 import { SharedModule } from '../common/shared.module';
 import { AdminComponent } from './admin/admin.component';
+import { ShowfdmonthlyreturnComponent } from './showfdmonthlyreturn/showfdmonthlyreturn.component';
 
 @NgModule({
     declarations: [
@@ -27,8 +28,9 @@ import { AdminComponent } from './admin/admin.component';
         EpfppfComponent,
         AccounteditComponent,
         AdminComponent,
+        ShowfdmonthlyreturnComponent,
     ],
-    entryComponents: [AccounteditComponent],
+    entryComponents: [AccounteditComponent, ShowfdmonthlyreturnComponent],
     imports: [
       CommonModule,
       BankRoutingModule,

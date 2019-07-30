@@ -1,0 +1,53 @@
+<div>
+    <h4 md-dialog-title>Fixed Deposit Monthly Return</h4>
+      <div class="pull-right">
+        <b><span style="color:blue">Yearly Interest :</span> {{this.totalamt | number:'.2-2'}} &nbsp;&nbsp;&nbsp;&nbsp;</b>
+        <b><span style="color:blue">Monthly Interest : </span>{{this.totalamt/12 | number:'.2-2'}}</b>
+      </div>
+      <hr>
+    <mat-dialog-content>  
+      <table class="table table-bordered table-striped col-md-12">
+        <th class="col-md-1">Name</th>
+        <th class="col-md-1">Jan</th>
+        <th class="col-md-1">Feb</th>
+        <th class="col-md-1">March</th>
+        <th class="col-md-1">April</th>
+        <th class="col-md-1">May</th>
+        <th class="col-md-1">June</th>
+        <th class="col-md-1">July</th>
+        <th class="col-md-1">Aug</th>
+        <th class="col-md-1">Sept</th>
+        <th class="col-md-1">Oct</th>
+        <th class="col-md-1">Nov</th>
+        <th class="col-md-1">Dec</th>
+
+        <tr class="sumrow">
+            <td class="text-right">Total in Rs. </td>
+            <td class="text-right">{{ subtotal(1) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(2) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(3) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(4) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(5) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(6) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(7) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(8) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(9) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(10) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(11) | number:'.2-2' }}</td>
+            <td class="text-right">{{ subtotal(12) | number:'.2-2' }}</td>
+        </tr>
+
+        <tr *ngFor="let entry of myentries">
+          <td>{{entry.name}}</td>
+          <td *ngFor="let child of entry.months" class="text-right">
+            {{child | number:'.2-2'}}
+          </td>
+        </tr>
+      </table>
+    </mat-dialog-content>
+    <hr>
+    <mat-dialog-actions class="pull-right">
+      <button class="btn btn-danger" md-raised-button (click)="onCloseCancel()">CLOSE</button>
+    </mat-dialog-actions>
+    <br>
+  </div>

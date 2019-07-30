@@ -5,6 +5,8 @@ import { Bank } from '../common/bank';
 import { MatDialog } from '@angular/material';
 import { BankService } from '../common/bank-service.service';
 import { Subscription } from 'rxjs';
+import { StockRefreshPopupComponent } from 'src/app/mutualfund/shares/stock-refresh-popup/stock-refresh-popup.component';
+import { ShowfdmonthlyreturnComponent } from '../showfdmonthlyreturn/showfdmonthlyreturn.component';
 
 @Component({
   selector: 'app-fixeddeposit',
@@ -61,5 +63,16 @@ export class FixeddepositComponent implements OnInit, OnDestroy {
       this.bnkSer.DeleteAccount(id);
       this.message = "Account Deleted Successfully!!!";
     }
+  }
+
+  openRefreshDialog(){
+    let dialogRef = this.dialog.open(ShowfdmonthlyreturnComponent, {
+      width: '1300px',
+      data: this.accounts, 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed: ${result}');
+      this.message = result;
+    });
   }
 }

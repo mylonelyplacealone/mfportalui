@@ -24,6 +24,7 @@
       <td class="text-right">{{ subtotal(accounts | textfilter : { interestRate:searchText, balance:searchText, openingDate:searchText }) | number:'.2-2' }}</td>
       <td colspan="2" class="text-right"> 
       <button md-raised-button class="btn btn-success btn-xs glyphicon glyphicon-plus" title="Add New Account" (click)="openDialog(dummyrec, 'Add')"></button>
+      <button md-raised-button class="btn btn-warning btn-xs glyphicon glyphicon-refresh" title="Show Monthly" (click)="openRefreshDialog()"></button>
       </td>
     </tr>
     
