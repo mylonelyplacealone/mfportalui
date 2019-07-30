@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MfService } from '../../common/mf-service.service';
 import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { StockRefreshPopupComponent } from '../stock-refresh-popup/stock-refresh
   templateUrl: './sharedashboard.component.html',
   styleUrls: ['./sharedashboard.component.css', '../../common/mutualfund.css']
 })
-export class SharedashboardComponent implements OnInit {
+export class SharedashboardComponent implements OnInit, OnDestroy {
   
   records:Stock[];
   recordsSubscription = new Subscription();
@@ -22,6 +22,8 @@ export class SharedashboardComponent implements OnInit {
   searchText:string;
   message:string;
   profitflag:number = 0;
+  toggle:boolean = true;
+  sortcolumn:string;
 
   constructor(private mfService:MfService, public dialog: MatDialog, ){}
   
@@ -120,7 +122,7 @@ export class SharedashboardComponent implements OnInit {
   openRefreshDialog(){
     let dialogRef = this.dialog.open(StockRefreshPopupComponent, {
       width: '900px',
-      data: this.records, 
+      data: { records: this.records, accounts: null, mode:"fd" }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog closed: ${result}');
@@ -131,5 +133,69 @@ export class SharedashboardComponent implements OnInit {
   GetInvetmentProfitData(profit:string){
     this.profitflag = +profit;
     this.mfService.GetStockList();
+  }
+
+  sortData(value){
+    this.sortcolumn = value;
+    switch(value){
+      case "name":{//name
+        this.toggle ? this.records.sort((a,b)=> a.name.localeCompare(b.name)) : this.records.sort((a,b)=> b.name.localeCompare(a.name));
+        this.toggle = !this.toggle;
+        break;
+      }
+
+      case "units":
+      case "purchasenav":
+      case "currentnav":
+      {//units
+        console.log(value);
+        this.toggle ? this.records.sort((a,b)=> a[value] - b[value]) : this.records.sort((a,b)=> b[value] - a[value]);
+        this.toggle = !this.toggle;
+        console.log(this.records);
+
+        break;
+      }
+
+      // case "costvalue":{//Cost Value
+      //   this.toggle ? 
+      //     this.groupedRecords.sort((a,b)=> (a.purchasenav * a.units) - (b.purchasenav * b.units)) :
+      //     this.groupedRecords.sort((a,b)=>(b.purchasenav * b.units) - (a.purchasenav * a.units));
+        
+      //   this.toggle = !this.toggle;
+      //   break;
+      // }
+
+      // case "currentvalue":{//CUrrent Value
+      //   this.toggle ? 
+      //     this.groupedRecords.sort((a,b)=> (a.currentnav * a.units) - (b.currentnav * b.units)) :
+      //     this.groupedRecords.sort((a,b)=>(b.currentnav * b.units) - (a.currentnav * a.units));
+        
+      //   this.toggle = !this.toggle;
+      //   break;
+      // }
+
+      // case "profit":{//profit amount
+      //   this.toggle ? 
+      //     this.groupedRecords.sort((a,b)=> (((a.currentnav - a.purchasenav) * a.units)) - ((b.currentnav - b.purchasenav) * b.units)) :
+      //     this.groupedRecords.sort((a,b)=> (((b.currentnav - b.purchasenav) * b.units)) - ((a.currentnav - a.purchasenav) * a.units));
+        
+      //   this.toggle = !this.toggle;
+      //   break;
+      // }
+
+      // case "percentage":{//profit percentage
+      //   this.toggle ? 
+      //     this.groupedRecords.sort((a,b)=> ((((a.currentnav/a.purchasenav)-1) * 100) - (((b.currentnav/b.purchasenav)-1) * 100))):
+      //     this.groupedRecords.sort((a,b)=> ((((b.currentnav/b.purchasenav)-1) * 100) - (((a.currentnav/a.purchasenav)-1) * 100)));
+        
+      //   this.toggle = !this.toggle;
+      //   break;
+      // }
+
+      default: { 
+        this.records.sort((a,b)=> a.name.localeCompare(b.name));
+        break; 
+     } 
+    }
   }
 }
