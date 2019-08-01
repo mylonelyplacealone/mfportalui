@@ -17,6 +17,7 @@ export class StockRefreshPopupComponent implements OnInit {
 
   ngOnInit() {
     this.myrecords =  this.data.map(x => Object.assign({}, x));
+    console.log(this.myrecords);
     for (var value of this.myrecords) {
       value.purchasenav = value.currentnav;
       value.currentnav = this.mfService.GetLatestStockValue(value).currentnav;

@@ -122,7 +122,7 @@ export class SharedashboardComponent implements OnInit, OnDestroy {
   openRefreshDialog(){
     let dialogRef = this.dialog.open(StockRefreshPopupComponent, {
       width: '900px',
-      data: { records: this.records, accounts: null, mode:"fd" }
+      data: this.records
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog closed: ${result}');
