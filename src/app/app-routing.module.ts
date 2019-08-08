@@ -4,6 +4,7 @@ import { AuthGuard } from './auth/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
+import { QbankhomeComponent } from './qbank/qbankhome/qbankhome.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'signup', component: SignupComponent},
   { path: 'signin', component: SigninComponent},
+  { path: 'question', component: QbankhomeComponent},
 ];
 
 @NgModule({
