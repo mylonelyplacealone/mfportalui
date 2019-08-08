@@ -6,7 +6,6 @@ import { FilterPipe } from './filter.pipe';
 @NgModule({
  imports:      [ CommonModule ],
  declarations: [ FilterPipe],
- exports:      [ FilterPipe, 
-                 CommonModule, FormsModule ]
+ exports:      [ FilterPipe, CommonModule, FormsModule ]
 })
 export class SharedModule { }
