@@ -49,9 +49,34 @@ export class DataService {
   }
 
   EditQuestion(record:Question){
-    this.questions.splice(this.questions.indexOf(this.questions.find(x=>x._id == record._id)), 1);
-    this.questions.push(record);
-    this.recordsChanged.next(this.questions.slice());
+    var data = '&question=' + record.question + '&answer=' + record.answer 
+                + '&bgcolor=' + record.bgcolor  + '&category=' + record.category
+
+    this.httpClnt.put(ConfigClass.restAPIURL + 'question/' + record._id, data, {  headers:this.header })
+    .subscribe((res)=>{
+      if(res['success'])
+      {
+        this.questions.splice(this.questions.indexOf(this.questions.find(x=>x._id == record._id)), 1);
+        this.questions.push(res['qrecord']);
+        this.questions.sort((a,b)=> a.question.localeCompare(b.question));
+        this.recordsChanged.next(this.questions.slice());
+      }
+    });
+  }
+
+  DeleteQuestion(id:string){
+    this.httpClnt.delete(ConfigClass.restAPIURL + 'question/'+ id, 
+        { 
+          headers: this.header, 
+        })
+    .subscribe((res)=>{
+      if(res['success'])
+      {
+        this.questions.splice(this.questions.indexOf(this.questions.find(x=>x._id == id)), 1);
+        this.questions.sort((a,b)=> a.question.localeCompare(b.question));
+        this.recordsChanged.next(this.questions.slice());
+      }
+    });
   }
 }
   

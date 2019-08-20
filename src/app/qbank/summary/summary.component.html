@@ -1,4 +1,10 @@
 <input type="text" class="form-control searchT" [(ngModel)]="searchText" placeholder="Search Text">
-<div *ngFor="let record of records | textfilter : { question:searchText, answer:searchText }" class="qcard" (click)="selected(record)">
-  {{ record.question }}
+<div class="row" style="height: 500px; overflow-y: scroll;">
+  <div *ngFor="let record of records | textfilter : { question:searchText, answer:searchText }" class="qcard" (click)="selected(record)">
+    {{ record.question }}
+    <div class="pull-right glyphicon glyphicon-remove btn btn-xs btn-danger" 
+      style="vertical-align: center;"
+      (click)="delete(record._id)"></div>
+  </div>
 </div>
+

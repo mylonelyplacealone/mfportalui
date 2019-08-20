@@ -27,4 +27,10 @@ export class SummaryComponent implements OnInit {
   selected(record:Question){
     this.clicked.emit(record);
   }
+
+  delete(id:string){
+    if(confirm('Do you really want to delete this question?')){
+      this.dataSer.DeleteQuestion(id);
+    }
+  }
 }
