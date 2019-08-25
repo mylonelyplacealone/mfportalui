@@ -12,6 +12,7 @@ export class InterviewComponent implements OnInit {
 
   records:Question[] = [];
   queryParam="";
+  searchText:string;
 
   constructor(private dataSer: DataService,
     private actRoute:ActivatedRoute) { }

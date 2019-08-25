@@ -12,7 +12,8 @@ export class QhomeComponent implements OnInit {
   records:Question[] = [];
   queryParam="";
   cntQ = 0;
-  
+  searchText:string;
+
   constructor(private dataSer: DataService,
     private actRoute:ActivatedRoute) { }
 
