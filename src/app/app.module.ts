@@ -20,6 +20,9 @@ import { DetailsComponent } from './qbank/details/details.component';
 import { DataService } from './qbank/data.service';
 import { QbankhomeComponent } from './qbank/qbankhome/qbankhome.component';
 import { SharedModule } from './common/shared.module';
+import { InterviewComponent } from './qbank/interview/interview.component';
+import { QhomeComponent } from './qbank/qhome/qhome.component';
+import { safe } from './common/safehtml.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { SharedModule } from './common/shared.module';
     SummaryComponent,
     DetailsComponent,
     QbankhomeComponent,
-
+    InterviewComponent,
+    QhomeComponent,
+    safe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app'}),
@@ -41,7 +46,8 @@ import { SharedModule } from './common/shared.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ChartModule,
-    SharedModule
+    SharedModule,
+   
   ],
   providers: [AuthGuard,
     {

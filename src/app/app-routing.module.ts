@@ -5,15 +5,20 @@ import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { QbankhomeComponent } from './qbank/qbankhome/qbankhome.component';
+import { QhomeComponent } from './qbank/qhome/qhome.component';
+import { InterviewComponent } from './qbank/interview/interview.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'mutualfund', loadChildren:'./mutualfund/mutualfund.module#MutualFundModule'},
   { path: 'bankdetails', loadChildren:'./bankdetails/bank.module#BankModule'},
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  // { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'signup', component: SignupComponent},
   { path: 'signin', component: SigninComponent},
   { path: 'question', component: QbankhomeComponent},
+  { path: 'home', component: QhomeComponent, canActivate: [AuthGuard]},
+  { path: 'interview', component: InterviewComponent, canActivate: [AuthGuard]},
+
 ];
 
 @NgModule({

@@ -1,0 +1,29 @@
+<div class="page">
+  <div class="content">
+    <div>
+      <input type="text" class="form-control searchT" [(ngModel)]="searchText" placeholder="Search Text">
+      <span>Count of Questions: {{cntQ}}</span>
+    </div>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default" *ngFor="let record of records | textfilter : { question:searchText, answer:searchText };let i=index" >
+        <div class="panel-heading" role="tab" [id]="'heading' + i">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">
+            <h4 class="panel-title"> 
+                {{record.question}}
+            </h4>
+          </a>
+        </div>
+        <div [id]="'collapse' + i" class="panel-collapse collapse" [ngClass]="{in:queryParam === record.question}" role="tabpanel" [attr.aria-labelledby]="'heading' + i">
+          <div class="panel-body" [innerHtml] = 'record.answer | safeHtml'>
+             <!-- [innerHTML]="<pre>record.answer</pre>"> -->
+            <!-- <pre class="col-md-4"> 
+Question: {{ record.question }}
+
+Answer: {{ record.answer}}
+            </pre>   -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
