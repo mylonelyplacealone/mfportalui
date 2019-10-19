@@ -8,6 +8,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
+  searchText:string="";
   @Output() clicked: EventEmitter<Question> = new EventEmitter();
 
   records:Question[];
