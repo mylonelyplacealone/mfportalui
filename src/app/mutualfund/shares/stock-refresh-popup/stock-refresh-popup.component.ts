@@ -20,7 +20,8 @@ export class StockRefreshPopupComponent implements OnInit {
     console.log(this.myrecords);
     for (var value of this.myrecords) {
       value.purchasenav = value.currentnav;
-      value.currentnav = this.mfService.GetLatestStockValue(value).currentnav;
+      value.currentnav = this.mfService.GetLatestStockValue(value);
+      console.log(value.currentnav);
     }
   }
 

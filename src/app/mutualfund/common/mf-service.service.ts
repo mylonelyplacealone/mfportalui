@@ -370,6 +370,7 @@ console.log(mfdata);
 
                 
     console.log(stockdata);
+    console.log(ConfigClass.restAPIURL + 'stock/' + recordMe._id);
     this.httpClnt.put(ConfigClass.restAPIURL + 'stock/' + recordMe._id, stockdata, {  headers:this.header })
     .subscribe((res)=>{
       if(res['success'])
@@ -420,15 +421,16 @@ console.log(mfdata);
     });
   }
 
-  GetLatestStockValue(stkrecord:Stock){
+  GetLatestStockValue(stkrecord:Stock):number{
     this.httpClnt.get(ConfigClass.stockAPIURL + stkrecord.code)
     .subscribe((response)=>{
+      console.log(response);
       if(response["Time Series (Daily)"]){
-        stkrecord.currentnav = response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"] ]["4. close"];
+        return response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"] ]["4. close"];
       }
-      return stkrecord;
+      return 0;
     });
-    return stkrecord;
+    return 0;
   }
   //---------------------------------END STOCK-----------------------------------
 }

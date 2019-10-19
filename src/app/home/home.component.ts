@@ -116,6 +116,8 @@ export class HomeComponent implements OnInit {
       .subscribe((response)=>{
         record[2] = response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"]]["4. close"];
         var date = new Date(response["Meta Data"]["3. Last Refreshed"]);
+      
+        console.log("Date1 :" + date);
 
         var str = ""; var i = 0;
 
@@ -126,11 +128,13 @@ export class HomeComponent implements OnInit {
           else
             date.setDate(date.getDate() - 1);
 
+          //console.log("Month Length: " + date.getMonth() + "   " + date.getMonth().toString().length);
+
           str = date.getFullYear().toString() +  "-" +
-                  (date.getMonth().toString().length == 1 ? "0" + (date.getMonth() + 1) :  date.getMonth() + 1 ) +  "-" +
+                  ((date.getMonth() + 1).toString().length == 1 ? "0" + (date.getMonth() + 1) :  date.getMonth() + 1 ) +  "-" +
                 (date.getDate().toString().length == 1 ? "0" + date.getDate() :  date.getDate());
           
-          // console.log(date + " " + i);
+          //console.log("Date2" + str + " " + i);
           if(response["Time Series (Daily)"][str] || i == 10)
             break;
         }

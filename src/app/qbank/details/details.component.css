@@ -1,0 +1,9 @@
+.parent{
+    background-color: aqua;
+    border: 1px solid red;
+    height: 500px;
+}
+
+.btn{
+    margin:10px;
+}

@@ -1,0 +1,45 @@
+<div class="row parent">
+  <button class="btn btn-success" (click)="add()">Add New</button>
+  <button class="btn btn-warning" (click)="editmode=true;">Edit Details</button>
+  <br>
+  <div *ngIf="editmode">
+    <div class="row">
+      <div class="col-md-3">Question</div>
+      <div class="col-md-9">
+        <input type="text" [(ngModel)]="question.question" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">Answer</div>
+      <div class="col-md-9">
+        <!-- <input type="text" [(ngModel)]="question.answer" class="form-control"> -->
+        <textarea type="text" [(ngModel)]="question.answer" class="form-control" cols="3" rows="10">
+        </textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">Background Color</div>
+      <div class="col-md-9">
+        <input type="text" [(ngModel)]="question.bgcolor" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">Categry</div>
+      <div class="col-md-9">
+        <input type="text" [(ngModel)]="question.category" class="form-control">
+      </div>
+    </div>
+    
+    <button class="btn btn-success" (click)="save()">save</button>
+    <button class="btn btn-danger" (click)="editmode = false;">Cancel</button>
+  </div>
+
+  <div *ngIf="!editmode"> 
+    <pre>
+  Question: {{ question.question }}
+
+  Answer: {{ question.answer}}
+
+    </pre>   
+  </div>
+</div>

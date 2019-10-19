@@ -1,0 +1,10 @@
+.qcard{
+    margin: 2px;
+    background-color: aqua;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.searchText{
+    margin-bottom: 5px;
+}

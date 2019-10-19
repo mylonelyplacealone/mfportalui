@@ -1,0 +1,4 @@
+<input type="text" class="form-control searchText" [(ngModel)]="searchText" placeholder="Search Text">
+<div *ngFor="let record of records | textfilter : { question:searchText, answer:searchText }" class="qcard" (click)="selected(record)">
+  {{ record.question }}
+</div>

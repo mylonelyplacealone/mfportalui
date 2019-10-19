@@ -15,6 +15,12 @@ import { LoaderComponent } from './common/loader/loader.component';
 import { LoaderInterceptorService } from './common/loader/loader.intercepter';
 import { DatePipe } from '@angular/common';
 import { ChartModule } from 'angular2-chartjs';
+import { SummaryComponent } from './qbank/summary/summary.component';
+import { DetailsComponent } from './qbank/details/details.component';
+import { DataService } from './qbank/data.service';
+import { QbankhomeComponent } from './qbank/qbankhome/qbankhome.component';
+import { FilterPipe } from './common/filter.pipe';
+import { SharedModule } from './common/shared.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +30,9 @@ import { ChartModule } from 'angular2-chartjs';
     SigninComponent,
     SignupComponent,
     LoaderComponent,
+    SummaryComponent,
+    DetailsComponent,
+    QbankhomeComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app'}),
@@ -32,6 +41,7 @@ import { ChartModule } from 'angular2-chartjs';
     HttpClientModule,
     BrowserAnimationsModule,
     ChartModule,
+    SharedModule
 
   ],
   providers: [AuthGuard,
@@ -39,7 +49,9 @@ import { ChartModule } from 'angular2-chartjs';
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptorService,
       multi: true
-    }, DatePipe
+    }, 
+    DatePipe,
+    DataService
   ],
   bootstrap: [AppComponent]
 })
