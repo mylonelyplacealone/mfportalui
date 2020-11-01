@@ -44,3 +44,11 @@
 .total tr td{
     padding: 5px 0 5px 5px;
 }
+
+.btnuser{
+    display:block !important;
+}
+
+.btnsnapshot{
+    margin-left:5px !important;
+}

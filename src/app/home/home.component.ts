@@ -5,6 +5,9 @@ import { MfService } from '../mutualfund/common/mf-service.service';
 import { MFRecord } from '../mutualfund/common/mfrecord';
 import { Stock } from '../mutualfund/common/stock';
 import { ConfigClass } from '../common/config.service';
+import { Portfolio } from '../bankdetails/common/portfolio';
+import { MatDialog } from '@angular/material';
+import { ShowportfoliosnapshotsComponent } from './showportfoliosnapshots/showportfoliosnapshots.component';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +15,7 @@ import { ConfigClass } from '../common/config.service';
   styleUrls: ['./home.component.css', '../common/styles.css']
 })
 export class HomeComponent implements OnInit {
-  user:string = "";
+  user:string = "555";
   message:string;
   dialogResult:string;
   stockticker:string = "^NSEI";//P7E38HT6THUF5U3R
@@ -36,7 +39,8 @@ export class HomeComponent implements OnInit {
   values:number[];
   valueChanged = new EventEmitter<number[]>();
 
-  constructor(private httpClnt:HttpClient, private mfService:MfService, private bnkSer:BankService) { }
+  constructor(private httpClnt:HttpClient, private mfService:MfService, private bnkSer:BankService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.bnkSer.recordsChanged
@@ -177,4 +181,31 @@ export class HomeComponent implements OnInit {
     //   this.previousNSEVal = +response["Time Series (Daily)"][str]["4. close"];
     // });
   }
+
+  portfolio:Portfolio;
+
+  takesnapshot(){
+   
+    this.portfolio = new Portfolio("", localStorage.getItem('userid') , new Date(new Date().setHours(0, 0, 0, 0)), this.shares, this.mf, this.savingsAcc, this.fd, this.rd, this.epf, this.ppf, "");
+
+    this.bnkSer.TakePortfolioSnapshot(this.portfolio)
+    .subscribe((res)=>{
+      // console.log('Snapshot Taken correctly.');
+      this.message = res['message'];
+    });
+  }
+
+  
+  openDialog(userid:string){
+    let dialogRef = this.dialog.open(ShowportfoliosnapshotsComponent, {
+      width: '900px',
+      data:{ userid }, 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed: ${result}');
+      this.message = result;
+    });
+  }
+
+ 
 }

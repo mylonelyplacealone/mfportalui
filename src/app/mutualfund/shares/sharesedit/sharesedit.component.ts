@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 export class ShareseditComponent implements OnInit {
 
   record:Stock;
+  showcurrent:boolean = true;
 
   constructor(public thisDialogRef: MatDialogRef<ShareseditComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: { record:Stock, mode:string },

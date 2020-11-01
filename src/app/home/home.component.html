@@ -20,7 +20,9 @@
 
       <table class="col-md-12 bold-text total">
         <tr class="text-center">
-            <td colspan="2" class="sumrow"><h2>Summary</h2></td>
+            <td colspan="2" class="sumrow">
+                <h2>Summary</h2>
+            </td>
         </tr>
         <tr class="profit">
           <td>Shares:</td>
@@ -60,16 +62,22 @@
 
      
   </div>
-  <div class="col-md-7 "> 
+  <div class="col-md-7"> 
     <div>
       <div>{{message}}</div>
       <br>
-      <div class="input-group">
-        <input type="text" [(ngModel)]="user" class="form-control">
-        <div class="input-group-btn">
-          <button class="btn btn-primary" (click)="setuser()">
-            <span class="glyphicon glyphicon-user"></span>
-          </button>
+      <div class="input-group col-md-12">
+        <div class="pull-left col-md-8">
+          <input type="text" [(ngModel)]="user" class="form-control">
+          <div class="input-group-btn btnuser">
+            <button class="btn btn-primary" (click)="setuser()">
+              <span class="glyphicon glyphicon-user"></span>
+            </button>
+          </div>
+        </div>
+        <div class="pull-right col-md-3">
+          <button class="btn btn-danger glyphicon glyphicon-camera pull-right btnsnapshot" (click)="takesnapshot()"></button>
+          <button md-raised-button class="btn btn-danger glyphicon glyphicon-share pull-right" title="Show Snappshots" (click)="openDialog(user)"></button>
         </div>
       </div>
     </div>

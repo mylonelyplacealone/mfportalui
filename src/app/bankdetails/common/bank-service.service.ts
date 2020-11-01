@@ -4,6 +4,7 @@ import { Bank } from './bank';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigClass } from 'src/app/common/config.service';
 import { Subject } from 'rxjs';
+import { Portfolio } from './portfolio';
 
 @Injectable({
   providedIn: 'root'
@@ -120,4 +121,40 @@ export class BankService {
       }
     });
   }
+
+  //Portfolio Snapshots------------------------------------------------------------------------------
+  TakePortfolioSnapshot(portfolio:Portfolio){
+    var portfoliodata = 'userid=' + portfolio.userid 
+                      + '&snapshotdate=' + portfolio.snapshotdate
+                      + '&shares=' + portfolio.shares
+                      + '&savings=' + portfolio.savings
+                      + '&mfs=' + portfolio.mfs
+                      + '&fds=' + portfolio.fds
+                      + '&rds=' + portfolio.rds
+                      + '&epf=' + portfolio.epf
+                      + '&ppf=' + portfolio.ppf
+                      + '&comments=' + portfolio.comments;
+                      
+    return this.httpClnt.post(ConfigClass.restAPIURL + 'portfoliosnapshot', portfoliodata ,{ headers: this.header });
+  }
+
+  ShowSnapshots(userid:string){
+      return this.httpClnt.get(ConfigClass.restAPIURL + 'portfoliosnapshots', 
+      { headers: this.header, 
+        params:{ 
+          userid: userid
+        }
+      })
+  }
+
+  DeletePortfolioSnapshot(snapshotdate){
+    return this.httpClnt.delete(ConfigClass.restAPIURL + 'portfoliosnapshot', 
+        { 
+          headers: this.header, 
+          params:{ userid: localStorage.getItem('userid'), 
+                 snapshotdate : snapshotdate
+                }
+        });
+  }
+  // End Portfolio Snapshot -----------------------------------------------------------------------------
 }

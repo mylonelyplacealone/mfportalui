@@ -50,7 +50,14 @@
 
       <div class="row">
         <div class="col-md-3">Profit Entry?</div>
-        <div class="col-md-2"><input type="checkbox" [(ngModel)]='record.isprofit' name="iprofit"></div>
+        <div class="col-md-2">          
+          <input type="checkbox" [(ngModel)]='record.isprofit' name="iprofit">
+        </div>
+        <div class="col-md-3">Current Price</div>
+        <div class="col-md-4">
+          <input type="number" class="form-control" [(ngModel)]='record.currentnav'
+                    name="currentnav">
+        </div>
       </div>
 
       <div class="row" *ngIf="data.mode == 'Sale'">

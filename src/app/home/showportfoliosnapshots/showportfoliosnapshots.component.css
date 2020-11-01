@@ -1,0 +1,29 @@
+.bold-text{
+    font-weight:bolder;
+    font-size:larger;
+    padding: 15px 0 7px 15px;
+}
+
+.total .profit{
+    line-height: normal !important;
+    border: 1px slategrey solid;
+    padding: 5px;
+    background-color: darkseagreen !important;
+    background-image: linear-gradient(lightgreen, darkseagreen, green);
+    color:cornsilk;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.sumrow{
+    font-weight:bolder;
+    background-color: lightskyblue !important;
+    font-size:larger;
+    background-image: linear-gradient(aqua, dodgerblue, darkgray);
+    border-radius: 20px 20px 0 0 ;
+}
+
+
+.total tr td{
+    padding: 5px 0 5px 5px;
+}

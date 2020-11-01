@@ -1,0 +1,52 @@
+<mat-tab-group  [color]="primary" [backgroundColor]="primary">
+  <mat-tab label="Snapshot Details">
+    <br>
+    <div class="col-md-3">
+      <select #dataview (change)="ShowSnapshotData(dataview.value)" class="my-form-control"
+      style="padding: 6px 8px;font-weight: bold; border-radius:4px;">
+        <option value="0">Select Snapshot</option>
+        <option [value]="date" *ngFor="let date of snapshotdates">{{ date | date:'dd-MMM-yyyy' }}</option>
+      </select>&nbsp;
+      <button class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Delete Record" (click)="deletesnapshot(dataview.value)"></button>
+    </div>
+    <div class="col-md-7">
+      <table class="col-md-12 bold-text total">
+        <tr class="profit" style>
+          <td>Shares:</td>
+          <td class="text-right" >{{shares | number:'.2-2'}}</td>
+        </tr>
+        <tr class="profit">
+          <td>Mutual Funds:</td>
+          <td class="text-right" >{{mf | number:'.2-2'}}</td>
+        </tr>
+        <tr class="profit">
+            <td>Savings Accounts:</td>
+            <td class="text-right" >{{savingsAcc | number:'.2-2'}}</td>
+        </tr>
+        <tr class="profit">
+            <td>Fixed Deposits:</td>
+            <td class="text-right">{{fd| number:'.2-2'}}</td>
+        </tr>
+        <tr class="profit">
+            <td>Recurrent Deposit:</td>
+            <td class="text-right">{{ rd | number:'.2-2' }}</td>
+        </tr>
+        <tr class="profit">
+            <td>EPF:</td>
+            <td class="text-right">{{ epf | number:'.2-2'}}</td>
+        </tr>
+        <tr class="profit">
+          <td>PPF:</td>
+          <td class="text-right">{{ ppf | number:'.2-2'}}</td>
+        </tr>
+        <tr class="sumrow">
+            <td>Total Value:</td>
+            <td class="text-right">{{ totalValue | number:'.2-2'}}</td>
+        </tr>
+      </table>
+    </div>
+  </mat-tab>
+  <mat-tab label="Time Charts"> 
+    <div id="chartContainer" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+  </mat-tab>
+</mat-tab-group>
