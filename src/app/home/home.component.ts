@@ -15,7 +15,7 @@ import { ShowportfoliosnapshotsComponent } from './showportfoliosnapshots/showpo
   styleUrls: ['./home.component.css', '../common/styles.css']
 })
 export class HomeComponent implements OnInit {
-  user:string = "555";
+  user:string = "Enter logged in user id here to pull data...";
   message:string;
   dialogResult:string;
   stockticker:string = "^NSEI";//P7E38HT6THUF5U3R
