@@ -15,7 +15,52 @@
                               [class.profit]="(this.totalsalevalue - this.totalcost) > 0">
             {{ (totalsalevalue - totalcost) | number:'.2-2'}} ({{ ((totalsalevalue - totalcost)/totalcost) * 100 | number:'2.2-2'}}%)</td>
     </tr>
-    <tr *ngFor="let recorditem of soldMFList"
+    <tr>
+      <td colspan="10">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default" *ngFor="let record of soldlist ;let i=index" >
+            <div class="panel-heading" role="tab" [id]="'heading' + i">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">
+                <h4 class="panel-title"> 
+                  <table class="col-md-12" >
+                    <tr >
+                       <td colspan="2" class="text-left">{{record.year}}</td>
+                       <td class="col-md-2 text-right">{{ record.totalcost | number:'.2-2' }}</td>
+                       <td class="col-md-2 text-right">{{ record.totalsalevalue | number:'.2-2' }}</td>
+                       <td class="col-md-2 text-right" [class.lossText]="(record.totalsalevalue - record.totalcost) < 0"
+                                               [class.profitText]="(record.totalsalevalue - record.totalcost) > 0">
+                                               {{ (record.totalsalevalue - record.totalcost) | number:'.2-2'}} ({{ ((record.totalsalevalue - record.totalcost)/record.totalcost) * 100 | number:'2.2-2'}}%)
+                     </tr>
+                   </table>
+                </h4>
+              </a>
+            </div>
+            <div [id]="'collapse' + i" class="panel-collapse collapse" role="tabpanel" [attr.aria-labelledby]="'heading' + i">
+              <div class="panel-body">
+                <table class="table-class">
+                <tr *ngFor="let recorditem of record.mfentries"
+                [ngClass]="{'loss': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) > 0}">
+                  <td class="hide">{{recorditem._id}}</td>
+                  <td class="hide">{{recorditem.code}}</td>
+                  <td class="col-md-5">{{recorditem.name}}</td>
+                  <td class="col-md-1" class="text-right">{{recorditem.units | number:'.2-2'}}</td>
+                  <td class="col-md-2" class="text-right">
+                    {{recorditem.purchasenav | number:'.2-2'}}<br>{{recorditem.purchasedate | date:'dd-MMM-yyyy' }}<br>{{recorditem.purchasenav * recorditem.units | number:'.2-2'}}
+                  </td>
+                  <td class="col-md-2" class="text-right">{{recorditem.salenav | number:'.2-2'}}<br>{{recorditem.saledate | date:'dd-MMM-yyyy' }}<br>{{recorditem.salenav * recorditem.units | number:'.2-2'}}</td>
+                  <td class="col-md-2" class="text-right">{{(recorditem.salenav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}} ({{((recorditem.salenav/recorditem.purchasenav)-1) * 100 | number:'2.2-2'}}%)</td>
+                </tr>
+              </table>
+              </div>
+            </div>
+          </div>
+          </div>
+      </td>
+    </tr>
+
+
+
+    <tr *ngFor="let recorditem of soldMFList" style="display:none"
     [ngClass]="{'loss': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) > 0}">
       <td class="hide">{{recorditem._id}}</td>
       <td class="hide">{{recorditem.code}}</td>
