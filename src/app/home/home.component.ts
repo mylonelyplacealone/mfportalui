@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   stockticker:string = "^NSEI";//P7E38HT6THUF5U3R
   stkdetails:string="";
   nextPrev:string[][]=[['Nifty 50','^NSEI', '','' ],['Sensex','^BSESN','','']];
+  indexArr:string[][]=[['Nifty 50','NSX', '','' ],['Sensex','SEN','','']];
   currentNSEVal:number= 0;
   previousNSEVal:number= 0;
 
@@ -91,10 +92,24 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    this.getStockData();
+    //this.getStockData();
+    this.getIndexData();
     this.GetDashboardData();
   }
 
+  getIndexData(){
+    for(let record of this.indexArr){
+      this.httpClnt.get(ConfigClass.indexAPIURL + record[1]).subscribe((response)=>{
+        console.log(response);
+        if(response){
+          record[2] = response["data"].pricecurrent;
+          record[3] = response["data"].pricechange;
+          console.log(record);
+        }
+      });
+    }
+  }
+  
   GetDashboardData(){
     this.mfService.GetStockList();
     this.mfService.GetMFList();
