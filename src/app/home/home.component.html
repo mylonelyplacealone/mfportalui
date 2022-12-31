@@ -1,22 +1,23 @@
 <div class="row">
   <div  class="col-md-4">
-      <!-- NSE :<div class="col-md-9 pull-right" [class.loss]="(currentNSEVal - previousNSEVal) < 0"
-      [class.profit]="(currentNSEVal - previousNSEVal) > 0">
-         {{ currentNSEVal  | number:'.2-2'}} ({{ currentNSEVal - previousNSEVal | number:'.2-2'}})<br>
-      </div> -->
-      <div class="col-md-10 col-md-offset-1">
+     <div class="col-md-10 col-md-offset-1" style="display:none;">
         <div *ngFor="let np of nextPrev" class="bold-text profit" 
           [class.loss]="(np[2] - np[3]) < 0" [class.profit]="(np[2] - np[3]) > 0">
-            <!-- [ngClass]="{'loss': (np[2] - np[3]) < 0, 'profit': (np[2] - np[3]) > 0}"> -->
-            <!-- [class.loss]="(np[2] - np[3]) < 0" [class.profit]="(np[2] - np[3]) > 0" -->
           {{np[0]}} <div class="col-md-9 pull-right" >
                       {{ np[2]  | number:'.2-2'}} ({{ np[2] - np[3] | number:'.2-2'}})<br>
                     </div>
                     <br><br>
         </div>
       </div>
-      
-      <br>
+      <div class="col-md-10 col-md-offset-1">
+        <div *ngFor="let index of indexArr" class="bold-text profit" [class.loss]="index[3] < 0" [class.profit]="index[3] > 0">
+          {{index[0]}} <div class="col-md-9 pull-right" >
+                          {{ index[2]  | number:'.2-2'}} ({{ index[3] | number:'.2-2'}})<br>
+                        </div>
+          <br><br>
+        </div>
+        <br>
+      </div>
 
       <table class="col-md-12 bold-text total">
         <tr class="text-center">
