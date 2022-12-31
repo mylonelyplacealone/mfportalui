@@ -10,5 +10,5 @@ export class ConfigClass{
 
   //Stoc URL Below
   public static stockAPIURL:string = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&apikey=P7E38HT6THUF5U3R&symbol=";
-
+  public static indexAPIURL:string = "https://priceapi.moneycontrol.com/pricefeed/notapplicable/inidicesindia/in%3B";
 }
