@@ -333,11 +333,11 @@ console.log(mfdata);
     this.httpClnt.get(ConfigClass.stockAPIURL + entry.code)
     .subscribe((response)=>{
       console.log(response);
-      if(response["Time Series (Daily)"]){
+      if(response["data"]){
         
         this.recordStock = new Stock("", +localStorage.getItem('userid'), entry.code, entry.name, entry.units, 
                             entry.purchasenav, entry.purchasedate, 
-                            response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"] ]["4. close"], 
+                            response["data"].pricecurrent, 
                             entry.comments, entry.isprofit);
                             console.log(this.recordStock);
 
@@ -406,14 +406,14 @@ console.log(mfdata);
     .subscribe((response)=>{
       console.log(response);
 
-      if(response["Time Series (Daily)"]){
+      if(response["data"]){
         this.updateStock = this.recordsStock.find(x=>x._id == stkrecord._id);
 
         if(this.updateStock){
           this.recordStock = new Stock(this.updateStock._id, +localStorage.getItem('userid'), 
                 this.updateStock.code, this.updateStock.name, this.updateStock.units, 
                 this.updateStock.purchasenav, this.updateStock.purchasedate, 
-                response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"] ]["4. close"], 
+                response["data"].pricecurrent, 
                 this.updateStock.comments, this.updateStock.isprofit);
           this.UpdateStock(this.recordStock);
         }
@@ -421,16 +421,17 @@ console.log(mfdata);
     });
   }
 
-  GetLatestStockValue(stkrecord:Stock):number{
+  GetLatestStockValue(stkrecord:Stock):Stock{
     this.httpClnt.get(ConfigClass.stockAPIURL + stkrecord.code)
     .subscribe((response)=>{
       console.log(response);
-      if(response["Time Series (Daily)"]){
-        return response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"] ]["4. close"];
+      if(response["data"]){
+        stkrecord.currentnav = response["data"].pricecurrent;
+        return stkrecord;
       }
-      return 0;
+      return stkrecord;
     });
-    return 0;
+    return stkrecord;
   }
   //---------------------------------END STOCK-----------------------------------
 }

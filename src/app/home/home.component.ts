@@ -92,7 +92,6 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    //this.getStockData();
     this.getIndexData();
     this.GetDashboardData();
   }
@@ -127,74 +126,6 @@ export class HomeComponent implements OnInit {
     this.epf = 0;
     this.ppf = 0;
     this.GetDashboardData();
-  }
-
-  getStockData(){
-    for(let record of this.nextPrev){
-      this.httpClnt.get(ConfigClass.stockAPIURL + record[1] )
-      .subscribe((response)=>{
-        record[2] = response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"]]["4. close"];
-        var date = new Date(response["Meta Data"]["3. Last Refreshed"]);
-      
-        console.log("Date1 :" + date);
-
-        var str = ""; var i = 0;
-
-        while(1 == 1){
-          i++;
-          if(date.getDay() == 1)
-            date.setDate(date.getDate() - 3);
-          else
-            date.setDate(date.getDate() - 1);
-
-          //console.log("Month Length: " + date.getMonth() + "   " + date.getMonth().toString().length);
-
-          str = date.getFullYear().toString() +  "-" +
-                  ((date.getMonth() + 1).toString().length == 1 ? "0" + (date.getMonth() + 1) :  date.getMonth() + 1 ) +  "-" +
-                (date.getDate().toString().length == 1 ? "0" + date.getDate() :  date.getDate());
-          
-          //console.log("Date2" + str + " " + i);
-          if(response["Time Series (Daily)"][str] || i == 10)
-            break;
-        }
-
-        console.log("Found Prev Date : " + str);
-          
-        record[3] = response["Time Series (Daily)"][str]["4. close"];
-      });
-    }
-
-    // var query = 'function=TIME_SERIES_INTRADAY&symbol=' + this.stockticker + '&interval=60min&apikey=P7E38HT6THUF5U3R'; 
-    // var query = 'function=TIME_SERIES_DAILY&symbol=' + this.stockticker + '&apikey=P7E38HT6THUF5U3R'; 
-    // function_name, 
-    // "&symbol=", 
-    // stock_ticker, 
-    // "&interval=", 
-    // period, 
-    // "&apikey=", 
-    // my_api_key, 
-    // "&datatype=", 
-    // my_data_type
-
-    // var query = 'function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + this.stockticker + '&interval=60min&apikey=P7E38HT6THUF5U3R'; 
-    
-    // this.httpClnt.get("https://www.alphavantage.co/query?" + query)
-    // .subscribe((response)=>{
-    //   // console.log(response);
-    //   this.currentNSEVal = +response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"]]["4. close"];
-    //   this.stkdetails = response["Meta Data"]["3. Last Refreshed"] + " : " + response["Time Series (Daily)"][response["Meta Data"]["3. Last Refreshed"]]["4. close"];
-    //   var date = new Date(response["Meta Data"]["3. Last Refreshed"]);
-    //   if(date.getDay() == 1)
-    //     date.setDate(date.getDate() - 3);
-    //   else
-    //     date.setDate(date.getDate() - 1);
-
-    //   var str= date.getFullYear() + "-0" +(date.getMonth() +1) + "-0"+ date.getDate();
-
-    //   this.stkdetails += str + " : " + response["Time Series (Daily)"][str]["4. close"];
-
-    //   this.previousNSEVal = +response["Time Series (Daily)"][str]["4. close"];
-    // });
   }
 
   portfolio:Portfolio;
