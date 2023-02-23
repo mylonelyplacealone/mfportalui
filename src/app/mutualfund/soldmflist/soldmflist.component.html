@@ -2,11 +2,11 @@
   <table class="table table-bordered table-striped col-md-12">
     <th class="hide">ID</th>
     <th class="hide col-md-1">Code</th>
-    <th class="col-md-5">Name</th>
+    <th class="col-md-4">Name</th>
     <th class="col-md-1">Units</th>
-    <th class="col-md-2">Purchase Nav/Date/Value</th>
-    <th class="col-md-2">Sale Nav/Date/Value</th>
-    <th class="col-md-2">Profit or Loss/ Profit or Loss %</th>
+    <th class="col-md-1">Purchase Nav/Date/Value</th>
+    <th class="col-md-1">Sale Nav/Date/Value</th>
+    <th class="col-md-3">Profit or Loss/ Profit or Loss %</th>
     <tr class="sumrow">
       <td colspan="2" class="text-right">Total</td>
       <td class="text-right">{{ totalcost | number:'.2-2' }}</td>
@@ -24,12 +24,14 @@
                 <h4 class="panel-title"> 
                   <table class="col-md-12" >
                     <tr >
-                       <td colspan="2" class="text-left">{{record.year}}</td>
-                       <td class="col-md-2 text-right">{{ record.totalcost | number:'.2-2' }}</td>
-                       <td class="col-md-2 text-right">{{ record.totalsalevalue | number:'.2-2' }}</td>
-                       <td class="col-md-2 text-right" [class.lossText]="(record.totalsalevalue - record.totalcost) < 0"
+                       <td class="col-md-5 text-left">{{record.year}}</td>
+                       <td class="col-md-1 text-right">{{ record.totalcost | number:'.2-2' }}</td>
+                       <td class="col-md-1 text-right">{{ record.totalsalevalue | number:'.2-2' }}</td>
+                       <td class="col-md-3 text-right" [class.lossText]="(record.totalsalevalue - record.totalcost) < 0"
                                                [class.profitText]="(record.totalsalevalue - record.totalcost) > 0">
                                                {{ (record.totalsalevalue - record.totalcost) | number:'.2-2'}} ({{ ((record.totalsalevalue - record.totalcost)/record.totalcost) * 100 | number:'2.2-2'}}%)
+                                               <span *ngIf="((record.totalsalevalue-record.totalcost)-100000) > 0" class="lossText">-{{((record.totalsalevalue-record.totalcost)-100000) * 0.1 | number:'.2-2'}}</span>
+                       </td>                 
                      </tr>
                    </table>
                 </h4>
@@ -42,13 +44,19 @@
                 [ngClass]="{'loss': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) < 0, 'profit': ((recorditem.salenav - recorditem.purchasenav) * recorditem.units) > 0}">
                   <td class="hide">{{recorditem._id}}</td>
                   <td class="hide">{{recorditem.code}}</td>
-                  <td class="col-md-5">{{recorditem.name}}</td>
+                  <td class="col-md-4">{{recorditem.name}}</td>
                   <td class="col-md-1" class="text-right">{{recorditem.units | number:'.2-2'}}</td>
-                  <td class="col-md-2" class="text-right">
+                  <td class="col-md-1" class="text-right">
                     {{recorditem.purchasenav | number:'.2-2'}}<br>{{recorditem.purchasedate | date:'dd-MMM-yyyy' }}<br>{{recorditem.purchasenav * recorditem.units | number:'.2-2'}}
                   </td>
-                  <td class="col-md-2" class="text-right">{{recorditem.salenav | number:'.2-2'}}<br>{{recorditem.saledate | date:'dd-MMM-yyyy' }}<br>{{recorditem.salenav * recorditem.units | number:'.2-2'}}</td>
-                  <td class="col-md-2" class="text-right">{{(recorditem.salenav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}} ({{((recorditem.salenav/recorditem.purchasenav)-1) * 100 | number:'2.2-2'}}%)</td>
+                  <td class="col-md-1" class="text-right">{{recorditem.salenav | number:'.2-2'}}<br>{{recorditem.saledate | date:'dd-MMM-yyyy' }}<br>{{recorditem.salenav * recorditem.units | number:'.2-2'}}</td>
+                  <td class="col-md-2" class="text-right">{{(recorditem.salenav - recorditem.purchasenav) * recorditem.units | number:'.2-2'}} ({{((recorditem.salenav/recorditem.purchasenav)-1) * 100 | number:'2.2-2'}}%)
+                    <div class="button-right">
+                      <button class="button-right" class="btn btn-primary btn-xs glyphicon glyphicon-pencil" title="Update Record" (click)="openDialog(recorditem)"></button>
+                      <p class="button-left" *ngIf="recorditem.isrenewed"><span class="glyphicon glyphicon-star"></span></p>
+                      <p class="button-left" *ngIf="!recorditem.isrenewed"><span class="glyphicon glyphicon-star-empty"></span></p>
+                    </div>
+                  </td>
                 </tr>
               </table>
               </div>

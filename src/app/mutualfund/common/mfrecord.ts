@@ -14,11 +14,13 @@ export class MFRecord {
   issip?:boolean;
   salenav?:number;
   saledate?:Date;
+  isrenewed?:boolean=false;
 
   constructor(private _Id:string, private UserId:number,private Code:number, 
         private Name:string, private Units:number, private PurchaseNav:number, 
         private PurchaseDate: Date, private CurrentNav:number, private Comments:string,
-        private IsProfit:boolean, private IsSIP?:boolean,private SaleNav?:number, private SaleDate?: Date) {
+        private IsProfit:boolean, private IsSIP?:boolean,
+        private SaleNav?:number, private SaleDate?: Date, private IsRenewed?:boolean) {
     this._id = _Id;
     this.userid = UserId;
     this.code = Code;
@@ -32,5 +34,6 @@ export class MFRecord {
     this.issip = IsSIP;
     this.salenav = SaleNav;
     this.saledate = SaleDate;
+    this.isrenewed = IsRenewed;
   }
 }

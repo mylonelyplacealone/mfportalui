@@ -108,9 +108,10 @@ export class MfService {
                 + '&currentnav=' + recordMe.currentnav + '&comments=' + recordMe.comments
                 + '&isprofit=' + recordMe.isprofit + '&issip=' + recordMe.issip
                 + (recordMe.salenav? '&salenav=' +  recordMe.salenav : "") 
-                + (recordMe.saledate?'&saledate=' + recordMe.saledate:"");
+                + (recordMe.saledate?'&saledate=' + recordMe.saledate:"")
+                + '&isrenewed=' + recordMe.isrenewed;
 
-console.log(mfdata);
+    console.log(mfdata);
     this.httpClnt.put(ConfigClass.restAPIURL + 'mf/' + recordMe._id, mfdata, {  headers:this.header })
     .subscribe((res)=>{
       if(res['success'])

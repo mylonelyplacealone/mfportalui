@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MfService } from '../common/mf-service.service';
 import { MFRecord } from '../common/mfrecord';
 import { MFRecordSoldList } from '../common/mfrecordsoldlist';
+import { MatDialog } from '@angular/material';
+import { MfeditComponent } from 'src/app/mutualfund/mfedit/mfedit.component';
 
 @Component({
   selector: 'app-soldmflist',
@@ -15,8 +17,10 @@ export class SoldmflistComponent implements OnInit {
   totalsalevalue:number;
   soldlist:MFRecordSoldList[] = [];
   mfsoldrecord:MFRecordSoldList;
-  
-  constructor(private mfService:MfService) { }
+  errormessage:string="";
+  record:MFRecord;
+
+  constructor(private mfService:MfService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.mfService.GetSoldMFList()
@@ -54,4 +58,16 @@ export class SoldmflistComponent implements OnInit {
     console.log(this.soldlist);
   }
 
+  openDialog(record:MFRecord){
+    console.log(record);
+    var mode = "Sale";
+    let dialogRef = this.dialog.open(MfeditComponent, {
+      width: '600px',
+      data:{ record, mode}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed: ${result}');
+      this.errormessage = result;
+    });
+  }
 }

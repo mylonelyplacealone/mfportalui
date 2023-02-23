@@ -80,9 +80,16 @@
         <div class="col-md-2"><input type="number" class="form-control" [(ngModel)]='record.salenav' 
           name="salenav" placeholder="Sale NAV"></div>
         <div class="col-md-3">Sale Date</div>
-        <div class="col-md-4"><input type="date" style="width:150px;" class="form-control" 
-          [(ngModel)]="record.saledate" 
-          name="saledate" placeholder="Sale Date"></div>
+        <div class="col-md-4">
+          <input type="date" style="width:150px;" class="form-control" 
+          [ngModel]="record.saledate | date:'yyyy-MM-dd'" 
+          (ngModelChange)="record.saledate = $event" placeholder="Sale Date"
+          name="saledate" #saledate="ngModel">
+        </div>
+      </div>
+      <div class="row" *ngIf="data.mode == 'Sale'">
+        <div class="col-md-3">Renewed?</div>
+        <div class="col-md-2"><input type="checkbox" [(ngModel)]='record.isrenewed' name="isrenewed"></div>
       </div>
       <div class="row">
         <div class="col-md-3">Comments</div>

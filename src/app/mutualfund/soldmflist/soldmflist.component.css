@@ -42,3 +42,14 @@
     font-size:15px;
     color: red;
 }
+
+.button-right{
+    float: right;
+    padding-left: 20px;
+    margin-right: 10px;
+}
+
+.button-left{
+    float: left;
+    padding-right: 7px;
+}
