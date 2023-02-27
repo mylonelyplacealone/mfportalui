@@ -102,6 +102,10 @@ export class MfService {
   }
 
   Update(recordMe:MFRecord){
+
+    if(!recordMe.isprofit) recordMe.isprofit = false;
+    if(!recordMe.issip) recordMe.issip = false;
+    if(!recordMe.isrenewed) recordMe.isrenewed = false;
     var mfdata = 'userid=' + localStorage.getItem('userid') + '&code=' + recordMe.code
                 + '&name=' + recordMe.name + '&units=' +  recordMe.units 
                 + '&purchasenav=' +  recordMe.purchasenav + '&purchasedate=' + recordMe.purchasedate

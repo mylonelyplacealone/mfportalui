@@ -14,7 +14,7 @@ export class MFRecord {
   issip?:boolean;
   salenav?:number;
   saledate?:Date;
-  isrenewed?:boolean=false;
+  isrenewed?:boolean;
 
   constructor(private _Id:string, private UserId:number,private Code:number, 
         private Name:string, private Units:number, private PurchaseNav:number, 
