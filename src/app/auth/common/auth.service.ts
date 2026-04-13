@@ -40,8 +40,8 @@ export class AuthService{
     signinUser(email:string, password:string):Observable<any>{
         //var creds = 'email=' + email + '&password=' + password;
         const creds = {
-            email: email,
-            password: password
+             email,
+             password
           };
         return this.httpClient.post(ConfigClass.restAPIURL + 'authenticate' , creds,{ headers:this.header })
         .pipe(tap((res)=>{
