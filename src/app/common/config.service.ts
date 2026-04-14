@@ -6,7 +6,7 @@ export class ConfigClass{
   public static mfSearchListURL:string = "https://api.mfapi.in/mf/search?q=";//"http://localhost:8010/proxy/mf/search?q="
   //https://www.mfapi.in/
   public static restAPIURL:string = "https://mfportalrestapi-production.up.railway.app/api/";
-  // public static restAPIURL:string = "http://localhost:5000/api/";
+  //public static restAPIURL:string = "http://localhost:5000/api/";
 
   //Stoc URL Below
   public static stockAPIURL:string = "https://priceapi.moneycontrol.com/pricefeed/nse/equitycash/";
